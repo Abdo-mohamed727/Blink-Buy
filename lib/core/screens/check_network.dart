@@ -1,5 +1,5 @@
  
-import 'package:blinkbuy/core/constants/app_images.dart';
+import 'package:blinkbuy/core/theme/app_images.dart';
 import 'package:flutter/material.dart';
 
 class CheckNetwork extends StatelessWidget {

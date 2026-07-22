@@ -1,7 +1,7 @@
 import 'package:blinkbuy/core/route/app_router.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
-import 'package:blinkbuy/core/comman/screens/check_network.dart';
-import 'package:blinkbuy/core/comman/widgets/connectivity_controller.dart';
+import 'package:blinkbuy/core/screens/check_network.dart';
+import 'package:blinkbuy/core/widgets/connectivity_controller.dart';
 import 'package:flutter/material.dart';
 
 void main() {
