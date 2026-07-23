@@ -1,5 +1,5 @@
+import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
- 
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -16,7 +16,10 @@ class CustomButton extends StatelessWidget {
     this.isLoading = false,
     this.loadingWidth = 30,
     this.loadingHeight = 30,
+    this.borderColor,
   });
+
+  final Color? borderColor;
   final VoidCallback onPressed;
   final String text;
   final double width;
@@ -37,18 +40,30 @@ class CustomButton extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? Colors.black,
+          backgroundColor: backgroundColor ?? AppColors.blackButtonColor,
+          side: BorderSide(
+            color: borderColor ?? Colors.transparent,
+            width: 1.5,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(threeRadius ?? 20),
-              topRight: Radius.circular(threeRadius ?? 20),
-              bottomRight: Radius.circular(threeRadius ?? 20),
-              bottomLeft: Radius.circular(lastRadius ?? 0),
+              topLeft: Radius.circular(threeRadius ?? 8),
+              topRight: Radius.circular(threeRadius ?? 8),
+              bottomRight: Radius.circular(threeRadius ?? 8),
+              bottomLeft: Radius.circular(lastRadius ?? 8),
             ),
           ),
         ),
         onPressed: onPressed,
-        child: Text(textAlign: textAlign, text),
+        child: Text(
+          textAlign: textAlign,
+          text,
+          style: TextStyle(
+            color: textColor,
+            fontSize: 16,
+            fontWeight: FontWeight(600),
+          ),
+        ),
       ),
     );
   }

@@ -17,4 +17,5 @@ class AppColors {
   static Color outOfStockColor = Color(0xFFDC2626).withValues(alpha: 0.12);
   static Color lowStockColor = Color(0xFF99001F).withValues(alpha: 0.12);
   static Color newArrivalColor = Color(0xFF3D1A6E).withValues(alpha: 0.12);
+  static Color blackButtonColor = Color(0xFF212121);
 }
