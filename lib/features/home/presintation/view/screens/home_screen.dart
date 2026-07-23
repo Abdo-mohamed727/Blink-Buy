@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedNavIndex = 0;
 
   final List<String> _categories = [
     'Miscellaneous',
@@ -50,14 +49,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         'Hi !,',
-                        style: TextStyles.font14Regular.copyWith(
+                        style: TextStyles.font16Regular.copyWith(
+                          fontWeight: FontWeight.w500,
                           color: AppColors.primaryColorBlack,
                         ),
                       ),
                       SizedBox(height: 2.h),
                       Text(
                         "Let's start your day",
-                        style: TextStyles.font14Regular.copyWith(
+                        style: TextStyles.font18SemiBold.copyWith(
+                          fontWeight: FontWeight.w500,
                           color: AppColors.primaryColorBlack,
                         ),
                       ),
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     itemCount: _categories.length,
-                    separatorBuilder: (_, __) => SizedBox(width: 10.w),
+                    separatorBuilder: (context, _) => SizedBox(width: 10.w),
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () => setState(() {}),
@@ -128,27 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedNavIndex,
-        onTap: (index) => setState(() => _selectedNavIndex = index),
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.primaryColorBlack,
-        unselectedItemColor: AppColors.primaryColorBlack.withOpacity(0.5),
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border), label: 'Favourite'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: 'Account'),
-        ],
-      ),
+     
     );
   }
 }

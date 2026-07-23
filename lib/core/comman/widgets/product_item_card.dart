@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItemWidget extends StatefulWidget {
-  ProductItemWidget({
+  const ProductItemWidget({
     super.key,
     required this.imageUrl,
     required this.productName,
@@ -51,6 +51,8 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
+        width: 163.w,
+        height: 288.h,
         decoration: BoxDecoration(
          
           borderRadius: BorderRadius.circular(12.r),
@@ -79,10 +81,10 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                     onTap: _toggleFavorite,
                     child: Icon(
                       _isFavorite ? Icons.favorite : Icons.favorite_border,
-                      size: 16,
-                      color: _isFavorite
+                        size: 16,
+                        color: _isFavorite
                           ? AppColors.errorBorderColor
-                          : AppColors.primaryColorBlack.withOpacity(0.6),
+                          : AppColors.primaryColorBlack.withValues(alpha: 0.6),
                     ),
                   ),
                 ),
