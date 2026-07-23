@@ -1,9 +1,9 @@
 import 'package:blinkbuy/core/animation/animate_do.dart';
+import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
+import 'package:blinkbuy/core/constants/app_images.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
-import 'package:blinkbuy/core/theme/app_images.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
-import 'package:blinkbuy/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,13 +28,14 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
     super.dispose();
   }
 
- void _skipOnboarding() async {
-  final prefs = await SharedPreferences.getInstance();
+  void _skipOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
 
-  await prefs.setBool('isDone', true);
+    await prefs.setBool('isDone', true);
 
-  Navigator.pushReplacementNamed(context, AppRoutes.home);
-}
+    Navigator.pushReplacementNamed(context, AppRoutes.home);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,14 +57,14 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                       },
                       icon: SvgPicture.asset(
                         'assets/icons/back_arrow.svg',
-                        width: 21,
-                        height: 21,
+                        width: 21.w,
+                        height: 21.h,
                         color: AppColors.charcoal,
                       ),
                     )
                   else
-                    const SizedBox(width: 48),
-    
+                    SizedBox(width: 48.w),
+
                   if (_currentIndex == 0)
                     TextButton(
                       onPressed: _skipOnboarding,
@@ -75,12 +76,12 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                       ),
                     )
                   else
-                    const SizedBox(width: 48),
+                     SizedBox(width: 48.w),
                 ],
               ),
             ),
           ),
-    
+
           Expanded(
             child: PageView.builder(
               controller: _pageController,
@@ -92,7 +93,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
               },
               itemBuilder: (context, index) {
                 final data = onboardingData[index];
-    
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
@@ -109,31 +110,31 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                           ),
                         ),
                       ),
-    
-                      SizedBox(height: 20),
-    
+
+                      SizedBox(height: 20.h),
+
                       AnimatedSmoothIndicator(
                         activeIndex: _currentIndex,
                         count: onboardingData.length,
                         effect: WormEffect(
                           activeDotColor: AppColors.charcoal,
                           dotColor: AppColors.lightGrey,
-                          dotHeight: 10,
-                          dotWidth: 10,
+                          dotHeight: 10.h,
+                          dotWidth: 10.w,
                         ),
                       ),
-    
-                      SizedBox(height: 40),
-    
+
+                      SizedBox(height: 40.h),
+
                       CoustomFadeInLeft(
                         child: Text(
                           data.title,
                           style: TextStyles.font24SemiBold,
                         ),
                       ),
-    
-                      SizedBox(height: 8),
-    
+
+                      SizedBox(height: 8.h),
+
                       CoustomFadeInRight(
                         child: Text(
                           data.description,
@@ -143,9 +144,9 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                           ),
                         ),
                       ),
-    
-                      SizedBox(height: 56),
-    
+
+                      SizedBox(height: 56.h),
+
                       CoustomFadeInUp(
                         child: CustomButton(
                           onPressed: () {
