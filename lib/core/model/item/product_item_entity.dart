@@ -22,6 +22,7 @@ class ProductItemEntity {
   List<String>? images;
   String? thumbnail;
 
+
   ProductItemEntity(
       {this.id,
         this.title,
