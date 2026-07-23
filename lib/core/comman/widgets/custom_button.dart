@@ -13,12 +13,14 @@ class CustomButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.textAlign,
+    this.textStyle,
     this.isLoading = false,
     this.loadingWidth = 30,
     this.loadingHeight = 30,
   });
   final VoidCallback onPressed;
   final String text;
+  final TextStyle ?textStyle;
   final double width;
   final double height;
   final double? threeRadius;
@@ -48,7 +50,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(textAlign: textAlign, text),
+        child: Text(textAlign: textAlign, text, style: textStyle ?? TextStyle(color: textColor ?? Colors.white)),
       ),
     );
   }
