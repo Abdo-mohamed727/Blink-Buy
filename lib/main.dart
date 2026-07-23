@@ -3,7 +3,6 @@ import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/comman/screens/check_network.dart';
 import 'package:blinkbuy/core/comman/widgets/connectivity_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,37 +11,25 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_, child) {
-        return ValueListenableBuilder(
-          valueListenable: ConnectivityController.instance.isConnected,
-          builder: (_, value, _) {
-            if (value) {
-              return MaterialApp(
-
-                debugShowCheckedModeBanner: false,
-                title: 'Flutter Demo',
-                theme: ThemeData(
-                  colorScheme: ColorScheme.fromSeed(
-                    seedColor: Colors.deepPurple,
-                  ),
-                ),
-
-                onGenerateRoute: AppRouter.generateRoute,
-              );
-            } else {
-              return const MaterialApp(
-                title: 'no network',
-                home: CheckNetwork(),
-              );
-            }
-          },
-        );
+    return ValueListenableBuilder(
+      valueListenable: ConnectivityController.instance.isConnected,
+      builder: (_, value, _) {
+        if (value) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+            ),
+            initialRoute: AppRoutes.home,
+            onGenerateRoute: AppRouter.generateRoute,
+          );
+        } else {
+          return const MaterialApp(title: 'no network', home: CheckNetwork());
+        }
       },
     );
   }
