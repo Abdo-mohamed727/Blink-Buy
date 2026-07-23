@@ -1,6 +1,6 @@
 import 'package:blinkbuy/core/route/app_routes.dart';
-import 'package:blinkbuy/features/home/presintation/screens/home_screen.dart';
 import 'package:blinkbuy/features/onboarding/onboarding_screen.dart';
+import 'package:blinkbuy/features/home/presintation/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
