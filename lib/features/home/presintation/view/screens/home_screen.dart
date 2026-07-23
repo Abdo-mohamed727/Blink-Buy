@@ -128,27 +128,27 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedNavIndex,
-        onTap: (index) => setState(() => _selectedNavIndex = index),
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.primaryColorBlack,
-        unselectedItemColor: AppColors.primaryColorBlack.withOpacity(0.5),
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border), label: 'Favourite'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: 'Account'),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: _selectedNavIndex,
+      //   onTap: (index) => setState(() => _selectedNavIndex = index),
+      //   type: BottomNavigationBarType.fixed,
+      //   selectedItemColor: AppColors.primaryColorBlack,
+      //   unselectedItemColor: AppColors.primaryColorBlack.withOpacity(0.5),
+      //   showSelectedLabels: true,
+      //   showUnselectedLabels: true,
+      //   selectedFontSize: 14,
+      //   unselectedFontSize: 14,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.home_outlined), label: 'Home'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.favorite_border), label: 'Favourite'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.person_outline), label: 'Account'),
+      //   ],
+      // ),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ConnectivityController.instance.init();
 
   final prefs = await SharedPreferences.getInstance();
 
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
                     seedColor: Colors.deepPurple,
                   ),
                 ),
-                initialRoute: isDone ? AppRoutes.home : AppRoutes.onboarding,
+                initialRoute: isDone ? AppRoutes.appSection : AppRoutes.onboarding,
                 onGenerateRoute: AppRouter.generateRoute,
               );
             } else {
