@@ -1,4 +1,5 @@
-import 'package:blinkbuy/core/model/item/product_item_entity.dart' show ProductItemEntity, DimensionsEntity, ReviewsEntity, MetaEntity;
+import 'package:blinkbuy/core/model/item/product_item_entity.dart'
+    show ProductItemEntity, DimensionsEntity, ReviewsEntity, MetaEntity;
 
 class ProductItemDto {
   int? id;
@@ -24,75 +25,60 @@ class ProductItemDto {
   List<String>? images;
   String? thumbnail;
 
-  ProductItemDto(
-      {this.id,
-        this.title,
-        this.description,
-        this.category,
-        this.price,
-        this.discountPercentage,
-        this.rating,
-        this.stock,
-        this.tags,
-        this.brand,
-        this.sku,
-        this.weight,
-        this.dimensions,
-        this.warrantyInformation,
-        this.shippingInformation,
-        this.availabilityStatus,
-        this.reviews,
-        this.returnPolicy,
-        this.minimumOrderQuantity,
-        this.meta,
-        this.images,
-        this.thumbnail});
+  ProductItemDto({
+    this.id,
+    this.title,
+    this.description,
+    this.category,
+    this.price,
+    this.discountPercentage,
+    this.rating,
+    this.stock,
+    this.tags,
+    this.brand,
+    this.sku,
+    this.weight,
+    this.dimensions,
+    this.warrantyInformation,
+    this.shippingInformation,
+    this.availabilityStatus,
+    this.reviews,
+    this.returnPolicy,
+    this.minimumOrderQuantity,
+    this.meta,
+    this.images,
+    this.thumbnail,
+  });
 
   ProductItemEntity toEntity() {
     return ProductItemEntity(
-      id: id??0,
-      title: title??'',
-      description: description??'',
-      category: category??'',
-      price: price??0.0,
-      discountPercentage: discountPercentage??0.0,
-      rating: rating??0.0,
-      stock: stock??0,
-      tags: tags??[],
-      brand: brand??'',
-      sku: sku??'',
-      weight: weight??0,
-      dimensions: DimensionsEntity(
-        width: dimensions?.width ?? 0.0,
-        height: dimensions?.height ?? 0.0,
-        depth: dimensions?.depth ?? 0.0,
-      ),
-      warrantyInformation: warrantyInformation??'',
-      shippingInformation: shippingInformation??'',
-      availabilityStatus: availabilityStatus??'',
-      reviews: reviews
-          ?.map((review) => ReviewsEntity(
-                rating: review.rating ?? 0,
-                comment: review.comment ?? '',
-                date: review.date ?? '',
-                reviewerName: review.reviewerName ?? '',
-                reviewerEmail: review.reviewerEmail ?? '',
-              ))
-          .toList() ?? [],
+      id: id ?? 0,
+      title: title ?? '',
+      description: description ?? '',
+      category: category ?? '',
+      price: (price ?? 0).toDouble(),
+      discountPercentage: (discountPercentage ?? 0).toDouble(),
+      rating: (rating ?? 0).toDouble(),
+      stock: stock ?? 0,
+      tags: tags ?? [],
+      brand: brand ?? '',
+      sku: sku ?? '',
+      weight: weight ?? 0,
+      dimensions:
+          dimensions?.toEntity() ??
+          DimensionsEntity(width: 0, height: 0, depth: 0),
+      warrantyInformation: warrantyInformation ?? '',
+      shippingInformation: shippingInformation ?? '',
+      availabilityStatus: availabilityStatus ?? '',
+      reviews: reviews?.map((r) => r.toEntity()).toList() ?? [],
       returnPolicy: returnPolicy ?? '',
       minimumOrderQuantity: minimumOrderQuantity ?? 0,
-      meta: meta != null
-          ? MetaEntity(
-              createdAt: meta!.createdAt,
-              updatedAt: meta!.updatedAt,
-              barcode: meta!.barcode,
-              qrCode: meta!.qrCode,
-            )
-          : MetaEntity(),
-      images: images??[],
-      thumbnail: thumbnail??'',
+      meta: meta?.toEntity() ?? MetaEntity(),
+      images: images ?? [],
+      thumbnail: thumbnail ?? '',
     );
   }
+
   ProductItemDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
@@ -164,9 +150,17 @@ class Dimensions {
   Dimensions({this.width, this.height, this.depth});
 
   Dimensions.fromJson(Map<String, dynamic> json) {
-    width = json['width'];
-    height = json['height'];
-    depth = json['depth'];
+    width = (json['width'] as num?)?.toDouble();
+    height = (json['height'] as num?)?.toDouble();
+    depth = (json['depth'] as num?)?.toDouble();
+  }
+
+  DimensionsEntity toEntity() {
+    return DimensionsEntity(
+      width: (width ?? 0).toDouble(),
+      height: (height ?? 0).toDouble(),
+      depth: (depth ?? 0).toDouble(),
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -185,12 +179,13 @@ class Reviews {
   String? reviewerName;
   String? reviewerEmail;
 
-  Reviews(
-      {this.rating,
-        this.comment,
-        this.date,
-        this.reviewerName,
-        this.reviewerEmail});
+  Reviews({
+    this.rating,
+    this.comment,
+    this.date,
+    this.reviewerName,
+    this.reviewerEmail,
+  });
 
   Reviews.fromJson(Map<String, dynamic> json) {
     rating = json['rating'];
@@ -198,6 +193,16 @@ class Reviews {
     date = json['date'];
     reviewerName = json['reviewerName'];
     reviewerEmail = json['reviewerEmail'];
+  }
+
+  ReviewsEntity toEntity() {
+    return ReviewsEntity(
+      rating: rating ?? 0,
+      comment: comment ?? '',
+      date: date ?? '',
+      reviewerName: reviewerName ?? '',
+      reviewerEmail: reviewerEmail ?? '',
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -224,6 +229,15 @@ class Meta {
     updatedAt = json['updatedAt'];
     barcode = json['barcode'];
     qrCode = json['qrCode'];
+  }
+
+  MetaEntity toEntity() {
+    return MetaEntity(
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      barcode: barcode,
+      qrCode: qrCode,
+    );
   }
 
   Map<String, dynamic> toJson() {

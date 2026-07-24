@@ -1,8 +1,11 @@
+import 'package:blinkbuy/core/comman/widgets/loading_shimmer.dart';
 import 'package:blinkbuy/core/comman/widgets/product_item_card.dart';
-import 'package:blinkbuy/core/constants/app_images.dart';
+
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
+import 'package:blinkbuy/features/home/presintation/view_model/cubit/get_products_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final List<String> _categories = [
     'Miscellaneous',
     'Shoes',
@@ -31,13 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
             final crossAxisCount = screenWidth >= 900
                 ? 4
                 : screenWidth >= 600
-                    ? 3
-                    : 2;
+                ? 3
+                : 2;
             final childAspectRatio = screenWidth >= 900
                 ? 0.82
                 : screenWidth >= 600
-                    ? 0.78
-                    : 0.72;
+                ? 0.78
+                : 0.72;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,26 +102,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 16.h),
 
                 Expanded(
-                  child: GridView.builder(
-                    padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
-                    itemCount: 10,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: 10.w,
-                      mainAxisSpacing: 10.h,
-                      childAspectRatio: childAspectRatio,
-                    ),
-                    itemBuilder: (context, index) {
-                      return ProductItemWidget(
-                        imageUrl: AppImages.networkImage,
-                        price: 199,
-                        productName: 'Product Name',
-                        onFavoriteToggle: (isFavorite) {},
-                        onTap: () {},
-                        currency: "USA",
-                        isFavorite: true,
-                        productItemEntity: null,
-                      );
+                  child: BlocBuilder<GetProductsCubit, GetProductsState>(
+                    builder: (context, state) {
+                      if (state is GetProductsLoading) {
+                        return LoadingShimmer();
+                      }
+                      if (state is GetProductsError) {
+                        return Center(child: Text(state.messageError));
+                      }
+                      if (state is GetProductsLoaded) {
+                        return GridView.builder(
+                          padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
+                          itemCount: state.products.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: crossAxisCount,
+                                crossAxisSpacing: 10.w,
+                                mainAxisSpacing: 10.h,
+                                childAspectRatio: childAspectRatio,
+                              ),
+                          itemBuilder: (context, index) {
+                            return ProductItemWidget(
+                              imageUrl: state.products[index].images.first,
+                              price: state.products[index].price,
+                              productName: state.products[index].title,
+                              onFavoriteToggle: (isFavorite) {},
+                              onTap: () {},
+
+                              isFavorite: true,
+                              productItemEntity: state.products[index],
+                            );
+                          },
+                        );
+                      }
+                      return SizedBox.shrink();
                     },
                   ),
                 ),
@@ -128,8 +144,6 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
-
-     
     );
   }
 }
