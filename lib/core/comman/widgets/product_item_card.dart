@@ -122,10 +122,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                     ],
                   ),
                 ),
-                // Text(
-                //   '${widget.currency} ${widget.price.toStringAsFixed(0)}',
-                //   style: TextStyles.font14Regular,
-                // ),
+                
               ],
             ),
           ),
