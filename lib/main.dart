@@ -1,13 +1,12 @@
 import 'package:blinkbuy/core/route/app_router.dart';
 import 'package:blinkbuy/core/comman/screens/check_network.dart';
 import 'package:blinkbuy/core/comman/widgets/connectivity_controller.dart';
-
 import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ConnectivityController.instance.init();
 
@@ -34,7 +33,6 @@ class MyApp extends StatelessWidget {
           builder: (_, value, _) {
             if (value) {
               return MaterialApp(
-
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',
                 theme: ThemeData(
@@ -42,7 +40,9 @@ class MyApp extends StatelessWidget {
                     seedColor: Colors.deepPurple,
                   ),
                 ),
-                initialRoute: isDone ? AppRoutes.appSection : AppRoutes.onboarding,
+                initialRoute: isDone
+                    ? AppRoutes.appSection
+                    : AppRoutes.onboarding,
                 onGenerateRoute: AppRouter.generateRoute,
               );
             } else {
