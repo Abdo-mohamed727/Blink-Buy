@@ -50,68 +50,72 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      child: Container(
-        width: 163.w,
-        height: 288.h,
-        decoration: BoxDecoration(
-         
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColors.white, width: 0.5),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: Image.network(
-                    widget.imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: AppColors.lightGrey,
-                      child: const Icon(Icons.image_not_supported_outlined),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: const Color(0xFFFCFCFC),
+              // borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: AppColors.white, width: 0.5),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Stack(
+                  children: [
+                    Image.network(
+                      widget.imageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        color: AppColors.lightGrey,
+                        child: const Icon(Icons.image_not_supported_outlined),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      top: 10,
+                      right: 10,
+                      child: GestureDetector(
+                        onTap: _toggleFavorite,
+                        child: Icon(
+                          _isFavorite ? Icons.favorite : Icons.favorite_border,
+                          size: 16,
+                          color: _isFavorite
+                              ? AppColors.errorBorderColor
+                              : AppColors.primaryColorBlack.withValues(
+                                  alpha: 0.6,
+                                ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: GestureDetector(
-                    onTap: _toggleFavorite,
-                    child: Icon(
-                      _isFavorite ? Icons.favorite : Icons.favorite_border,
-                        size: 16,
-                        color: _isFavorite
-                          ? AppColors.errorBorderColor
-                          : AppColors.primaryColorBlack.withValues(alpha: 0.6),
-                    ),
-                  ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.productName,
+                  style: TextStyles.font14Regular,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  '${widget.currency} ${widget.price.toStringAsFixed(0)}',
+                  style: TextStyles.font14Regular,
                 ),
               ],
             ),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.productName,
-                    style: TextStyles.font14Regular,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                 
-                  Text(
-                    '${widget.currency} ${widget.price.toStringAsFixed(0)}',
-                    style: TextStyles.font14Regular,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:blinkbuy/core/comman/widgets/product_item_card.dart';
 
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
+import 'package:blinkbuy/features/home/presintation/view/widgets/product_list-shimmer.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/cubit/get_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.offWhite,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -105,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: BlocBuilder<GetProductsCubit, GetProductsState>(
                     builder: (context, state) {
                       if (state is GetProductsLoading) {
-                        return LoadingShimmer();
+                        return ProductsListShimmer();
                       }
                       if (state is GetProductsError) {
                         return Center(child: Text(state.messageError));
@@ -118,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: crossAxisCount,
                                 crossAxisSpacing: 10.w,
-                                mainAxisSpacing: 10.h,
+                                mainAxisSpacing: 20.h,
                                 childAspectRatio: childAspectRatio,
                               ),
                           itemBuilder: (context, index) {
