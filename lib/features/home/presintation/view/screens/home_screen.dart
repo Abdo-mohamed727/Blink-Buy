@@ -1,8 +1,15 @@
+import 'package:blinkbuy/core/comman/widgets/loading_shimmer.dart';
 import 'package:blinkbuy/core/comman/widgets/product_item_card.dart';
-import 'package:blinkbuy/core/constants/app_images.dart';
+
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
+import 'package:blinkbuy/features/home/presintation/view/widgets/categories_view_body.dart';
+import 'package:blinkbuy/features/home/presintation/view/widgets/product_list-shimmer.dart';
+import 'package:blinkbuy/features/home/presintation/view/widgets/products_view_body.dart';
+import 'package:blinkbuy/features/home/presintation/view_model/get_categories/get_categories_cubit.dart';
+import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,17 +20,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  final List<String> _categories = [
-    'Miscellaneous',
-    'Shoes',
-    'Furniture',
-    'Electronics',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.offWhite,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -31,13 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
             final crossAxisCount = screenWidth >= 900
                 ? 4
                 : screenWidth >= 600
-                    ? 3
-                    : 2;
+                ? 3
+                : 2;
             final childAspectRatio = screenWidth >= 900
                 ? 0.82
                 : screenWidth >= 600
-                    ? 0.78
-                    : 0.72;
+                ? 0.78
+                : 0.72;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,70 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 40.h,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    itemCount: _categories.length,
-                    separatorBuilder: (context, _) => SizedBox(width: 10.w),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => setState(() {}),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: AppColors.primaryColorBlack,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.r),
-                          ),
-                          child: Text(
-                            _categories[index],
-                            style: TextStyles.font14Regular.copyWith(
-                              color: AppColors.primaryColorBlack,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                CategoriesViewBody(),
                 SizedBox(height: 16.h),
 
-                Expanded(
-                  child: GridView.builder(
-                    padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
-                    itemCount: 10,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: 10.w,
-                      mainAxisSpacing: 10.h,
-                      childAspectRatio: childAspectRatio,
-                    ),
-                    itemBuilder: (context, index) {
-                      return ProductItemWidget(
-                        imageUrl: AppImages.networkImage,
-                        price: 199,
-                        productName: 'Product Name',
-                        onFavoriteToggle: (isFavorite) {},
-                        onTap: () {},
-                        currency: "USA",
-                        isFavorite: true,
-                        productItemEntity: null,
-                      );
-                    },
-                  ),
+                ProductsViewBody(
+                  crossAxisCount: crossAxisCount,
+                  childAspectRatio: childAspectRatio,
                 ),
               ],
             );
           },
         ),
       ),
-
-     
     );
   }
 }

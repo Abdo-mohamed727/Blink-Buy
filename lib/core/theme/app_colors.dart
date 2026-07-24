@@ -20,4 +20,5 @@ class AppColors {
   static Color lowStockColor = Color(0xFF99001F).withValues(alpha: 0.12);
   static Color newArrivalColor = Color(0xFF3D1A6E).withValues(alpha: 0.12);
   static Color blackButtonColor = Color(0xFF212121);
+  static const Color cardBackground = Color(0xFFFCFCFC);
 }

@@ -1,3 +1,4 @@
+import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/route/app_router.dart';
 import 'package:blinkbuy/core/comman/screens/check_network.dart';
 import 'package:blinkbuy/core/comman/widgets/connectivity_controller.dart';
@@ -8,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   await ConnectivityController.instance.init();
 
   final prefs = await SharedPreferences.getInstance();
@@ -40,9 +42,18 @@ class MyApp extends StatelessWidget {
                     seedColor: Colors.deepPurple,
                   ),
                 ),
-                initialRoute: isDone
-                    ? AppRoutes.appSection
-                    : AppRoutes.onboarding,
+                 builder: (context, widget) {
+                        return Scaffold(
+                          body: Builder(
+                            builder: (context) {
+                              ConnectivityController.instance.init();
+
+                              return widget!;
+                            },
+                          ),
+                        );
+                      },
+                initialRoute: isDone ? AppRoutes.appSection : AppRoutes.onboarding,
                 onGenerateRoute: AppRouter.generateRoute,
               );
             } else {
