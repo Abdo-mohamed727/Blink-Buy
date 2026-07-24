@@ -33,17 +33,18 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
 
     await prefs.setBool('isDone', true);
 
-    Navigator.pushReplacementNamed(context, AppRoutes.home);
+    Navigator.pushReplacementNamed(context, AppRoutes.appSection);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.offWhite,
       body: Column(
         children: [
           SafeArea(
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -56,7 +57,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                         );
                       },
                       icon: SvgPicture.asset(
-                        'assets/icons/back_arrow.svg',
+                        AppImages.backIcon,
                         width: 21.w,
                         height: 21.h,
                         color: AppColors.charcoal,
@@ -76,7 +77,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                       ),
                     )
                   else
-                     SizedBox(width: 48.w),
+                    SizedBox(width: 48.w),
                 ],
               ),
             ),
@@ -95,7 +96,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                 final data = onboardingData[index];
 
                 return Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 16.w),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
