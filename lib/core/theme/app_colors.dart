@@ -10,6 +10,7 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color offWhite = Color(0xFFF7F8FA);
   static const Color lightGrey = Color(0xFFEcEEF2);
+  static const Color backgroundColor = Color(0xFFEBEBEB);
   static const Color charcoal = Color(0xFF1A1A2E);
   static const Color errorBorderColor = Color(0xFFEF4444);
   static const Color defaultBorderColor = Color(0xFFEF4444);
@@ -18,4 +19,5 @@ class AppColors {
   static Color outOfStockColor = Color(0xFFDC2626).withValues(alpha: 0.12);
   static Color lowStockColor = Color(0xFF99001F).withValues(alpha: 0.12);
   static Color newArrivalColor = Color(0xFF3D1A6E).withValues(alpha: 0.12);
+  static Color blackButtonColor = Color(0xFF212121);
 }

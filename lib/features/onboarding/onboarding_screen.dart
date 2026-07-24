@@ -33,7 +33,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
 
     await prefs.setBool('isDone', true);
 
-    Navigator.pushReplacementNamed(context, AppRoutes.appSection);
+    Navigator.pushReplacementNamed(context, AppRoutes.hello);
   }
 
   @override
