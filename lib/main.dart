@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   await ConnectivityController.instance.init();
-
+configureDependencies();
   final prefs = await SharedPreferences.getInstance();
 
   final isDone = prefs.getBool('isDone') ?? false;

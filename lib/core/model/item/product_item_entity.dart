@@ -77,10 +77,12 @@ class ReviewsEntity {
 }
 
 class MetaEntity {
-  String? createdAt;
-  String? updatedAt;
-  String? barcode;
-  String? qrCode;
+  String createdAt;
+  String updatedAt;
+  String barcode;
+  String qrCode;
 
-  MetaEntity({this.createdAt, this.updatedAt, this.barcode, this.qrCode});
+  MetaEntity({required this.createdAt, required this.updatedAt, required this.barcode, required this.qrCode});
+
+
 }

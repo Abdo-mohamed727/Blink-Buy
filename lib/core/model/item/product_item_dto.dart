@@ -84,9 +84,9 @@ class ProductItemDto {
     title = json['title'];
     description = json['description'];
     category = json['category'];
-    price = json['price'];
-    discountPercentage = json['discountPercentage'];
-    rating = json['rating'];
+    price = (json['price'] as num?)?.toDouble() ?? 0.0;
+    discountPercentage = (json['discountPercentage'] as num?)?.toDouble() ?? 0.0;
+    rating = (json['rating'] as num?)?.toDouble() ?? 0.0;
     stock = json['stock'];
     tags = (json['tags'] as List?)?.cast<String>();
     brand = json['brand'];
