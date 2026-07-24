@@ -33,8 +33,6 @@ class MyApp extends StatelessWidget {
             title: 'no network',
             home: const CheckNetwork(),
             theme: AppTheme.lightTheme,
-
-            initialRoute: AppRoutes.splash,
           );
         }
       },
