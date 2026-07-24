@@ -57,7 +57,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: const Color(0xFFFCFCFC),
-              // borderRadius: BorderRadius.circular(12.r),
+
               border: Border.all(color: AppColors.white, width: 0.5),
             ),
             child: ClipRRect(
@@ -83,7 +83,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                         onTap: _toggleFavorite,
                         child: Icon(
                           _isFavorite ? Icons.favorite : Icons.favorite_border,
-                          size: 16,
+                          size: 30,
                           color: _isFavorite
                               ? AppColors.errorBorderColor
                               : AppColors.primaryColorBlack.withValues(
@@ -108,10 +108,24 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  '${widget.currency} ${widget.price.toStringAsFixed(0)}',
-                  style: TextStyles.font14Regular,
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '${widget.currency} ',
+                        style: TextStyles.font14Regular,
+                      ),
+                      TextSpan(
+                        text: widget.price.toStringAsFixed(0),
+                        style: TextStyles.font14SemiBold,
+                      ),
+                    ],
+                  ),
                 ),
+                // Text(
+                //   '${widget.currency} ${widget.price.toStringAsFixed(0)}',
+                //   style: TextStyles.font14Regular,
+                // ),
               ],
             ),
           ),

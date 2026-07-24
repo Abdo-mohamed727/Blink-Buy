@@ -3,11 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductsListShimmer extends StatelessWidget {
-  const ProductsListShimmer({super.key});
+  final int crossAxisCount;
+  final double childAspectRatio;
+
+  const ProductsListShimmer({
+    super.key,
+    required this.crossAxisCount,
+    required this.childAspectRatio,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: 16.w,
+        mainAxisSpacing: 6.h,
+        childAspectRatio: childAspectRatio,
+      ),
       shrinkWrap: true,
       primary: false,
       physics: const NeverScrollableScrollPhysics(),
@@ -22,26 +35,27 @@ class _ProductShimmerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 8.h),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LoadingShimmer(height: 20.h, width: 140.w, borderRadius: 8),
-                SizedBox(height: 10.h),
-                LoadingShimmer(height: 16.h, width: 80.w, borderRadius: 6),
-                SizedBox(height: 10.h),
-                LoadingShimmer(height: 14.h, width: 180.w, borderRadius: 6),
-              ],
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: LoadingShimmer(
+            width: double.infinity,
+            borderRadius: 12,
           ),
-          SizedBox(width: 12.w),
-          LoadingShimmer(height: 130.h, width: 110.w, borderRadius: 20),
-        ],
-      ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              LoadingShimmer(height: 14.h, width: double.infinity, borderRadius: 4),
+              SizedBox(height: 8.h),
+              LoadingShimmer(height: 14.h, width: 80.w, borderRadius: 4),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

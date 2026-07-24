@@ -3,8 +3,11 @@ import 'package:blinkbuy/core/comman/widgets/product_item_card.dart';
 
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
+import 'package:blinkbuy/features/home/presintation/view/widgets/categories_view_body.dart';
 import 'package:blinkbuy/features/home/presintation/view/widgets/product_list-shimmer.dart';
-import 'package:blinkbuy/features/home/presintation/view_model/cubit/get_products_cubit.dart';
+import 'package:blinkbuy/features/home/presintation/view/widgets/products_view_body.dart';
+import 'package:blinkbuy/features/home/presintation/view_model/get_categories/get_categories_cubit.dart';
+import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,13 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> _categories = [
-    'Miscellaneous',
-    'Shoes',
-    'Furniture',
-    'Electronics',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,76 +66,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 40.h,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    itemCount: _categories.length,
-                    separatorBuilder: (context, _) => SizedBox(width: 10.w),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => setState(() {}),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: AppColors.primaryColorBlack,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.r),
-                          ),
-                          child: Text(
-                            _categories[index],
-                            style: TextStyles.font14Regular.copyWith(
-                              color: AppColors.primaryColorBlack,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                CategoriesViewBody(),
                 SizedBox(height: 16.h),
 
-                Expanded(
-                  child: BlocBuilder<GetProductsCubit, GetProductsState>(
-                    builder: (context, state) {
-                      if (state is GetProductsLoading) {
-                        return ProductsListShimmer();
-                      }
-                      if (state is GetProductsError) {
-                        return Center(child: Text(state.messageError));
-                      }
-                      if (state is GetProductsLoaded) {
-                        return GridView.builder(
-                          padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
-                          itemCount: state.products.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: crossAxisCount,
-                                crossAxisSpacing: 10.w,
-                                mainAxisSpacing: 20.h,
-                                childAspectRatio: childAspectRatio,
-                              ),
-                          itemBuilder: (context, index) {
-                            return ProductItemWidget(
-                              imageUrl: state.products[index].images.first,
-                              price: state.products[index].price,
-                              productName: state.products[index].title,
-                              onFavoriteToggle: (isFavorite) {},
-                              onTap: () {},
-
-                              isFavorite: true,
-                              productItemEntity: state.products[index],
-                            );
-                          },
-                        );
-                      }
-                      return SizedBox.shrink();
-                    },
-                  ),
+                ProductsViewBody(
+                  crossAxisCount: crossAxisCount,
+                  childAspectRatio: childAspectRatio,
                 ),
               ],
             );

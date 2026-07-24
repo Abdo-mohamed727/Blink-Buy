@@ -6,14 +6,14 @@ import 'package:blinkbuy/features/home/data/data_source/get_products_data_source
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-final dio = Dio();
+import 'package:blinkbuy/core/networking/dio_factory.dart';
 
 @Injectable(as: GetProductsDataSourceInterface)
 class GetProductsDataSourceImp implements GetProductsDataSourceInterface {
   @override
   Future<ResultApi<List<ProductItemEntity>>> getProducts() async {
     try {
-      final response = await dio.get(
+      final response = await DioFactory.getDio().get(
         ApiConstant.getProducts,
         options: Options(
           headers: {
