@@ -1,7 +1,8 @@
 import 'package:blinkbuy/core/comman/widgets/product_item_card.dart';
+import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
-import 'package:blinkbuy/features/products_%20by_%20category/presentation/view_model/product_by_category_cubit/product_by_category_cubit.dart';
-import 'package:blinkbuy/features/products_%20by_%20category/presentation/view_model/product_by_category_cubit/product_by_category_state.dart';
+import 'package:blinkbuy/features/products_ by_ category/presentation/view_model/product_by_category_cubit/product_by_category_cubit.dart';
+import 'package:blinkbuy/features/products_ by_ category/presentation/view_model/product_by_category_cubit/product_by_category_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,16 +13,15 @@ class ProductByCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    final categoryName = (args?['category'] as String?) ?? 'Products';
-    final slug = (args?['slug'] as String?) ?? '';
+final slug = args['slug'] as String;
+final categoryName = args['category'] as String;
 
     return BlocProvider(
-      create: (context) =>
-          ProductByCategoryCubit(context.read())
-            ..getProductsByCategory(slug),
-      child: BlocBuilder<ProductByCategoryCubit, ProductByCategoryState>(
+        create: (_) => serviceLocator <ProductByCategoryCubit>()
+    ..getProductsByCategory(slug),
+  child: BlocBuilder<ProductByCategoryCubit, ProductByCategoryState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(

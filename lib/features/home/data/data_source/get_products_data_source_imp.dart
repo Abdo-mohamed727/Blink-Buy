@@ -18,7 +18,7 @@ class GetProductsDataSourceImp implements GetProductsDataSourceInterface {
         options: Options(
           headers: {
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjIzYTFmODAyYjkzZTU3MmM1MmVjMSIsImlhdCI6MTc4NDkwMDAyMCwiZXhwIjoxNzg3NDkyMDIwfQ.2sC5GjPJsmMzrSKI3Utqxp6jmdM1I2jkHFx7gdcLcN0',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjIzYTFmODAyYjkzZTU3MmM1MmVjMSIsImlhdCI6MTc4NDkwMDAyMCwiZXhwIjoxNzg3NDkyMDIwfQ.2sC5GjPJsmMzrSKI3Utqxp6jmdM1I2jkHFx7gdcLcN0',
           },
         ),
       );

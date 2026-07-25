@@ -1,3 +1,4 @@
+import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/home/presintation/view/widgets/category_list_shimmer.dart';
@@ -14,6 +15,7 @@ class CategoriesViewBody extends StatelessWidget {
     return SizedBox(
       height: 40.h,
       child: BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+     
         builder: (context, state) {
           if (state is GetCategoriesLoading) {
             return CategoriesListShimmer();
@@ -29,7 +31,15 @@ class CategoriesViewBody extends StatelessWidget {
               separatorBuilder: (context, _) => SizedBox(width: 10.w),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+  context,
+  AppRoutes.productByCategoryScreen,
+  arguments: {
+    'slug': state.categories.categories[index].slug,
+    'category': state.categories.categories[index].name,
+  },
+);},
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     alignment: Alignment.center,

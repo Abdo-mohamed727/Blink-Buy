@@ -7,4 +7,5 @@ class AppRoutes {
   static const String appSection = '/app-section';
   static const String onboarding = '/onboarding';
   static const String productByCategoryScreen = '/product-by-category';
+  
 }

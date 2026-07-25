@@ -3,13 +3,13 @@ import 'package:blinkbuy/core/constants/api_constant.dart';
 import 'package:blinkbuy/core/model/item/product_item_dto.dart';
 import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/networking/result_api.dart';
-import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/product_data_source_interface.dart';
+import 'package:blinkbuy/features/products_ by_ category/domain/repo/product_data_source_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: ProductDataSourceInterface)
 
-class ProductByCatogeryDataSourceImp implements ProductDataSourceInterface {
+class ProductByCategoryDataSourceImp implements ProductDataSourceInterface {
   final dio = Dio();
 
   @override

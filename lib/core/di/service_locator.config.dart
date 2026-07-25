@@ -61,17 +61,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i553.GetCategoriesDataSourceInterface>(
       () => _i844.GetCategoriesDataSourceImp(),
     );
-    gh.factory<_i240.ProductDataSourceInterface>(
-      () => _i770.ProductByCatogeryDataSourceImp(),
-    );
     gh.factory<_i622.GetCategoriesRepoInterface>(
       () => _i1044.GetCategoriesRepoImp(
         gh<_i553.GetCategoriesDataSourceInterface>(),
       ),
     );
-    gh.factory<_i42.ProductRepoInterface>(
-      () =>
-          _i96.ProductByCatogeryRepoImp(gh<_i240.ProductDataSourceInterface>()),
+    gh.factory<_i240.ProductDataSourceInterface>(
+      () => _i770.ProductByCategoryDataSourceImp(),
     );
     gh.factory<_i849.GetCategoriesUseCase>(
       () => _i849.GetCategoriesUseCase(gh<_i622.GetCategoriesRepoInterface>()),
@@ -83,19 +79,23 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i509.GetProductsRepoImp(gh<_i218.GetProductsDataSourceInterface>()),
     );
-    gh.factory<_i215.GetProductsByCategoryUseCase>(
-      () => _i215.GetProductsByCategoryUseCase(gh<_i42.ProductRepoInterface>()),
+    gh.factory<_i42.ProductRepoInterface>(
+      () =>
+          _i96.ProductByCategoryRepoImp(gh<_i240.ProductDataSourceInterface>()),
     );
     gh.factory<_i783.GetProductsUseCase>(
       () => _i783.GetProductsUseCase(gh<_i521.GetProductsRepoInterface>()),
+    );
+    gh.factory<_i215.GetProductsByCategoryUseCase>(
+      () => _i215.GetProductsByCategoryUseCase(gh<_i42.ProductRepoInterface>()),
+    );
+    gh.factory<_i554.GetProductsCubit>(
+      () => _i554.GetProductsCubit(gh<_i783.GetProductsUseCase>()),
     );
     gh.factory<_i392.ProductByCategoryCubit>(
       () => _i392.ProductByCategoryCubit(
         gh<_i215.GetProductsByCategoryUseCase>(),
       ),
-    );
-    gh.factory<_i554.GetProductsCubit>(
-      () => _i554.GetProductsCubit(gh<_i783.GetProductsUseCase>()),
     );
     return this;
   }
