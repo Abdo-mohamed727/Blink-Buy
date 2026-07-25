@@ -42,18 +42,20 @@ class MyApp extends StatelessWidget {
                     seedColor: Colors.deepPurple,
                   ),
                 ),
-                 builder: (context, widget) {
-                        return Scaffold(
-                          body: Builder(
-                            builder: (context) {
-                              ConnectivityController.instance.init();
+                builder: (context, widget) {
+                  return Scaffold(
+                    body: Builder(
+                      builder: (context) {
+                        ConnectivityController.instance.init();
 
-                              return widget!;
-                            },
-                          ),
-                        );
+                        return widget!;
                       },
-                initialRoute: isDone ? AppRoutes.appSection : AppRoutes.onboarding,
+                    ),
+                  );
+                },
+                initialRoute: isDone
+                    ? AppRoutes.appSection
+                    : AppRoutes.onboarding,
                 onGenerateRoute: AppRouter.generateRoute,
               );
             } else {

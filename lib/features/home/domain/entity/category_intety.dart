@@ -16,4 +16,6 @@ class CategoryEntity {
     required this.url,
     required this.image,
   });
+
+  
 }
