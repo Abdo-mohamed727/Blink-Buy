@@ -15,6 +15,7 @@ class ProductsListShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: 16.w,
@@ -39,17 +40,18 @@ class _ProductShimmerItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: LoadingShimmer(
-            width: double.infinity,
-            borderRadius: 12,
-          ),
+          child: LoadingShimmer(width: double.infinity, borderRadius: 12),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              LoadingShimmer(height: 14.h, width: double.infinity, borderRadius: 4),
+              LoadingShimmer(
+                height: 14.h,
+                width: double.infinity,
+                borderRadius: 4,
+              ),
               SizedBox(height: 8.h),
               LoadingShimmer(height: 14.h, width: 80.w, borderRadius: 4),
             ],

@@ -1,3 +1,4 @@
+import 'package:blinkbuy/core/comman/widgets/product_card.dart';
 import 'package:blinkbuy/core/comman/widgets/product_item_card.dart';
 import 'package:blinkbuy/features/home/presintation/view/widgets/product_list-shimmer.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
@@ -33,23 +34,18 @@ class ProductsViewBody extends StatelessWidget {
             return GridView.builder(
               padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.h),
               itemCount: state.products.length,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 10.w,
-                    mainAxisSpacing: 20.h,
-                    childAspectRatio: childAspectRatio,
-                  ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 10.w,
+                mainAxisSpacing: 20.h,
+                childAspectRatio: childAspectRatio,
+              ),
               itemBuilder: (context, index) {
-                return ProductItemWidget(
-                  imageUrl: state.products[index].images.first,
-                  price: state.products[index].price,
-                  productName: state.products[index].title,
-                  onFavoriteToggle: (isFavorite) {},
-                  onTap: () {},
-    
-                  isFavorite: true,
+                return ProductCard(
                   productItemEntity: state.products[index],
+                  imageUrl: state.products[index].images.first,
+                  productName: state.products[index].title,
+                  price: state.products[index].price,
                 );
               },
             );
