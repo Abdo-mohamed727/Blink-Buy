@@ -13,7 +13,7 @@ class ProductByCategoryCubit extends Cubit<ProductByCategoryState> {
 
   Future<void> getProductsByCategory(String slug) async {
     emit(ProductByCategoryLoading());
-    final result = await _getProductsByCategoryUseCase.invoke(slug);
+    final result = await _getProductsByCategoryUseCase.call(slug);
     switch(result)
     {
       case Success<List<ProductItemEntity>>():

@@ -6,16 +6,16 @@ import 'package:blinkbuy/core/networking/result_api.dart';
 import 'package:blinkbuy/features/products_ by_ category/domain/repo/product_data_source_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-
+import 'package:blinkbuy/core/networking/dio_factory.dart';
 @Injectable(as: ProductDataSourceInterface)
 
 class ProductByCategoryDataSourceImp implements ProductDataSourceInterface {
-  final dio = Dio();
+
 
   @override
   Future<ResultApi<List<ProductItemEntity>>> getProductsByCategory(String slug) async {
     try {
-      var response = await dio.get(
+      var response = await DioFactory.getDio().get(
         "${ApiConstant.baseUrl}${ApiConstant.product}$slug?skip=0&limit=5",
         options: Options(
           headers: {
@@ -25,7 +25,7 @@ class ProductByCategoryDataSourceImp implements ProductDataSourceInterface {
         ));
 
       var jsonData = response.data;
-      List<dynamic> productsList = jsonData['products'] ?? [];
+      List<dynamic> productsList = jsonData['list'] ?? [];
       List<ProductItemEntity> products = productsList
           .map((item) => ProductItemDto.fromJson(item as Map<String, dynamic>).toEntity())
           .toList();
