@@ -40,15 +40,19 @@ class CategoriesViewBody extends StatelessWidget {
     'category': state.categories.categories[index].name,
   },
 );},
+                    context.read<GetCategoriesCubit>().changeCategory(index);
+                  },
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(right: 15),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColors.primaryColorBlack,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(12.r),
+                      color: index == state.selectedIndex
+                          ? AppColors.primaryColor
+                          : AppColors.white,
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 27,
+                      vertical: 11,
                     ),
                     child: Text(
                       state.categories.categories[index].name,

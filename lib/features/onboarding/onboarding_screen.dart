@@ -20,6 +20,7 @@ class OnbordingScreen extends StatefulWidget {
 class _OnbordingScreenState extends State<OnbordingScreen> {
   final PageController _pageController = PageController();
   final List<OnboardingData> onboardingData = dataOnboarding();
+
   int _currentIndex = 0;
 
   @override
@@ -114,19 +115,6 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
 
                       SizedBox(height: 20.h),
 
-                      AnimatedSmoothIndicator(
-                        activeIndex: _currentIndex,
-                        count: onboardingData.length,
-                        effect: WormEffect(
-                          activeDotColor: AppColors.charcoal,
-                          dotColor: AppColors.lightGrey,
-                          dotHeight: 10.h,
-                          dotWidth: 10.w,
-                        ),
-                      ),
-
-                      SizedBox(height: 40.h),
-
                       CoustomFadeInLeft(
                         child: Text(
                           data.title,
@@ -145,45 +133,64 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                           ),
                         ),
                       ),
-
-                      SizedBox(height: 56.h),
-
-                      CoustomFadeInUp(
-                        child: CustomButton(
-                          onPressed: () {
-                            if (_currentIndex < onboardingData.length - 1) {
-                              _pageController.nextPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                            } else {
-                              _skipOnboarding();
-                            }
-                          },
-                          text: _currentIndex < onboardingData.length - 1
-                              ? 'Next'
-                              : 'Get Started',
-                          textStyle: TextStyles.font18SemiBold.copyWith(
-                            color: AppColors.white,
-                          ),
-                          width: 343.w,
-                          height: 48.h,
-                          backgroundColor: AppColors.primaryColor,
-                          textColor: Colors.white,
-                          lastRadius: 8,
-                        ),
-                      ),
                     ],
                   ),
                 );
               },
             ),
           ),
+
+          // Indicator ثابت
+          AnimatedSmoothIndicator(
+            activeIndex: _currentIndex,
+            count: onboardingData.length,
+            effect: WormEffect(
+              activeDotColor: AppColors.charcoal,
+              dotColor: AppColors.lightGrey,
+              dotHeight: 10.h,
+              dotWidth: 10.w,
+            ),
+          ),
+
+          SizedBox(height: 40.h),
+
+          // Button ثابت
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: CoustomFadeInUp(
+              child: CustomButton(
+                onPressed: () {
+                  if (_currentIndex < onboardingData.length - 1) {
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  } else {
+                    _skipOnboarding();
+                  }
+                },
+                text: _currentIndex < onboardingData.length - 1
+                    ? 'Next'
+                    : 'Get Started',
+                textStyle: TextStyles.font18SemiBold.copyWith(
+                  color: AppColors.white,
+                ),
+                width: double.infinity,
+                height: 48.h,
+                backgroundColor: AppColors.primaryColor,
+                textColor: Colors.white,
+                lastRadius: 8,
+              ),
+            ),
+          ),
+
+          SizedBox(height: 40.h),
         ],
       ),
     );
   }
 }
+
 
 class OnboardingData {
   final String urlImage;
@@ -196,6 +203,7 @@ class OnboardingData {
     required this.description,
   });
 }
+
 
 List<OnboardingData> dataOnboarding() {
   return [

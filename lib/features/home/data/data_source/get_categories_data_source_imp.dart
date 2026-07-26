@@ -18,7 +18,7 @@ class GetCategoriesDataSourceImp implements GetCategoriesDataSourceInterface {
         options: Options(
           headers: {
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjIzYTFmODAyYjkzZTU3MmM1MmVjMSIsImlhdCI6MTc4NDkwMDAyMCwiZXhwIjoxNzg3NDkyMDIwfQ.2sC5GjPJsmMzrSKI3Utqxp6jmdM1I2jkHFx7gdcLcN0',
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjNjODM2ZmY4Yzk4YjE2NzcyOTk3MCIsImlhdCI6MTc4NDk2NDE5OSwiZXhwIjoxNzg3NTU2MTk5fQ.UB6bwWh6rE7pP_YV3jJq3vXMxEmEl_XMPGwnXw7HRKM',
           },
         ),
       );
