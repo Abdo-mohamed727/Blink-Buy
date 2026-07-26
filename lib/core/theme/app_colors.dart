@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const Color discountColor = Colors.red;
   static const Color transparent = Color(0x00000000);
   static const Color primaryColorBlack = Color(0xFF212121);
   static const Color primaryColor = Color(0xFFFF9900);

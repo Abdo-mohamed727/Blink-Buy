@@ -1,5 +1,5 @@
 import 'package:blinkbuy/core/comman/widgets/product_card.dart';
-import 'package:blinkbuy/core/comman/widgets/product_item_card.dart';
+
 import 'package:blinkbuy/features/home/presintation/view/widgets/product_list-shimmer.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +46,8 @@ class ProductsViewBody extends StatelessWidget {
                   imageUrl: state.products[index].images.first,
                   productName: state.products[index].title,
                   price: state.products[index].price,
+                  discount: state.products[index].discountPercentage,
+                  rating: state.products[index].rating,
                 );
               },
             );
