@@ -1,4 +1,5 @@
 import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
+import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,9 @@ class _HelloScreenState extends State<HelloScreen> {
             CustomButton(
               borderColor: Color(0xFFFF9900),
               backgroundColor: AppColors.primaryColor,
-              onPressed: () {}, //!navigate to sign up
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.home);
+              }, //!navigate to sign up
               text: "Sign up",
               width: double.infinity,
               height: 52,

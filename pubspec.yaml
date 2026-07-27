@@ -28,11 +28,19 @@ dependencies:
   google_fonts: ^8.2.0
   get_it: ^9.2.1
   pretty_dio_logger: ^1.4.0
+  carousel_slider: ^5.1.2
  
  
  
 
 dev_dependencies:
+
+
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.15.1
+  injectable_generator: ^3.1.1
+  flutter_lints: ^6.0.0
 
 
   flutter_launcher_icons: ^0.14.4
@@ -45,12 +53,6 @@ flutter_launcher_icons:
   remove_alpha_ios: true
 
 
-
-  flutter_test:
-    sdk: flutter
-  build_runner: ^2.15.1
-  injectable_generator: ^3.1.1
-  flutter_lints: ^6.0.0
 
 
 flutter:

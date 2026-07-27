@@ -1,7 +1,7 @@
 import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
-import 'package:blinkbuy/features/home/presintation/view/widgets/category_list_shimmer.dart';
+import 'package:blinkbuy/features/home/presintation/view/widget/category_list_shimmer.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/get_categories/get_categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +39,7 @@ class CategoriesViewBody extends StatelessWidget {
     'slug': state.categories.categories[index].slug,
     'category': state.categories.categories[index].name,
   },
-);},
+);
                     context.read<GetCategoriesCubit>().changeCategory(index);
                   },
                   child: Container(
