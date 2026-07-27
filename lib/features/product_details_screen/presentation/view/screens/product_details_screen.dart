@@ -106,8 +106,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               }, icon: Icon(Icons.favorite_border_outlined,size: 30,color: AppColors.primaryColorBlack,),)
                           ),
                           Positioned(
-                            top: 10.h,
-                            left: 10.w,
+                            top: 15.h,
+                            left: 20.w,
                             child:Row(
                               children: [
                                 Text(state.product.rating.toStringAsFixed(2),style: TextStyles.font16SemiBold,),
