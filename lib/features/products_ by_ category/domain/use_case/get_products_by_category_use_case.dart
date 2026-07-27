@@ -9,5 +9,5 @@ class GetProductsByCategoryUseCase {
 
   GetProductsByCategoryUseCase(this._productRepoInterface);
 
-  Future<ResultApi<List<ProductItemEntity>>> call(String slug) => _productRepoInterface.getProductsByCategory(slug);
+  Future<ResultApi<List<ProductItemEntity>>> call(String slug, String categoryName) => _productRepoInterface.getProductsByCategory(slug, categoryName);
 }

@@ -47,7 +47,7 @@ class CustomTextField extends StatelessWidget {
       style: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
-        color: AppColors.white,
+        color: AppColors.defaultBorderColor,
       ),
       validator: validator,
       onChanged: onChanged,
@@ -59,7 +59,7 @@ class CustomTextField extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: AppColors.disabledBorderColor),
+          borderSide: BorderSide(color: AppColors.defaultBorderColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
@@ -85,7 +85,7 @@ class CustomTextField extends StatelessWidget {
         hintStyle:
             hintStyle ??
             Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: AppColors.white,
+              color: AppColors.defaultHintTextColor,
               fontWeight: FontWeight.w400,
               fontSize: 14.sp,
             ),
