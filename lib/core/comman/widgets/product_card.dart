@@ -16,11 +16,15 @@ class ProductCard extends StatelessWidget {
     this.isFavorite = false,
     this.onTap,
     this.onFavoriteToggle,
+    required this.discount,
+    required this.rating,
   });
+  final double rating;
   final ProductItemEntity? productItemEntity;
   final String imageUrl;
   final String productName;
   final double price;
+  final double discount;
   final String currency;
   final bool isFavorite;
   final VoidCallback? onTap;
@@ -85,6 +89,7 @@ class ProductCard extends StatelessWidget {
                             fontFamily: 'Poppins',
                           ),
                         ),
+
                         TextSpan(
                           text: price.toString(),
                           style: TextStyle(
@@ -94,18 +99,19 @@ class ProductCard extends StatelessWidget {
                             fontFamily: 'Poppins',
                           ),
                         ),
+                        const TextSpan(text: '  '),
+                        TextSpan(
+                          text: ' -${discount.toString()}%',
+                          style: TextStyle(
+                            color: AppColors.discountColor,
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  // Text(
-                  //   price.toString(),
-                  //   style: TextStyle(
-                  //     color: AppColors.charcoal,
-                  //     fontSize: 14.sp,
-                  //     fontWeight: FontWeight.w700,
-                  //     fontFamily: 'Poppins',
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -121,6 +127,15 @@ class ProductCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Text(
+            '$rating⭐',
+            style: TextStyle(
+              color: AppColors.primaryColorBlack,
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Poppins',
+            ),
+          ),
           GestureDetector(
             onTap: () {},
             child: AnimatedSwitcher(

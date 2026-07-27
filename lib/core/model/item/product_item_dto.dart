@@ -73,7 +73,7 @@ class ProductItemDto {
       reviews: reviews?.map((r) => r.toEntity()).toList() ?? [],
       returnPolicy: returnPolicy ?? '',
       minimumOrderQuantity: minimumOrderQuantity ?? 0,
-      meta: meta?.toEntity() ?? MetaEntity(),
+      meta: meta?.toEntity() ?? MetaEntity(createdAt: '', updatedAt: '', barcode: '', qrCode: ''),
       images: images ?? [],
       thumbnail: thumbnail ?? '',
     );
@@ -84,9 +84,9 @@ class ProductItemDto {
     title = json['title'];
     description = json['description'];
     category = json['category'];
-    price = json['price'];
-    discountPercentage = json['discountPercentage'];
-    rating = json['rating'];
+    price = (json['price'] as num?)?.toDouble() ?? 0.0;
+    discountPercentage = (json['discountPercentage'] as num?)?.toDouble() ?? 0.0;
+    rating = (json['rating'] as num?)?.toDouble() ?? 0.0;
     stock = json['stock'];
     tags = (json['tags'] as List?)?.cast<String>();
     brand = json['brand'];
@@ -225,18 +225,18 @@ class Meta {
   Meta({this.createdAt, this.updatedAt, this.barcode, this.qrCode});
 
   Meta.fromJson(Map<String, dynamic> json) {
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    barcode = json['barcode'];
-    qrCode = json['qrCode'];
+    createdAt = json['createdAt'] ?? '';
+    updatedAt = json['updatedAt'] ?? '';
+    barcode = json['barcode'] ?? '';
+    qrCode = json['qrCode'] ?? '';
   }
 
   MetaEntity toEntity() {
     return MetaEntity(
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-      barcode: barcode,
-      qrCode: qrCode,
+      createdAt: createdAt ?? '',
+      updatedAt: updatedAt ?? '',
+      barcode: barcode ?? '',
+      qrCode: qrCode ?? '',
     );
   }
 

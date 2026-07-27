@@ -1,6 +1,7 @@
+import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
-import 'package:blinkbuy/features/home/presintation/view/widgets/category_list_shimmer.dart';
+import 'package:blinkbuy/features/home/presintation/view/widget/category_list_shimmer.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/get_categories/get_categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,16 +30,38 @@ class CategoriesViewBody extends StatelessWidget {
               separatorBuilder: (context, _) => SizedBox(width: 10.w),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+<<<<<<< HEAD:lib/features/home/presintation/view/widgets/categories_view_body.dart
+                      context,
+                      AppRoutes.productByCategoryScreen,
+                      arguments: {
+                        'slug': state.categories.categories[index].slug,
+                        'category': state.categories.categories[index].name,
+                      },
+                    );
+=======
+  context,
+  AppRoutes.productByCategoryScreen,
+  arguments: {
+    'slug': state.categories.categories[index].slug,
+    'category': state.categories.categories[index].name,
+  },
+);
+>>>>>>> origin/dev:lib/features/home/presintation/view/widget/categories_view_body.dart
+                    context.read<GetCategoriesCubit>().changeCategory(index);
+                  },
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(right: 15),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColors.primaryColorBlack,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(12.r),
+                      color: index == state.selectedIndex
+                          ? AppColors.primaryColor
+                          : AppColors.white,
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 27,
+                      vertical: 11,
                     ),
                     child: Text(
                       state.categories.categories[index].name,
