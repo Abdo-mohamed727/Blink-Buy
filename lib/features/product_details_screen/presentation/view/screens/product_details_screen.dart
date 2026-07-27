@@ -32,6 +32,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       child: BlocBuilder<ProductDetailsScreenCubit, ProductDetailsScreenState>(
         builder: (context, state) {
           return Scaffold(
+                  backgroundColor: AppColors.offWhite,
+
             appBar: AppBar(
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back,size: 32,),
@@ -53,6 +55,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           Container(
                             margin: EdgeInsets.only(top: 8.h, left: 16.w, right: 16.w, bottom: 24.h),
                                             decoration: BoxDecoration(
+                                               boxShadow: [
+            BoxShadow(
+              color: AppColors.lightGrey.withValues(alpha: 0.9),
+              spreadRadius: 5,
+              blurRadius: 5,
+              offset: const Offset(0, 10),
+                                                 ),],
+                                                 
                                               borderRadius: BorderRadius.circular(24),
                                               color: AppColors.cardBackground,
                                             ),
