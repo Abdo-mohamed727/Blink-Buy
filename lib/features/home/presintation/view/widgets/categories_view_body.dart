@@ -15,7 +15,6 @@ class CategoriesViewBody extends StatelessWidget {
     return SizedBox(
       height: 40.h,
       child: BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
-     
         builder: (context, state) {
           if (state is GetCategoriesLoading) {
             return CategoriesListShimmer();
@@ -33,13 +32,13 @@ class CategoriesViewBody extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(
-  context,
-  AppRoutes.productByCategoryScreen,
-  arguments: {
-    'slug': state.categories.categories[index].slug,
-    'category': state.categories.categories[index].name,
-  },
-);},
+                      context,
+                      AppRoutes.productByCategoryScreen,
+                      arguments: {
+                        'slug': state.categories.categories[index].slug,
+                        'category': state.categories.categories[index].name,
+                      },
+                    );
                     context.read<GetCategoriesCubit>().changeCategory(index);
                   },
                   child: Container(

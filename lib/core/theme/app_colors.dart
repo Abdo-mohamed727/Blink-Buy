@@ -14,8 +14,9 @@ class AppColors {
   static const Color backgroundColor = Color(0xFFEBEBEB);
   static const Color charcoal = Color(0xFF1A1A2E);
   static const Color errorBorderColor = Color(0xFFEF4444);
-  static const Color defaultBorderColor = Color(0xFFEF4444);
+  static const Color defaultBorderColor = Color(0xFF636363);
   static const Color disabledBorderColor = Color(0xFFECEEF2);
+  static const Color defaultHintTextColor = Color(0xFF636363);
   static Color inStockColor = Color(0xFF02C15E).withValues(alpha: 0.12);
   static Color outOfStockColor = Color(0xFFDC2626).withValues(alpha: 0.12);
   static Color lowStockColor = Color(0xFF99001F).withValues(alpha: 0.12);

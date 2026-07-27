@@ -2,6 +2,8 @@ import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/features/app_section/view/bottom_navigation_bar.dart';
 import 'package:blinkbuy/features/app_section/view_model/cubit/app_section_cubit.dart';
+import 'package:blinkbuy/features/auth/presentation/screens/login_screen.dart';
+import 'package:blinkbuy/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/get_categories/get_categories_cubit.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/hello_screen.dart';
@@ -32,13 +34,19 @@ class AppRouter {
         );
       case AppRoutes.onboarding:
         return MaterialPageRoute(builder: (_) => OnbordingScreen());
-        case AppRoutes.productByCategoryScreen:
+      case AppRoutes.productByCategoryScreen:
         return MaterialPageRoute(
           builder: (_) => const ProductByCategoryScreen(),
           settings: settings,
         );
       case AppRoutes.hello:
         return MaterialPageRoute(builder: (_) => HelloScreen());
+
+      case AppRoutes.login:
+        return MaterialPageRoute(builder: (_) => const LogInScreen());
+
+      case AppRoutes.signUp:
+        return MaterialPageRoute(builder: (_) => const SignUpScreen());
 
       default:
         return MaterialPageRoute(

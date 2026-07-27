@@ -50,9 +50,10 @@ class MyApp extends StatelessWidget {
                     ),
                   );
                 },
-                initialRoute: isDone
-                    ? AppRoutes.appSection
-                    : AppRoutes.onboarding,
+                initialRoute: AppRoutes.onboarding,
+                //! initialRoute: isDone
+                //!     ? AppRoutes.appSection
+                //!     : AppRoutes.onboarding,
                 onGenerateRoute: AppRouter.generateRoute,
               );
             } else {
