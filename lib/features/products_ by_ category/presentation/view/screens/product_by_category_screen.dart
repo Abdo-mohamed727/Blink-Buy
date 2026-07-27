@@ -57,15 +57,14 @@ final categoryName = args['category'] as String;
                   ),
                   itemBuilder: (context, index) {
                     final product = state.products[index];
-                    return ProductItemWidget(
-                      imageUrl: product.images.isNotEmpty ? product.images.first : '',
-                      price: product.price,
-                      productName: product.title,
-                      onFavoriteToggle: (isFavorite) {},
-                      onTap: () {},
-                      currency: "EGP",
-                      productItemEntity: product,
-                    );
+                    // return ProductItemWidget(
+                    //   imageUrl: product.images.isNotEmpty ? product.images.first : '',
+                    //   price: product.price,
+                    //   productName: product.title,
+                    //   onTap: () {},
+                    //   currency: "EGP",
+                    //   productItemEntity: product,
+                    // );
                   },
                 ),
               ProductByCategoryInitial() => const SizedBox(),

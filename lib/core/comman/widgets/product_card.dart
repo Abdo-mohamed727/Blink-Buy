@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:blinkbuy/core/comman/widgets/app_image_shimmer.dart';
 import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
+import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -136,16 +140,69 @@ class ProductCard extends StatelessWidget {
               fontFamily: 'Poppins',
             ),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              child: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                key: ValueKey(isFavorite),
-                size: 20.w,
-              ),
-            ),
+
+          BlocConsumer<FavoriteCubit, FavoriteState>(
+            listener: (context, state) {
+              if (state is FavouriteSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Operation completed successfully'),
+                  ),
+                );
+              }
+              if (state is FavouriteError &&
+                  state.productId == productItemEntity?.id) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(state.error)));
+              }
+            },
+            builder: (context, state) {
+              final favoriteCubit = context.read<FavoriteCubit>();
+              print("UI Cubit: ${favoriteCubit.hashCode}");
+
+              final isFavorite = favoriteCubit.favproducts.any(
+                (e) => e.id == productItemEntity?.id,
+              );
+              final isLoading =
+                  state is FavouriteLoading &&
+                  state.productId == productItemEntity?.id;
+
+              return GestureDetector(
+                onTap: isLoading
+                    ? null
+                    : () {
+                        if (productItemEntity == null) return;
+                        print("isFavorite = $isFavorite");
+                        if (isFavorite) {
+                          print("Before remove");
+                          context.read<FavoriteCubit>().removeFromFavourite(
+                            productId: productItemEntity!.id,
+                          );
+                          print("After remove");
+                        } else {
+                          context.read<FavoriteCubit>().addToFavourite(
+                            productId: productItemEntity!.id,
+                          );
+                        }
+                      },
+                child: isLoading
+                    ? const SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        size: 30,
+                        color: isFavorite
+                            ? AppColors.errorBorderColor
+                            : AppColors.primaryColorBlack.withValues(
+                                alpha: 0.6,
+                              ),
+                      ),
+              );
+            },
           ),
         ],
       ),

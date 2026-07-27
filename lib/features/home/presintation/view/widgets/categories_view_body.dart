@@ -39,7 +39,7 @@ class CategoriesViewBody extends StatelessWidget {
     'slug': state.categories.categories[index].slug,
     'category': state.categories.categories[index].name,
   },
-);},
+);
                     context.read<GetCategoriesCubit>().changeCategory(index);
                   },
                   child: Container(
