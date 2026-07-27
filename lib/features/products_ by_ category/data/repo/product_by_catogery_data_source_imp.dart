@@ -13,7 +13,7 @@ class ProductByCategoryDataSourceImp implements ProductDataSourceInterface {
 
 
   @override
-  Future<ResultApi<List<ProductItemEntity>>> getProductsByCategory(String slug) async {
+  Future<ResultApi<List<ProductItemEntity>>> getProductsByCategory(String slug, String categoryName) async {
     try {
       var response = await DioFactory.getDio().get(
         "${ApiConstant.baseUrl}${ApiConstant.product}$slug?skip=0&limit=5",

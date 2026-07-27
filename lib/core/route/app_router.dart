@@ -6,6 +6,7 @@ import 'package:blinkbuy/features/home/presintation/view_model/get_categories/ge
 import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/hello_screen.dart';
 import 'package:blinkbuy/features/onboarding/onboarding_screen.dart';
+import 'package:blinkbuy/features/product_details_screen/presentation/view/screens/product_details_screen.dart';
 import 'package:blinkbuy/features/products_%20by_%20category/presentation/view/screens/product_by_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,11 +36,15 @@ class AppRouter {
         case AppRoutes.productByCategoryScreen:
         return MaterialPageRoute(
           builder: (_) => const ProductByCategoryScreen(),
-          settings: settings,
+          settings: settings
         );
       case AppRoutes.hello:
         return MaterialPageRoute(builder: (_) => HelloScreen());
-
+        case AppRoutes.productDetailsScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ProductDetailsScreen(),
+          settings: settings
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

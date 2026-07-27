@@ -33,6 +33,18 @@ import 'package:blinkbuy/features/home/presintation/view_model/get_categories/ge
     as _i275;
 import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart'
     as _i554;
+import 'package:blinkbuy/features/product_details_screen/data/repo/product_details_data_source_imp.dart'
+    as _i334;
+import 'package:blinkbuy/features/product_details_screen/data/repo/product_details_repo_imp.dart'
+    as _i585;
+import 'package:blinkbuy/features/product_details_screen/domain/repo/product_details_data_source_interface.dart'
+    as _i537;
+import 'package:blinkbuy/features/product_details_screen/domain/repo/product_details_repo_interface.dart'
+    as _i845;
+import 'package:blinkbuy/features/product_details_screen/domain/use_case/get_product_details.dart'
+    as _i216;
+import 'package:blinkbuy/features/product_details_screen/presentation/view_model/product_details_screen_cubit/product_details_screen_cubit.dart'
+    as _i651;
 import 'package:blinkbuy/features/products_%20by_%20category/data/repo/product_by_catogery_data_source_imp.dart'
     as _i770;
 import 'package:blinkbuy/features/products_%20by_%20category/data/repo/product_by_catogery_repo_imp.dart'
@@ -55,6 +67,9 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    gh.factory<_i537.ProductDetailsDataSourceInterface>(
+      () => _i334.ProductDetailsDataSourceImp(),
+    );
     gh.factory<_i218.GetProductsDataSourceInterface>(
       () => _i986.GetProductsDataSourceImp(),
     );
@@ -75,6 +90,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i275.GetCategoriesCubit>(
       () => _i275.GetCategoriesCubit(gh<_i849.GetCategoriesUseCase>()),
     );
+    gh.factory<_i845.ProductDetailsRepoInterface>(
+      () => _i585.ProductDetailsRepoImp(
+        gh<_i537.ProductDetailsDataSourceInterface>(),
+      ),
+    );
     gh.factory<_i521.GetProductsRepoInterface>(
       () =>
           _i509.GetProductsRepoImp(gh<_i218.GetProductsDataSourceInterface>()),
@@ -83,8 +103,14 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i96.ProductByCategoryRepoImp(gh<_i240.ProductDataSourceInterface>()),
     );
+    gh.factory<_i216.GetProductDetails>(
+      () => _i216.GetProductDetails(gh<_i845.ProductDetailsRepoInterface>()),
+    );
     gh.factory<_i783.GetProductsUseCase>(
       () => _i783.GetProductsUseCase(gh<_i521.GetProductsRepoInterface>()),
+    );
+    gh.factory<_i651.ProductDetailsScreenCubit>(
+      () => _i651.ProductDetailsScreenCubit(gh<_i216.GetProductDetails>()),
     );
     gh.factory<_i215.GetProductsByCategoryUseCase>(
       () => _i215.GetProductsByCategoryUseCase(gh<_i42.ProductRepoInterface>()),

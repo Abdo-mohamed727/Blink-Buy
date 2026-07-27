@@ -21,7 +21,7 @@ class ProductByCategoryScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (_) => serviceLocator<ProductByCategoryCubit>()
-        ..getProductsByCategory(slug),
+        ..getProductsByCategory(slug, categoryName),
       child: BlocBuilder<ProductByCategoryCubit, ProductByCategoryState>(
         builder: (context, state) {
           return Scaffold(

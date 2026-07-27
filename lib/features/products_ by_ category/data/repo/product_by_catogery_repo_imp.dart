@@ -12,7 +12,7 @@ class ProductByCategoryRepoImp implements ProductRepoInterface {
   ProductByCategoryRepoImp(this._dataSource);
 
   @override
-  Future<ResultApi<List<ProductItemEntity>>> getProductsByCategory(String slug) {
-    return _dataSource.getProductsByCategory(slug);
+  Future<ResultApi<List<ProductItemEntity>>> getProductsByCategory(String slug, String categoryName) {
+    return _dataSource.getProductsByCategory(slug, categoryName);
   }
 }

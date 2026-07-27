@@ -22,6 +22,10 @@ abstract class TextStyles {
     fontSize: 16.sp,
     fontWeight: .w400,
   );
+   static TextStyle font16SemiBold = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: .w600,
+  );
   static TextStyle font14Regular = TextStyle(
     fontSize: 14.sp,
     fontWeight: .w400,
