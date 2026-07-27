@@ -1,8 +1,10 @@
+
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
-import 'package:blinkbuy/features/home/presintation/view/widgets/categories_view_body.dart';
-import 'package:blinkbuy/features/home/presintation/view/widgets/products_view_body.dart';
+import 'package:blinkbuy/features/home/presintation/view/widget/categories_view_body.dart';
+import 'package:blinkbuy/features/home/presintation/view/widget/products_view_body.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {

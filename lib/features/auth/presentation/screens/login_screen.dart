@@ -42,7 +42,7 @@ class _SignUpScreenState extends State<LogInScreen> {
           },
           icon: const Icon(Icons.arrow_back, color: Color(0xFF1F1F1F)),
         ),
-        title: Text("Login", style: TextStyles.font25bold_appbar),
+        title: Text("Login", style: TextStyles.font25boldAppbar),
         centerTitle: true,
       ),
 

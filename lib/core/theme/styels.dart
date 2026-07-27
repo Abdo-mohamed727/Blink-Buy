@@ -22,6 +22,10 @@ abstract class TextStyles {
     fontSize: 16.sp,
     fontWeight: .w400,
   );
+  static TextStyle font16SemiBold = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: .w600,
+  );
   static TextStyle font14Regular = TextStyle(
     fontSize: 14.sp,
     fontWeight: .w400,
@@ -40,7 +44,7 @@ abstract class TextStyles {
     fontWeight: .w500,
   );
 
-  static TextStyle font25bold_appbar = TextStyle(
+  static TextStyle font25boldAppbar = TextStyle(
     fontSize: 25,
     fontWeight: FontWeight.bold,
     color: Color(0xff1F1F1F),

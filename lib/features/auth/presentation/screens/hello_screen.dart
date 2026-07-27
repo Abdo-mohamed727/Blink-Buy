@@ -38,8 +38,8 @@ class _HelloScreenState extends State<HelloScreen> {
               borderColor: Color(0xFFFF9900),
               backgroundColor: AppColors.primaryColor,
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.signUp);
-              },
+                Navigator.pushNamed(context, AppRoutes.home);
+              }, //!navigate to sign up
               text: "Sign up",
               width: double.infinity,
               height: 52.h,
