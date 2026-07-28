@@ -5,6 +5,7 @@ import 'package:blinkbuy/features/account/domain/entities/user_entity.dart';
 import 'package:blinkbuy/features/account/domain/use_cases/get_user_data_use_case.dart';
 import 'package:blinkbuy/features/account/domain/use_cases/update_data_user_use_case.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
@@ -16,6 +17,11 @@ class ProfileCubit extends Cubit<ProfileState> {
     : super(ProfileInitial());
   final GetUserDataUseCase _getUserDataUseCase;
   final UpdateDataUserUseCase _updateDataUserUseCase;
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final addressController = TextEditingController();
 
   Future<void> getUserData() async {
     emit(ProfileLoading());
@@ -37,10 +43,10 @@ class ProfileCubit extends Cubit<ProfileState> {
   ) async {
     emit(UpdateProfileLoading());
     final result = await _updateDataUserUseCase.call(
-      name,
-      email,
-      phone,
-      address,
+      nameController.text,
+      emailController.text,
+      passwordController.text,
+      addressController.text,
       file,
     );
     switch (result) {

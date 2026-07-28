@@ -42,8 +42,8 @@ class UserDataSourceImp implements UserDataSourceInterface {
     File file,
   ) async {
     try {
-      await DioFactory.getDio().put(
-        ApiConstant.profile,
+      await DioFactory.getDio().post(
+        ApiConstant.updateProfile,
         data: {
           'name': name,
           'email': email,
@@ -55,7 +55,8 @@ class UserDataSourceImp implements UserDataSourceInterface {
           headers: {'Authorization': 'Bearer ${ApiConstant.token}'},
         ),
       );
-      return Success<void>();
+
+      return Success<void>('profile updated successfully');
     } on Exception catch (e) {
       return Error<void>(e.toString());
     }
