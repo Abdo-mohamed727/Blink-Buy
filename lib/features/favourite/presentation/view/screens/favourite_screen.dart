@@ -6,6 +6,7 @@ import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favori
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({super.key});
@@ -35,6 +36,26 @@ class FavouriteScreen extends StatelessWidget {
               return Text(state.error);
             }
             if (state is GetFavouriteSuccess) {
+              if (state.products.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/favourite_icon.svg',
+                        width: 120.w,
+                        height: 120.h,
+                      ),
+                      SizedBox(height: 24.h),
+                      Text(
+                        'There are no products in your\n favourite list ',
+                        style: TextStyles.font18Regular,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                );
+              }
               return Padding(
                 padding: EdgeInsets.only(
                   bottom: 80.h + MediaQuery.of(context).viewPadding.bottom,

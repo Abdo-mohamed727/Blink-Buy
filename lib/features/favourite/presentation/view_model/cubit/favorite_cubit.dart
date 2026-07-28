@@ -36,7 +36,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 
   Future<void> getFavourites() async {
-    print("GET FAVOURITES");
+     
 
     final result = await _getFavouritesUseCase();
 
@@ -44,14 +44,10 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       case Success<List<ProductItemEntity>>():
         favproducts = result.data;
 
-        print("Fav Count: ${favproducts.length}");
-        print(favproducts.map((e) => e.id).toList());
-
         emit(GetFavouriteSuccess(favproducts));
         break;
 
       case Error<List<ProductItemEntity>>():
-        print(result.messageError);
         emit(FavouriteError(result.messageError, -1));
         break;
     }
