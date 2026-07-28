@@ -1,5 +1,7 @@
 import 'package:blinkbuy/core/comman/widgets/coustom_text_form_field.dart';
+import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
+import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/account/presentation/view/widgets/profile_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,6 +61,17 @@ class _AccountScreenState extends State<AccountScreen> {
               emailController: emailController,
               passwordController: passwordController,
             ),
+            SizedBox(height: 115.h),
+              CustomButton(
+                backgroundColor: AppColors.orangeLight,
+                onPressed: () {},
+                text: 'Sumbit',
+                textStyle: AppTextStyles.font16Medium.copyWith(
+                  color: AppColors.white,
+                ),
+                width: double.infinity,
+                height: 48.h,
+              ),
           ],
         ),
       ),

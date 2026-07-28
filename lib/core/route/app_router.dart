@@ -1,5 +1,6 @@
 import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
+import 'package:blinkbuy/features/account/presentation/view_model/cubit/profile_cubit.dart';
 import 'package:blinkbuy/features/app_section/view/bottom_navigation_bar.dart';
 import 'package:blinkbuy/features/app_section/view_model/cubit/app_section_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/login_screen.dart';
@@ -28,6 +29,9 @@ class AppRouter {
               BlocProvider(
                 create: (context) =>
                     serviceLocator<GetCategoriesCubit>()..getCategories(),
+              ),
+              BlocProvider(
+                create: (context) => serviceLocator<ProfileCubit>()..getUserData(),
               ),
             ],
             child: const AppSectionScreen(),
