@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 final token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjc5ZTgwOGI3OGVhZTUzZjM0YjgzYyIsImlhdCI6MTc4NTE3NTY4NSwiZXhwIjoxNzg3NzY3Njg1fQ.LhVxOV816rxgOknMN8U46-iPnuXlz-HHg_dmCiCLjtI";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjgxMzc1ODU2OGZiNmVlMTRjYjc3NyIsImlhdCI6MTc4NTIwNTYyNSwiZXhwIjoxNzg3Nzk3NjI1fQ.PFPXvgD1XppkTHtIwB278NWyTfKhR-OhpxZsfnHtECQ";
 
 @Injectable(as: FavouriteDataSourceInterface)
 class FavouriteDataSourceImp implements FavouriteDataSourceInterface {
@@ -50,16 +50,14 @@ class FavouriteDataSourceImp implements FavouriteDataSourceInterface {
   @override
   Future<ResultApi<void>> removeFromFavourite({required int productId}) async {
     try {
-      print("=== TRYING TO DELETE productId: $productId ===");
-      final response = await DioFactory.getDio().delete(
+      await DioFactory.getDio().delete(
         ApiConstant.removeFavrouite,
         data: {"productId": productId},
-        options: Options(headers: {'Authorization': 'Bearer ...'}),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
-      print("=== DELETE RESPONSE: ${response.statusCode} ${response.data} ===");
+
       return Success<void>("product removed from favourite");
-    } catch (e, s) {
-      print("=== DELETE FAILED: $e ===");
+    } catch (e) {
       return Error<void>(e.toString());
     }
   }
