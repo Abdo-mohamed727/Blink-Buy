@@ -9,7 +9,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-<<<<<<< HEAD
 import 'package:blinkbuy/features/favourite/data/data_source/favourite_data_source_imp.dart'
     as _i13;
 import 'package:blinkbuy/features/favourite/data/data_source/favourite_data_source_interface.dart'
@@ -26,7 +25,6 @@ import 'package:blinkbuy/features/favourite/domain/use_cases/remove_favourite_us
     as _i282;
 import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart'
     as _i814;
-=======
 import 'package:blinkbuy/features/cart/data/data_source/cart_dart_source_imp.dart'
     as _i49;
 import 'package:blinkbuy/features/cart/data/data_source/cart_data_source_interface.dart'
@@ -42,7 +40,6 @@ import 'package:blinkbuy/features/cart/domain/use_case/get_cart_use_case.dart'
     as _i579;
 import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart'
     as _i282;
->>>>>>> origin/dev
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_imp.dart'
     as _i844;
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_interface.dart'
