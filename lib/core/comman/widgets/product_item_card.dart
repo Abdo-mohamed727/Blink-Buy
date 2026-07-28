@@ -104,7 +104,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
               children: [
                 Text(
                   widget.productName,
-                  style: TextStyles.font14Regular,
+                  style: AppTextStyles.font14Regular,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -113,11 +113,11 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                     children: [
                       TextSpan(
                         text: '${widget.currency} ',
-                        style: TextStyles.font14Regular,
+                        style: AppTextStyles.font14Regular,
                       ),
                       TextSpan(
                         text: widget.price.toStringAsFixed(0),
-                        style: TextStyles.font14SemiBold,
+                        style: AppTextStyles.font14SemiBold,
                       ),
                     ],
                   ),

@@ -42,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           },
           icon: const Icon(Icons.arrow_back, color: Color(0xFF1F1F1F)),
         ),
-        title: Text("Sign Up", style: TextStyles.font25boldAppbar),
+        title: Text("Sign Up", style: AppTextStyles.font25boldAppbar),
         centerTitle: true,
       ),
 
@@ -54,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 30.h),
-              Text("Email", style: TextStyles.font18Regular),
+              Text("Email", style: AppTextStyles.font18Regular),
               SizedBox(height: 5.h),
               //!
               CustomTextField(
@@ -64,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 keyboardType: TextInputType.emailAddress,
               ),
               SizedBox(height: 30.h),
-              Text("Password", style: TextStyles.font18Regular),
+              Text("Password", style: AppTextStyles.font18Regular),
               SizedBox(height: 5.h),
               //!
               CustomTextField(
@@ -77,7 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 suffixIcon: const Icon(Icons.visibility_off_outlined),
               ),
               SizedBox(height: 30),
-              Text("Confirm Password", style: TextStyles.font18Regular),
+              Text("Confirm Password", style: AppTextStyles.font18Regular),
               SizedBox(height: 5.h),
 
               //!

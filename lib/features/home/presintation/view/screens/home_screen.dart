@@ -1,4 +1,3 @@
-
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/home/presintation/view/widget/categories_view_body.dart';
@@ -44,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         'Hi !,',
-                        style: TextStyles.font16Regular.copyWith(
+                        style: AppTextStyles.font16Regular.copyWith(
                           fontWeight: FontWeight.w500,
                           color: AppColors.primaryColorBlack,
                         ),
@@ -52,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(height: 2.h),
                       Text(
                         "Let's start your day",
-                        style: TextStyles.font18SemiBold.copyWith(
+                        style: AppTextStyles.font18SemiBold.copyWith(
                           fontWeight: FontWeight.w500,
                           color: AppColors.primaryColorBlack,
                         ),

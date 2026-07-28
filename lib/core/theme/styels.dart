@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-abstract class TextStyles {
+abstract class AppTextStyles {
   static TextStyle font24SemiBold = TextStyle(
     fontSize: 24.sp,
     fontWeight: .w600,
@@ -25,6 +25,10 @@ abstract class TextStyles {
   static TextStyle font16SemiBold = TextStyle(
     fontSize: 16.sp,
     fontWeight: .w600,
+  );
+  static TextStyle font16Medium = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: .w500,
   );
   static TextStyle font14Regular = TextStyle(
     fontSize: 14.sp,

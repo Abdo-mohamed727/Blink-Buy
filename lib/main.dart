@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
                   );
                 },
 
-                initialRoute: !isDone
+                initialRoute: isDone
                     ? AppRoutes.appSection
                     : AppRoutes.onboarding,
                 onGenerateRoute: AppRouter.generateRoute,
