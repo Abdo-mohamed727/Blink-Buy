@@ -1,5 +1,6 @@
 import 'package:blinkbuy/features/account/presentation/account_presentation.dart';
-import 'package:blinkbuy/features/cart/presentation/cart_presentation.dart';
+
+import 'package:blinkbuy/features/cart/presentation/view/screens/cart_screen.dart';
 import 'package:blinkbuy/features/favourite/presentation/view/screens/favourite_screen.dart';
 import 'package:blinkbuy/features/home/presintation/view/screens/home_screen.dart';
 

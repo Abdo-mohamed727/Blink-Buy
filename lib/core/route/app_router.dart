@@ -5,6 +5,8 @@ import 'package:blinkbuy/features/app_section/view_model/cubit/app_section_cubit
 import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/login_screen.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:blinkbuy/features/cart/presentation/view/screens/cart_screen.dart';
+import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/get_categories/get_categories_cubit.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/hello_screen.dart';
@@ -22,12 +24,14 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider(create: (_) => AppSectionCubit()),
+
               BlocProvider(
-                create: (context) =>
+                create: (_) =>
                     serviceLocator<GetProductsCubit>()..getProducts(),
               ),
+
               BlocProvider(
-                create: (context) =>
+                create: (_) =>
                     serviceLocator<GetCategoriesCubit>()..getCategories(),
               ),
               BlocProvider(
@@ -38,6 +42,7 @@ class AppRouter {
             child: const AppSectionScreen(),
           ),
         );
+
       case AppRoutes.onboarding:
         return MaterialPageRoute(builder: (_) => OnbordingScreen());
       case AppRoutes.productByCategoryScreen:
@@ -58,7 +63,8 @@ class AppRouter {
 
       case AppRoutes.signUp:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
-
+      case AppRoutes.cartScreen:
+        return MaterialPageRoute(builder: (_) => const CartScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
