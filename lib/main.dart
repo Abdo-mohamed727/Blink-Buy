@@ -3,19 +3,32 @@ import 'package:blinkbuy/core/route/app_router.dart';
 import 'package:blinkbuy/core/comman/screens/check_network.dart';
 import 'package:blinkbuy/core/comman/widgets/connectivity_controller.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
+import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   configureDependencies();
+
   await ConnectivityController.instance.init();
+
   final prefs = await SharedPreferences.getInstance();
 
   final isDone = prefs.getBool('isDone') ?? false;
 
-  runApp(MyApp(isDone: isDone));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => serviceLocator<CartCubit>()..getCart()),
+      ],
+
+      child: MyApp(isDone: isDone),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -50,8 +63,7 @@ class MyApp extends StatelessWidget {
                     ),
                   );
                 },
-
-                initialRoute: !isDone
+                initialRoute: isDone
                     ? AppRoutes.appSection
                     : AppRoutes.onboarding,
                 onGenerateRoute: AppRouter.generateRoute,

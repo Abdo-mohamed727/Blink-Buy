@@ -9,6 +9,21 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:blinkbuy/features/cart/data/data_source/cart_dart_source_imp.dart'
+    as _i49;
+import 'package:blinkbuy/features/cart/data/data_source/cart_data_source_interface.dart'
+    as _i223;
+import 'package:blinkbuy/features/cart/data/repo/cart_repo_imp.dart' as _i41;
+import 'package:blinkbuy/features/cart/domain/repo/cart_repo_interface.dart'
+    as _i207;
+import 'package:blinkbuy/features/cart/domain/use_case/add_cart_use_case.dart'
+    as _i922;
+import 'package:blinkbuy/features/cart/domain/use_case/delete_cart_use_case.dart'
+    as _i299;
+import 'package:blinkbuy/features/cart/domain/use_case/get_cart_use_case.dart'
+    as _i579;
+import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart'
+    as _i282;
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_imp.dart'
     as _i844;
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_interface.dart'
@@ -81,6 +96,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i553.GetCategoriesDataSourceInterface>(),
       ),
     );
+    gh.factory<_i223.CartDataSourceInterface>(() => _i49.CartDataSourceImp());
     gh.factory<_i240.ProductDataSourceInterface>(
       () => _i770.ProductByCategoryDataSourceImp(),
     );
@@ -90,10 +106,22 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i275.GetCategoriesCubit>(
       () => _i275.GetCategoriesCubit(gh<_i849.GetCategoriesUseCase>()),
     );
+    gh.factory<_i207.CartRepoInterface>(
+      () => _i41.CartRepoImp(gh<_i223.CartDataSourceInterface>()),
+    );
     gh.factory<_i845.ProductDetailsRepoInterface>(
       () => _i585.ProductDetailsRepoImp(
         gh<_i537.ProductDetailsDataSourceInterface>(),
       ),
+    );
+    gh.factory<_i922.AddCartUseCase>(
+      () => _i922.AddCartUseCase(gh<_i207.CartRepoInterface>()),
+    );
+    gh.factory<_i299.DeleteCartUseCase>(
+      () => _i299.DeleteCartUseCase(gh<_i207.CartRepoInterface>()),
+    );
+    gh.factory<_i579.GetCartUseCase>(
+      () => _i579.GetCartUseCase(gh<_i207.CartRepoInterface>()),
     );
     gh.factory<_i521.GetProductsRepoInterface>(
       () =>
@@ -102,6 +130,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i42.ProductRepoInterface>(
       () =>
           _i96.ProductByCategoryRepoImp(gh<_i240.ProductDataSourceInterface>()),
+    );
+    gh.factory<_i282.CartCubit>(
+      () => _i282.CartCubit(
+        gh<_i579.GetCartUseCase>(),
+        gh<_i922.AddCartUseCase>(),
+        gh<_i299.DeleteCartUseCase>(),
+      ),
     );
     gh.factory<_i216.GetProductDetails>(
       () => _i216.GetProductDetails(gh<_i845.ProductDetailsRepoInterface>()),
