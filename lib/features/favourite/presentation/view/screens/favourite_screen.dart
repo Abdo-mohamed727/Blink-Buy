@@ -1,8 +1,8 @@
+import 'package:blinkbuy/core/comman/widgets/product_list-shimmer.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/favourite/presentation/view/widgets/fav_product_card_item.dart';
 import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart';
-import 'package:blinkbuy/features/home/presintation/view/widgets/product_list-shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
