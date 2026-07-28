@@ -15,6 +15,10 @@ class FavouriteScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.offWhite,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColors.offWhite,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Text("My Favourite", style: TextStyles.font22SemiBold),
       ),
       body: Padding(
@@ -31,30 +35,35 @@ class FavouriteScreen extends StatelessWidget {
               return Text(state.error);
             }
             if (state is GetFavouriteSuccess) {
-              return GridView.builder(
-                itemCount: state.products.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.6,
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: 80.h + MediaQuery.of(context).viewPadding.bottom,
                 ),
-                itemBuilder: (context, index) {
-                  final product = state.products[index];
+                child: GridView.builder(
+                  itemCount: state.products.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 20,
+                    childAspectRatio: 0.6,
+                  ),
+                  itemBuilder: (context, index) {
+                    final product = state.products[index];
 
-                  return FavProductCardItem(
-                    image: product.images[0],
-                    title: product.title,
-                    price: product.price,
-                    onRemove: () {
-                      context.read<FavoriteCubit>().removeFromFavourite(
-                        productId: product.id,
-                      );
-                      context.read<FavoriteCubit>().getFavourites();
-                    },
-                    onAddToCart: () {},
-                  );
-                },
+                    return FavProductCardItem(
+                      image: product.images[0],
+                      title: product.title,
+                      price: product.price,
+                      onRemove: () {
+                        context.read<FavoriteCubit>().removeFromFavourite(
+                          productId: product.id,
+                        );
+                        context.read<FavoriteCubit>().getFavourites();
+                      },
+                      onAddToCart: () {},
+                    );
+                  },
+                ),
               );
             }
             return SizedBox.shrink();

@@ -10,8 +10,8 @@ final class FavouriteLoading extends FavoriteState {
 }
 
 final class FavouriteSuccess extends FavoriteState {
-  final List<ProductItemEntity> products;
-  FavouriteSuccess(this.products);
+   final int productId;
+   FavouriteSuccess(this.productId);
 }
 
 final class FavouriteError extends FavoriteState {
@@ -19,11 +19,12 @@ final class FavouriteError extends FavoriteState {
   final int productId;
   FavouriteError(this.error, this.productId);
 }
-final class GetFavouriteLoading extends FavoriteState {}
+
 final class GetFavouriteSuccess extends FavoriteState {
   final List<ProductItemEntity> products;
   GetFavouriteSuccess(this.products);
 }
+
 final class GetFavouriteError extends FavoriteState {
   final String error;
   GetFavouriteError(this.error);

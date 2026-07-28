@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/networking/result_api.dart';
- 
+
 import 'package:blinkbuy/features/favourite/domain/use_cases/add_to_favourite_use_case.dart';
 import 'package:blinkbuy/features/favourite/domain/use_cases/get_favourites_use_case.dart';
 import 'package:blinkbuy/features/favourite/domain/use_cases/remove_favourite_use_case.dart';
@@ -45,7 +47,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         print("Fav Count: ${favproducts.length}");
         print(favproducts.map((e) => e.id).toList());
 
-        emit(FavouriteSuccess(favproducts));
+        emit(GetFavouriteSuccess(favproducts));
         break;
 
       case Error<List<ProductItemEntity>>():

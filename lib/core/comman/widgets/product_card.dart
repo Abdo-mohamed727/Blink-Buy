@@ -141,22 +141,7 @@ class ProductCard extends StatelessWidget {
             ),
           ),
 
-          BlocConsumer<FavoriteCubit, FavoriteState>(
-            listener: (context, state) {
-              if (state is FavouriteSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Operation completed successfully'),
-                  ),
-                );
-              }
-              if (state is FavouriteError &&
-                  state.productId == productItemEntity?.id) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.error)));
-              }
-            },
+          BlocBuilder<FavoriteCubit, FavoriteState>(
             builder: (context, state) {
               final favoriteCubit = context.read<FavoriteCubit>();
               print("UI Cubit: ${favoriteCubit.hashCode}");

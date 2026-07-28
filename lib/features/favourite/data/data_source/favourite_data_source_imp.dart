@@ -50,11 +50,12 @@ class FavouriteDataSourceImp implements FavouriteDataSourceInterface {
   @override
   Future<ResultApi<void>> removeFromFavourite({required int productId}) async {
     try {
-      await DioFactory.getDio().delete(
+      final response = await DioFactory.getDio().delete(
         ApiConstant.removeFavrouite,
         data: {"productId": productId},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
+      print("=== DELETE RESPONSE BODY: ${response.data} ===");
 
       return Success<void>("product removed from favourite");
     } catch (e) {
