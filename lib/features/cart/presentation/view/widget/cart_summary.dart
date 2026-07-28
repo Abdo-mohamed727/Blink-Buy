@@ -74,7 +74,7 @@ class _SummaryRow extends StatelessWidget {
     final labelStyle = TextStyle(
       fontSize: 16.sp,
       fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-      color: Colors.black87,
+      color: AppColors.charcoal,
     );
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +83,7 @@ class _SummaryRow extends StatelessWidget {
         RichText(
           text: TextSpan(
             style: TextStyle(
-              color: Colors.black87,
+              color: AppColors.charcoal,
               fontSize: 16.sp,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
             ),

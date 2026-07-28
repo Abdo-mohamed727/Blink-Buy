@@ -22,7 +22,7 @@ class CartCubit extends Cubit<CartState> {
 
   double totalPrice = 0;
   final double shippingFee = 30;
-  //================ Get Cart =================
+ 
 
   Future<void> getCart() async {
     emit(CartLoading());
@@ -40,7 +40,7 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  //================ Add =================
+
 
   Future<void> addToCart(CartEntity cartEntity) async {
     emit(CartLoading());
@@ -68,7 +68,7 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  //================ Delete =================
+
 
   Future<void> deleteFromCart(CartEntity cartEntity) async {
     final result = await deleteCartUseCase(cartEntity.id);
@@ -86,7 +86,7 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  //================ Increment =================
+
 
   void incrementQuantity(CartEntity item) {
     final index = cartItems.indexWhere((e) => e.id == item.id);
@@ -105,8 +105,6 @@ class CartCubit extends Cubit<CartState> {
 
     emit(CartGetSuccess(List.from(cartItems)));
   }
-
-  //================ Decrement =================
 
   void decrementQuantity(CartEntity item) {
     final index = cartItems.indexWhere((e) => e.id == item.id);
@@ -128,7 +126,7 @@ class CartCubit extends Cubit<CartState> {
     emit(CartGetSuccess(List.from(cartItems)));
   }
 
-  //================ Total =================
+
 
   void calculateTotal() {
     totalPrice = 0;

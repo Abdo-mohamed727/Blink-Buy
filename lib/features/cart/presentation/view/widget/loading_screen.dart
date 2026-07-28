@@ -18,10 +18,10 @@ class CartItemShimmer extends StatelessWidget {
       child: Row(
         children: [
 
-          const LoadingShimmer(
-            width: 80,
-            height: 90,
-            borderRadius: 12,
+           LoadingShimmer(
+            width: 80.w,
+            height: 90.h,
+            borderRadius: 12.r,
           ),
 
           SizedBox(width: 14.w),

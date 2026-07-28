@@ -1,12 +1,9 @@
 import 'package:blinkbuy/core/theme/app_colors.dart';
-import 'package:blinkbuy/features/cart/domain/entity/cart_entity.dart';
+import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/cart/presentation/view/widget/dismissible_delete.dart';
-
-import 'package:blinkbuy/features/cart/presentation/view/widget/cart_item_widget.dart';
 import 'package:blinkbuy/features/cart/presentation/view/widget/cart_summary.dart';
 import 'package:blinkbuy/features/cart/presentation/view/widget/loading_screen.dart';
 import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart' show SizeExtension;
@@ -48,7 +45,12 @@ class CartScreen extends StatelessWidget {
               return Center(
                 child: Text(
                   "Your cart is empty",
-                  style: TextStyle(fontSize: 18.sp),
+                  style: TextStyles.font18SemiBold.copyWith(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.charcoal,
+                  ),
+                  
                 ),
               );
             }

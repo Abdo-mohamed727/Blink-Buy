@@ -1,6 +1,8 @@
+import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/cart/domain/entity/cart_entity.dart';
 import 'package:blinkbuy/features/cart/presentation/view/widget/quantity_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartItemCard extends StatelessWidget {
   final CartEntity item;
@@ -22,7 +24,7 @@ class CartItemCard extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -51,7 +53,7 @@ class CartItemCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 14),
+           SizedBox(width: 14.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,9 +64,9 @@ class CartItemCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         item.title,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                        style:  TextStyles.font16SemiBold.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -74,20 +76,20 @@ class CartItemCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 RichText(
                   text: TextSpan(
-                    style: const TextStyle(color: Colors.black87, fontSize: 15),
+                    style:  TextStyles.font16Regular.copyWith(color: Colors.black87),
                     children: [
                       const TextSpan(text: 'EGP '),
                       TextSpan(
                         text: item.price.toStringAsFixed(0),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style:  TextStyles.font16SemiBold.copyWith(fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
+               SizedBox(height: 10.h),
                 QuantityStepper(
                   quantity: item.quantity,
                   onIncrement: onIncrement,
