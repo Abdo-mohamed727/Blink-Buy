@@ -8,4 +8,5 @@ class AppRoutes {
   static const String onboarding = '/onboarding';
   static const String productByCategoryScreen = '/product-by-category';
   static const String productDetailsScreen = '/product-details';
+  static const String cartScreen = '/cart-screen';
 }
