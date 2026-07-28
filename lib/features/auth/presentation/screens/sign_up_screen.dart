@@ -58,6 +58,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 5.h),
               //!
               CustomTextField(
+              
+
                 validator: AppValidator.validateEmail,
                 controller: emailController,
                 hintText: "Enter Your Email",

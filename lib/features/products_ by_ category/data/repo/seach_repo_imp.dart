@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: SearchRepoInterface)
 class SearchRepoImp implements SearchRepoInterface {
   SearchRepoImp(this._dataSource);
-      SearchDataSourceInterface _dataSource;
+     final SearchDataSourceInterface _dataSource;
   @override
   Future<ResultApi<List<ProductItemEntity>>> searchProducts(String query) {
     return _dataSource.searchProducts(query);

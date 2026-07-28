@@ -8,7 +8,7 @@ import 'search_state.dart';
 @injectable
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit(this._search) : super(SearchInitial());
-  SearchProductsUsecase _search;
+ final SearchProductsUsecase _search;
   Future<void> searchProducts(String query) async {
     emit(SearchLoading());
     final result = await _search.call(query);
@@ -17,8 +17,10 @@ class SearchCubit extends Cubit<SearchState> {
         final products = result.data;
         if (products.isEmpty) {
           emit(SearchEmpty());
+      
         } else {
           emit(SearchSuccess(products));
+              print(SearchSuccess(products));
         }
       case Error<List<ProductItemEntity>>():
         emit(SearchError(result.messageError));

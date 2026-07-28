@@ -56,6 +56,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
+            
               color: AppColors.cardBackground,
 
               border: Border.all(color: AppColors.white, width: 0.5),

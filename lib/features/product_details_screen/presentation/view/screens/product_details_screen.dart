@@ -34,14 +34,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           return Scaffold(
                   backgroundColor: AppColors.offWhite,
 
-            appBar: AppBar(
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back,size: 32,),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
             body: switch (state) {
               ProductDetailsScreenLoading() => const ScreenLoading(),
               ProductDetailsScreenError() => Center(
@@ -49,7 +41,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ProductDetailsScreenSuccess() => SafeArea(
                 child: Column(
+                 
+                  crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      IconButton(
+                icon: const Icon(Icons.arrow_back,size: 32,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
                       Stack(
                         children: [
                           Container(
@@ -116,20 +117,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ],
                             )),
                         ],
-                      ),  AnimatedSmoothIndicator(
-                        axisDirection: Axis.horizontal,
-                        onEnd: () {
-                        },
-                        textDirection: TextDirection.ltr,
-                      activeIndex: currentIndex,    
-                            count: state.product.images.length,
-                          effect: WormEffect(
-                                                        type: WormType.normal,
-                            dotHeight: 10.h,
-                            dotWidth: 10.w,
-                            activeDotColor: AppColors.primaryColor,
-                            dotColor: AppColors.lightGrey,
-                          ), ),
+                      ),  Center(
+                        child: AnimatedSmoothIndicator(
+                          axisDirection: Axis.horizontal,
+                         
+                          textDirection: TextDirection.ltr,
+                        activeIndex: currentIndex,    
+                              count: state.product.images.length,
+                            effect: WormEffect(
+                                                          type: WormType.normal,
+                              dotHeight: 10.h,
+                              dotWidth: 10.w,
+                              activeDotColor: AppColors.primaryColor,
+                              dotColor: AppColors.lightGrey,
+                            ), ),
+                      ),
                       Row(
   children: [
     Expanded(
@@ -170,14 +172,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    CustomButton(
-                      onPressed: (){
-                        //!handle add to cart
-                      },
-                      backgroundColor: AppColors.primaryColorBlack,
-                      text: 'Add to Cart',
-                      height: 48.h,
-                      width: 343.w,
+                    Padding(
+                      padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 24.h),
+                      child: CustomButton(
+                        onPressed: (){
+                          //!handle add to cart
+                        },
+                        backgroundColor: AppColors.primaryColorBlack,
+                        text: 'Add to Cart',
+                        height: 48.h,
+                        width: 343.w,
+                      ),
                     )
                     ],
                   ),

@@ -1,4 +1,3 @@
-import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/home/presintation/view/widget/category_list_shimmer.dart';
@@ -15,6 +14,7 @@ class CategoriesViewBody extends StatelessWidget {
     return SizedBox(
       height: 40.h,
       child: BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+     
         builder: (context, state) {
           if (state is GetCategoriesLoading) {
             return CategoriesListShimmer();
@@ -30,40 +30,21 @@ class CategoriesViewBody extends StatelessWidget {
               separatorBuilder: (context, _) => SizedBox(width: 10.w),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      AppRoutes.productByCategoryScreen,
-                      arguments: {
-                        'slug': state.categories.categories[index].slug,
-                        'category': state.categories.categories[index].name,
-                      },
-                    );
-                  },
                   child: Container(
-                    margin: EdgeInsets.only(right: 8.w,bottom: 3.h),
+                    margin: const EdgeInsets.only(right: 15),
                     decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primaryColorBlack,
-                          blurRadius: 2,
-                          offset: const Offset(2, 4),
-                        ),
-                      ],
-                      border: Border.all(
-                        color: index == state.selectedIndex?AppColors.transparent: AppColors.primaryColorBlack,
-                      ),
                       color: index == state.selectedIndex
                           ? AppColors.primaryColor
                           : AppColors.white,
-                      borderRadius: BorderRadius.circular(16.r),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 27.w,
-                      vertical: 8.h,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 27,
+                      vertical: 11,
                     ),
                     child: Text(
                       state.categories.categories[index].name,
+
                       style: TextStyles.font14Regular.copyWith(
                         color: AppColors.primaryColorBlack,
                       ),

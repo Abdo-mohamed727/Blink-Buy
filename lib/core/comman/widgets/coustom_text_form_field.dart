@@ -20,7 +20,8 @@ class CustomTextField extends StatelessWidget {
     this.prefixIcon,
     this.onChanged,
     this.maxLength,
-    this.maxLines = 1,
+    this.maxLines = 1, 
+  
   });
 
   final String? Function(String?)? validator;
@@ -56,21 +57,21 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines,
       readOnly: readOnly,
       decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r)),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.defaultBorderColor),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.defaultBorderColor),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.errorBorderColor),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.errorBorderColor),
         ),
         contentPadding: const EdgeInsets.symmetric(
