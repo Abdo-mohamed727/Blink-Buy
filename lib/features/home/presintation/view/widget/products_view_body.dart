@@ -1,6 +1,7 @@
 import 'package:blinkbuy/core/comman/widgets/product_card.dart';
 
 import 'package:blinkbuy/core/comman/widgets/product_list-shimmer.dart';
+import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +43,13 @@ class ProductsViewBody extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return ProductCard(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.productDetailsScreen,
+                      arguments: {'productId': state.products[index].id},
+                    );
+                  },
                   productItemEntity: state.products[index],
                   imageUrl: state.products[index].images.first,
                   productName: state.products[index].title,

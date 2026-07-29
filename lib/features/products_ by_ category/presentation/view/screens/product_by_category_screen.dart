@@ -13,49 +13,41 @@ class ProductByCategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
-    final slug = args['slug'] as String;
-    final categoryName = args['category'] as String;
-
-    return BlocProvider(
-      create: (_) =>
-          serviceLocator<ProductByCategoryCubit>()
-            ..getProductsByCategory(slug, categoryName),
-      child: BlocBuilder<ProductByCategoryCubit, ProductByCategoryState>(
-        builder: (context, state) {
-          return Scaffold(
+    return BlocBuilder<ProductByCategoryCubit, ProductByCategoryState>(
+      builder: (context, state) {
+        String categoryName = "";
+        if (state is ProductByCategorySuccess) {
+          categoryName = state.products.first.category;
+        }
+        return Scaffold(
+          backgroundColor: AppColors.offWhite,
+          appBar: AppBar(
             backgroundColor: AppColors.offWhite,
-            appBar: AppBar(
-              backgroundColor: AppColors.offWhite,
-              forceMaterialTransparency: true,
-              centerTitle: true,
-              title: Text(categoryName, style: TextStyles.font22SemiBold),
-            ),
-            body: switch (state) {
-              ProductByCategoryLoading() => const Center(
-                child: ProductsListShimmer(
-                  crossAxisCount: 2,
-                  childAspectRatio: 163 / 288,
-                ),
-              ),
-              ProductByCategoryError() => Center(
-                child: Text(state.errorMessage),
-              ),
-              ProductByCategoryEmpty() => const Center(
-                child: Text('No products found'),
-              ),
-              ProductByCategorySuccess() => ProductByCategoryViewBody(
-                products: state.products,
+            forceMaterialTransparency: true,
+            centerTitle: true,
+            title: Text(categoryName, style: TextStyles.font22SemiBold),
+          ),
+
+          body: switch (state) {
+            ProductByCategoryLoading() => const Center(
+              child: ProductsListShimmer(
                 crossAxisCount: 2,
                 childAspectRatio: 163 / 288,
               ),
-              ProductByCategoryInitial() => const SizedBox(),
-            },
-          );
-        },
-      ),
+            ),
+            ProductByCategoryError() => Center(child: Text(state.errorMessage)),
+            ProductByCategoryEmpty() => const Center(
+              child: Text('No products found'),
+            ),
+            ProductByCategorySuccess() => ProductByCategoryViewBody(
+              products: state.products,
+              crossAxisCount: 2,
+              childAspectRatio: 163 / 288,
+            ),
+            ProductByCategoryInitial() => const SizedBox(),
+          },
+        );
+      },
     );
   }
 }

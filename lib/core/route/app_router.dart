@@ -13,6 +13,7 @@ import 'package:blinkbuy/features/auth/presentation/screens/hello_screen.dart';
 import 'package:blinkbuy/features/onboarding/onboarding_screen.dart';
 import 'package:blinkbuy/features/product_details_screen/presentation/view/screens/product_details_screen.dart';
 import 'package:blinkbuy/features/products_%20by_%20category/presentation/view/screens/product_by_category_screen.dart';
+import 'package:blinkbuy/features/products_%20by_%20category/presentation/view_model/product_by_category_cubit/product_by_category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,19 +25,13 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider(create: (_) => AppSectionCubit()),
-
               BlocProvider(
                 create: (_) =>
                     serviceLocator<GetProductsCubit>()..getProducts(),
               ),
-
               BlocProvider(
                 create: (_) =>
                     serviceLocator<GetCategoriesCubit>()..getCategories(),
-              ),
-              BlocProvider(
-                create: (context) =>
-                    serviceLocator<FavoriteCubit>()..getFavourites(),
               ),
             ],
             child: const AppSectionScreen(),
@@ -46,8 +41,16 @@ class AppRouter {
       case AppRoutes.onboarding:
         return MaterialPageRoute(builder: (_) => OnbordingScreen());
       case AppRoutes.productByCategoryScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        final slug = args['slug'] as String;
+        final categoryName = args['category'] as String;
         return MaterialPageRoute(
-          builder: (_) => const ProductByCategoryScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                serviceLocator<ProductByCategoryCubit>()
+                  ..getProductsByCategory(slug, categoryName),
+            child: const ProductByCategoryScreen(),
+          ),
           settings: settings,
         );
       case AppRoutes.hello:
