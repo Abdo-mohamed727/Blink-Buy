@@ -3,9 +3,14 @@ import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
+import 'package:blinkbuy/core/utils/app_dialog.dart';
+import 'package:blinkbuy/core/utils/app_toast.dart';
 import 'package:blinkbuy/core/validators/app_validator.dart';
+import 'package:blinkbuy/features/auth/presentation/view_model/register/register_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:toastification/toastification.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -18,6 +23,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final phoneNumberController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
   @override
@@ -25,6 +32,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
+    nameController.dispose();
+    phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -50,85 +59,131 @@ class _SignUpScreenState extends State<SignUpScreen> {
         padding: EdgeInsets.all(16.w),
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 30.h),
-              Text("Email", style: TextStyles.font18Regular),
-              SizedBox(height: 5.h),
-              //!
-              CustomTextField(
-                validator: AppValidator.validateEmail,
-                controller: emailController,
-                hintText: "Enter Your Email",
-                keyboardType: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 30.h),
-              Text("Password", style: TextStyles.font18Regular),
-              SizedBox(height: 5.h),
-              //!
-              CustomTextField(
-                obscureText: true,
-                validator: AppValidator.validatePassword,
-                controller: passwordController,
-                hintText: "Enter Your Password",
-                keyboardType: TextInputType.visiblePassword,
+          child: BlocListener<RegisterCubit, RegisterState>(
+            listener: (context, state) {
+              if (state is RegisterLoading) {
+                AppDialogs.showLoadingDialog(context);
+                return;
+              }
 
-                suffixIcon: const Icon(Icons.visibility_off_outlined),
-              ),
-              SizedBox(height: 30),
-              Text("Confirm Password", style: TextStyles.font18Regular),
-              SizedBox(height: 5.h),
+              Navigator.of(context, rootNavigator: true).pop();
 
-              //!
-              CustomTextField(
-                validator: (value) => AppValidator.validateConfirmPassword(
-                  value,
-                  passwordController.text,
+              if (state is RegisterError) {
+                AppToast.showToast(
+                  context: context,
+                  title: "Error !",
+                  description: state.message,
+                  type: ToastificationType.error,
+                );
+              }
+
+              if (state is RegisterSuccess) {
+                ///navigate to login
+              }
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.h),
+                Text("Full Name", style: TextStyles.font18Regular),
+                SizedBox(height: 5.h),
+                //!
+                CustomTextField(
+                  validator: AppValidator.validateEmail,
+                  controller: nameController,
+                  hintText: "Enter Your Full Name",
+                  keyboardType: TextInputType.name,
                 ),
-                controller: confirmPasswordController,
-                hintText: "Confirm Your Password",
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-                suffixIcon: const Icon(Icons.visibility_off_outlined),
-              ),
-              SizedBox(height: 30.h),
 
-              //! sign up button
-              CustomButton(
-                borderColor: Color(0xFFFF9900),
-                backgroundColor: AppColors.primaryColor,
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, AppRoutes.login);
-                  }
-                },
-                text: "Sign up",
-                width: double.infinity,
-                height: 52.h,
-                textAlign: TextAlign.center,
-                textColor: Colors.white,
-              ),
+                SizedBox(height: 20.h),
+                Text("Email", style: TextStyles.font18Regular),
+                SizedBox(height: 5.h),
+                //!
+                CustomTextField(
+                  validator: AppValidator.validateEmail,
+                  controller: emailController,
+                  hintText: "Enter Your Email",
+                  keyboardType: TextInputType.emailAddress,
+                ),
 
-              SizedBox(height: 200.h),
-              Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text("Already have an account? "),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.login);
-                      },
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                SizedBox(height: 20.h),
+                Text("Phone Number", style: TextStyles.font18Regular),
+                SizedBox(height: 5.h),
+                //!
+                CustomTextField(
+                  validator: AppValidator.validateEmail,
+                  controller: phoneNumberController,
+                  hintText: "Enter Your Phone Number",
+                  keyboardType: TextInputType.phone,
+                ),
+
+                SizedBox(height: 20.h),
+                Text("Password", style: TextStyles.font18Regular),
+                SizedBox(height: 5.h),
+                //!
+                CustomTextField(
+                  obscureText: true,
+                  validator: AppValidator.validatePassword,
+                  controller: passwordController,
+                  hintText: "Enter Your Password",
+                  keyboardType: TextInputType.visiblePassword,
+
+                  suffixIcon: const Icon(Icons.visibility_off_outlined),
+                ),
+                SizedBox(height: 20.h),
+                Text("Confirm Password", style: TextStyles.font18Regular),
+                SizedBox(height: 5.h),
+
+                //!
+                CustomTextField(
+                  validator: (value) => AppValidator.validateConfirmPassword(
+                    value,
+                    passwordController.text,
+                  ),
+                  controller: confirmPasswordController,
+                  hintText: "Confirm Your Password",
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                  suffixIcon: const Icon(Icons.visibility_off_outlined),
+                ),
+                SizedBox(height: 20.h),
+
+                //! sign up button
+                CustomButton(
+                  borderColor: Color(0xFFFF9900),
+                  backgroundColor: AppColors.primaryColor,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushNamed(context, AppRoutes.login);
+                    }
+                  },
+                  text: "Sign up",
+                  width: double.infinity,
+                  height: 52.h,
+                  textAlign: TextAlign.center,
+                  textColor: Colors.white,
+                ),
+
+                SizedBox(height: 200.h),
+                Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text("Already have an account? "),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRoutes.login);
+                        },
+                        child: const Text(
+                          "Login",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

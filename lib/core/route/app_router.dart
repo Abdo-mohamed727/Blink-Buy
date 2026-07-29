@@ -4,6 +4,7 @@ import 'package:blinkbuy/features/app_section/view/bottom_navigation_bar.dart';
 import 'package:blinkbuy/features/app_section/view_model/cubit/app_section_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/login_screen.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:blinkbuy/features/auth/presentation/view_model/register/register_cubit.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/get_categories/get_categories_cubit.dart';
 import 'package:blinkbuy/features/home/presintation/view_model/products_cubit/get_products_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/hello_screen.dart';
@@ -52,7 +53,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LogInScreen());
 
       case AppRoutes.signUp:
-        return MaterialPageRoute(builder: (_) => const SignUpScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => serviceLocator<RegisterCubit>(),
+            child: const SignUpScreen(),
+          ),
+        );
 
       default:
         return MaterialPageRoute(

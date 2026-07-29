@@ -32,7 +32,6 @@ class CategoriesViewBody extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(
-<<<<<<< HEAD:lib/features/home/presintation/view/widgets/categories_view_body.dart
                       context,
                       AppRoutes.productByCategoryScreen,
                       arguments: {
@@ -40,15 +39,6 @@ class CategoriesViewBody extends StatelessWidget {
                         'category': state.categories.categories[index].name,
                       },
                     );
-=======
-  context,
-  AppRoutes.productByCategoryScreen,
-  arguments: {
-    'slug': state.categories.categories[index].slug,
-    'category': state.categories.categories[index].name,
-  },
-);
->>>>>>> origin/dev:lib/features/home/presintation/view/widget/categories_view_body.dart
                     context.read<GetCategoriesCubit>().changeCategory(index);
                   },
                   child: Container(
