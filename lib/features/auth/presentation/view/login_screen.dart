@@ -1,3 +1,4 @@
+import 'package:blinkbuy/core/comman/widgets/app_toast.dart';
 import 'package:blinkbuy/core/comman/widgets/coustom_text_form_field.dart';
 import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
@@ -10,6 +11,7 @@ import 'package:blinkbuy/features/auth/presentation/view_model/cubit/login_cubit
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:toastification/toastification.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -199,6 +201,12 @@ class _LogInScreenState extends State<LogInScreen> {
 
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      AppToast.showToast(
+                        context: context,
+                        title: "Login",
+                        description: "Logging in...",
+                        type: ToastificationType.info,
+                      );
                       context.read<LoginCubit>().login(
                         emailController.text.trim(),
 
