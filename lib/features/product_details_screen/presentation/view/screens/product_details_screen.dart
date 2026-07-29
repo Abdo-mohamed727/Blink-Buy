@@ -2,6 +2,8 @@ import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
 import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
+import 'package:blinkbuy/features/cart/domain/entity/cart_entity.dart';
+import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:blinkbuy/features/product_details_screen/presentation/view/widget/screen_loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -25,14 +27,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-        final productId = args['productId'] as int;
+    final productId = args['productId'] as int;
     return BlocProvider(
-      create: (_) => serviceLocator<ProductDetailsScreenCubit>()
-        ..getProductDetails(productId),
-      child: BlocBuilder<ProductDetailsScreenCubit, ProductDetailsScreenState>(
-        builder: (context, state) {
-          return Scaffold(
-                  backgroundColor: AppColors.offWhite,
+      create: (_) =>
+          serviceLocator<ProductDetailsScreenCubit>()
+            ..getProductDetails(productId),
+
+      child: BlocListener<CartCubit, CartState>(
+        listener: (context, cartState) {
+          if (cartState is CartAddSuccess) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(const SnackBar(content: Text("Added to cart")));
+          }
+
+          if (cartState is CartError) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(cartState.message)));
+          }
+        },
+        child: BlocBuilder<ProductDetailsScreenCubit, ProductDetailsScreenState>(
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: AppColors.offWhite,
 
             body: switch (state) {
               ProductDetailsScreenLoading() => const ScreenLoading(),
@@ -54,35 +72,43 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       Stack(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(top: 8.h, left: 16.w, right: 16.w, bottom: 24.h),
-                                            decoration: BoxDecoration(
-                                               boxShadow: [
-            BoxShadow(
-              color: AppColors.lightGrey.withValues(alpha: 0.9),
-              spreadRadius: 5,
-              blurRadius: 5,
-              offset: const Offset(0, 10),
-                                                 ),],
-                                                 
-                                              borderRadius: BorderRadius.circular(24),
-                                              color: AppColors.cardBackground,
-                                            ),
-                            child: CarouselSlider(
+                            margin: EdgeInsets.only(
+                              top: 8.h,
+                              left: 16.w,
+                              right: 16.w,
+                              bottom: 24.h,
+                            ),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.lightGrey.withValues(
+                                    alpha: 0.9,
+                                  ),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
 
+                              borderRadius: BorderRadius.circular(24),
+                              color: AppColors.cardBackground,
+                            ),
+                            child: CarouselSlider(
                               options: CarouselOptions(
                                 onPageChanged: (index, reason) {
-                                setState(() {
-                                  currentIndex = index;
-                                });
-                              },
+                                  setState(() {
+                                    currentIndex = index;
+                                  });
+                                },
                                 disableCenter: true,
                                 scrollDirection: Axis.horizontal,
-                                  autoPlay:state.product.images.length > 1,
+                                autoPlay: state.product.images.length > 1,
                                 height: 331.h,
                                 viewportFraction: 1,
                                 autoPlayInterval: const Duration(seconds: 3),
-                                autoPlayAnimationDuration:
-                                    const Duration(milliseconds: 800),
+                                autoPlayAnimationDuration: const Duration(
+                                  milliseconds: 800,
+                                ),
                                 enlargeCenterPage: false,
                                 enableInfiniteScroll: true,
                               ),
@@ -97,25 +123,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 );
                               }).toList(),
                             ),
-                            
-                          ), Positioned(
+                          ),
+                          Positioned(
                             top: 10.h,
-                           right: 10.w,
+                            right: 10.w,
                             child: IconButton(
-                              onPressed: (){
+                              onPressed: () {
                                 //!handle favorite
-                              }, icon: Icon(Icons.favorite_border_outlined,size: 30,color: AppColors.primaryColorBlack,),)
+                              },
+                              icon: Icon(
+                                Icons.favorite_border_outlined,
+                                size: 30,
+                                color: AppColors.primaryColorBlack,
+                              ),
+                            ),
                           ),
                           Positioned(
                             top: 15.h,
                             left: 20.w,
-                            child:Row(
+                            child: Row(
                               children: [
-                                Text(state.product.rating.toStringAsFixed(2),style: TextStyles.font16SemiBold,),
-                                  SizedBox(width: 5.w,),
+                                Text(
+                                  state.product.rating.toStringAsFixed(2),
+                                  style: TextStyles.font16SemiBold,
+                                ),
+                                SizedBox(width: 5.w),
                                 Text('⭐', style: TextStyles.font16SemiBold),
                               ],
-                            )),
+                            ),
+                          ),
                         ],
                       ),  Center(
                         child: AnimatedSmoothIndicator(
@@ -186,12 +222,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     )
                     ],
                   ),
-              ),
-              ProductDetailsScreenInitial() => const SizedBox(),
-            }
-          );
-
-  }),
+                ),
+                ProductDetailsScreenInitial() => const SizedBox(),
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }
