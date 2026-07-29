@@ -13,23 +13,20 @@ import 'package:injectable/injectable.dart';
 class AuthDataSourceImp implements AuthDataSourceInterface {
   @override
   Future<ResultApi<String>> register(RegisterRequestEntity register) async {
-    var requestDto = RegisterRequestDto(
-      name: register.name, // استخدمنا register لأن هذا اسم المتغير في الدالة
-      phone: register.phone,
-      email: register.email,
-      password: register.password,
-      confirmPassword: register.confirmPassword,
-    );
     try {
       Uri url = Uri.https(ApiConstant.baseUrl, ApiConstant.signUp);
 
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(requestDto.toJson()),
+        //!!!!!
+        // body: jsonEncode(),
       );
 
+      log('StatusCode: ${response.statusCode}');
+
       var responseBody = response.body;
+      log('ResponseBody: ${response.body}');
       var json = jsonDecode(responseBody);
 
       if (response.statusCode >= 200 && response.statusCode < 300) {

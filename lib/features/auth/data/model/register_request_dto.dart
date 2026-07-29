@@ -1,3 +1,5 @@
+import 'package:blinkbuy/features/auth/domain/entities/register_request_entity.dart';
+
 class RegisterRequestDto {
   String? name;
   String? phone;
@@ -21,5 +23,15 @@ class RegisterRequestDto {
     data['password'] = password ?? '';
     data['confirmPassword'] = confirmPassword ?? '';
     return data;
+  }
+
+  RegisterRequestEntity toEntity(RegisterRequestEntity register) {
+    return RegisterRequestEntity(
+      name: name ?? '',
+      email: email ?? '',
+      phone: phone ?? '',
+      password: password ?? '',
+      confirmPassword: '',
+    );
   }
 }
