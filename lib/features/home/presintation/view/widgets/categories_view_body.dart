@@ -31,16 +31,16 @@ class CategoriesViewBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   child: Container(
-                    margin: const EdgeInsets.only(right: 15),
+                    margin: EdgeInsets.only(right: 15.w),
                     decoration: BoxDecoration(
                       color: index == state.selectedIndex
                           ? AppColors.primaryColor
                           : AppColors.white,
                       borderRadius: BorderRadius.circular(20.r),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 27,
-                      vertical: 11,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 27.w,
+                      vertical: 11.h,
                     ),
                     child: Text(
                       state.categories.categories[index].name,
