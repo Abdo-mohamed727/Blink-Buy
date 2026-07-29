@@ -44,11 +44,10 @@ class ProductsViewBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ProductCard(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
+                    Navigator.pushNamed(
                       context,
                       AppRoutes.productDetailsScreen,
                       arguments: {'productId': state.products[index].id},
-                      
                     );
                   },
                   productItemEntity: state.products[index],
