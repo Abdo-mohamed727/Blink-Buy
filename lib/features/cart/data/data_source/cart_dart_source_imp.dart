@@ -1,6 +1,8 @@
 import 'package:blinkbuy/core/constants/api_constant.dart';
+import 'package:blinkbuy/core/constants/api_keys.dart';
 import 'package:blinkbuy/core/networking/dio_factory.dart';
 import 'package:blinkbuy/core/networking/result_api.dart';
+import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart';
 import 'package:blinkbuy/features/cart/data/data_source/cart_data_source_interface.dart';
 import 'package:blinkbuy/features/cart/data/models/cart_dto.dart';
 import 'package:blinkbuy/features/cart/domain/entity/cart_entity.dart';
@@ -12,10 +14,10 @@ class CartDataSourceImp implements CartDataSourceInterface {
   @override
   Future<ResultApi<void>> addToCart(CartEntity cartEntity) async {
     try {
-      await DioFactory.getDio().post(
+      await DioFactory.getDio(SecureStorageHelper()).post(
         ApiConstant.addToCart,
         options: Options(
-          headers: {'Authorization': 'Bearer ${ApiConstant.token}'},
+          headers: {'Authorization': 'Bearer ${AppKeys.tokenKey}'},
         ),
         data: {'productId': cartEntity.id},
       );
@@ -28,10 +30,10 @@ class CartDataSourceImp implements CartDataSourceInterface {
   @override
   Future<ResultApi<void>> deleteFromCart(int id) async {
     try {
-      await DioFactory.getDio().delete(
+      await DioFactory.getDio(SecureStorageHelper()).delete(
         ApiConstant.deleteFromCart,
         options: Options(
-          headers: {'Authorization': 'Bearer ${ApiConstant.token}'},
+          headers: {'Authorization': 'Bearer ${AppKeys.tokenKey}'},
         ),
         data: {'productId': id.toString()},
       );
@@ -44,10 +46,10 @@ class CartDataSourceImp implements CartDataSourceInterface {
   @override
   Future<ResultApi<List<CartEntity>>> getCartItems() async {
     try {
-      final response = await DioFactory.getDio().get(
+      final response = await DioFactory.getDio(SecureStorageHelper()).get(
         ApiConstant.getCartItems,
         options: Options(
-          headers: {'Authorization': 'Bearer ${ApiConstant.token}'},
+          headers: {'Authorization': 'Bearer ${AppKeys.tokenKey}'},
         ),
       );
 
