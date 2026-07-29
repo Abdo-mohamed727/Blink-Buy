@@ -21,6 +21,7 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.maxLength,
     this.maxLines = 1,
+    this.onPressed,
   });
 
   final String? Function(String?)? validator;
@@ -38,6 +39,7 @@ class CustomTextField extends StatelessWidget {
   final TextStyle? hintStyle;
   final int? maxLength;
   final int? maxLines;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,9 @@ class CustomTextField extends StatelessWidget {
         ),
         filled: filled,
         fillColor: fillColour,
-        suffixIcon: suffixIcon,
+        suffixIcon: suffixIcon == null
+            ? null
+            : IconButton(onPressed: onPressed, icon: suffixIcon!),
         prefixIcon: prefixIcon,
         hintText: hintText,
         hintStyle:

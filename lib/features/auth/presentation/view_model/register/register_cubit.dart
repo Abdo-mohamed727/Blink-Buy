@@ -2,10 +2,12 @@ import 'package:blinkbuy/core/networking/result_api.dart';
 import 'package:blinkbuy/features/auth/domain/entities/register_request_entity.dart';
 import 'package:blinkbuy/features/auth/domain/use_case/register_use_case.dart';
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'register_state.dart';
 
+@injectable
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit({required this._registerUseCase}) : super(RegisterInitial());
   final RegisterUseCase _registerUseCase;
@@ -18,6 +20,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> _register(RegisterRequestEntety request) async {
+    emit(RegisterLoading());
     final result = await _registerUseCase.invoke(request);
     switch (result) {
       case Success<String>():

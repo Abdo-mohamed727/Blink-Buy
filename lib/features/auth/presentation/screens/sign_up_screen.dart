@@ -6,6 +6,7 @@ import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/core/utils/app_dialog.dart';
 import 'package:blinkbuy/core/utils/app_toast.dart';
 import 'package:blinkbuy/core/validators/app_validator.dart';
+import 'package:blinkbuy/features/auth/domain/entities/register_request_entity.dart';
 import 'package:blinkbuy/features/auth/presentation/view_model/register/register_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
+  bool isPasswordHidden = true;
+  bool isConfirmPasswordHidden = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,10 +92,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 5.h),
                 //!
                 CustomTextField(
-                  validator: AppValidator.validateEmail,
+                  validator: AppValidator.validateName,
                   controller: nameController,
                   hintText: "Enter Your Full Name",
                   keyboardType: TextInputType.name,
+                  onPressed: () {},
                 ),
 
                 SizedBox(height: 20.h),
@@ -104,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: emailController,
                   hintText: "Enter Your Email",
                   keyboardType: TextInputType.emailAddress,
+                  onPressed: () {},
                 ),
 
                 SizedBox(height: 20.h),
@@ -111,10 +116,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 5.h),
                 //!
                 CustomTextField(
-                  validator: AppValidator.validateEmail,
+                  validator: AppValidator.validatePhone,
                   controller: phoneNumberController,
                   hintText: "Enter Your Phone Number",
                   keyboardType: TextInputType.phone,
+                  onPressed: () {},
                 ),
 
                 SizedBox(height: 20.h),
@@ -122,14 +128,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 5.h),
                 //!
                 CustomTextField(
-                  obscureText: true,
+                  obscureText: isPasswordHidden,
                   validator: AppValidator.validatePassword,
                   controller: passwordController,
                   hintText: "Enter Your Password",
                   keyboardType: TextInputType.visiblePassword,
 
-                  suffixIcon: const Icon(Icons.visibility_off_outlined),
+                  suffixIcon: Icon(
+                    isPasswordHidden ? Icons.visibility_off : Icons.visibility,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isPasswordHidden = !isPasswordHidden;
+                    });
+                  },
                 ),
+
                 SizedBox(height: 20.h),
                 Text("Confirm Password", style: TextStyles.font18Regular),
                 SizedBox(height: 5.h),
@@ -143,8 +157,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: confirmPasswordController,
                   hintText: "Confirm Your Password",
                   keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  suffixIcon: const Icon(Icons.visibility_off_outlined),
+                  obscureText: isConfirmPasswordHidden,
+                  suffixIcon: Icon(
+                    isConfirmPasswordHidden
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isConfirmPasswordHidden = !isConfirmPasswordHidden;
+                    });
+                  },
                 ),
                 SizedBox(height: 20.h),
 
@@ -154,7 +177,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   backgroundColor: AppColors.primaryColor,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamed(context, AppRoutes.login);
+                      var request = RegisterRequestEntety(
+                        name: nameController.text,
+                        phone: phoneNumberController.text,
+                        email: emailController.text,
+                        password: passwordController.text,
+                        confirmPassword: confirmPasswordController.text,
+                      );
+                      context.read<RegisterCubit>().intent(
+                        RegisterIntentRegister(request),
+                      );
                     }
                   },
                   text: "Sign up",

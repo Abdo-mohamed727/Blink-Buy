@@ -9,6 +9,17 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:blinkbuy/features/auth/data/repo/auth_data_source_imp.dart'
+    as _i38;
+import 'package:blinkbuy/features/auth/data/repo/auth_repo_imp.dart' as _i543;
+import 'package:blinkbuy/features/auth/domain/repo/auth_data_source.dart'
+    as _i629;
+import 'package:blinkbuy/features/auth/domain/repo/auth_repo_interface.dart'
+    as _i877;
+import 'package:blinkbuy/features/auth/domain/use_case/register_use_case.dart'
+    as _i49;
+import 'package:blinkbuy/features/auth/presentation/view_model/register/register_cubit.dart'
+    as _i5;
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_imp.dart'
     as _i844;
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_interface.dart'
@@ -76,10 +87,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i553.GetCategoriesDataSourceInterface>(
       () => _i844.GetCategoriesDataSourceImp(),
     );
+    gh.factory<_i629.AuthDataSourceInterface>(() => _i38.AuthDataSourceImp());
     gh.factory<_i622.GetCategoriesRepoInterface>(
       () => _i1044.GetCategoriesRepoImp(
         gh<_i553.GetCategoriesDataSourceInterface>(),
       ),
+    );
+    gh.factory<_i877.AuthRepoInterface>(
+      () => _i543.AuthRepoImp(gh<_i629.AuthDataSourceInterface>()),
     );
     gh.factory<_i240.ProductDataSourceInterface>(
       () => _i770.ProductByCategoryDataSourceImp(),
@@ -95,6 +110,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i537.ProductDetailsDataSourceInterface>(),
       ),
     );
+    gh.factory<_i49.RegisterUseCase>(
+      () => _i49.RegisterUseCase(gh<_i877.AuthRepoInterface>()),
+    );
     gh.factory<_i521.GetProductsRepoInterface>(
       () =>
           _i509.GetProductsRepoImp(gh<_i218.GetProductsDataSourceInterface>()),
@@ -108,6 +126,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i783.GetProductsUseCase>(
       () => _i783.GetProductsUseCase(gh<_i521.GetProductsRepoInterface>()),
+    );
+    gh.factory<_i5.RegisterCubit>(
+      () => _i5.RegisterCubit(registerUseCase: gh<_i49.RegisterUseCase>()),
     );
     gh.factory<_i651.ProductDetailsScreenCubit>(
       () => _i651.ProductDetailsScreenCubit(gh<_i216.GetProductDetails>()),

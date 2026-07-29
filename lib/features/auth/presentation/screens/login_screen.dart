@@ -61,6 +61,7 @@ class _SignUpScreenState extends State<LogInScreen> {
                 controller: emailController,
                 hintText: "Enter Your Email",
                 keyboardType: TextInputType.emailAddress,
+                onPressed: () {},
               ),
               SizedBox(height: 30.h),
               Text("Password", style: TextStyles.font18Regular),
@@ -72,6 +73,7 @@ class _SignUpScreenState extends State<LogInScreen> {
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
                 suffixIcon: const Icon(Icons.visibility_off_outlined),
+                onPressed: () {},
               ),
               SizedBox(height: 5.h),
 
