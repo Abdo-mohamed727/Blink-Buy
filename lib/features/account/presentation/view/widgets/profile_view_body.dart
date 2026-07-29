@@ -19,9 +19,6 @@ class ProfileViewBody extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
-          if (state is ProfileLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
           if (state is ProfileError) {
             return Center(child: Text(state.messageError));
           }
@@ -70,7 +67,7 @@ class ProfileViewBody extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 105.h),
-                
+
                 CustomButton(
                   backgroundColor: AppColors.orangeLight,
                   onPressed: () {
@@ -79,7 +76,7 @@ class ProfileViewBody extends StatelessWidget {
                       profileCubit.emailController.text,
                       profileCubit.passwordController.text,
                       profileCubit.addressController.text,
-                      File(""),
+                      profileCubit.localImagePath ?? "",
                     );
                     profileCubit.getUserData();
                   },

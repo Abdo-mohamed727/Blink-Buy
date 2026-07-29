@@ -13,8 +13,8 @@ class UpdateDataUserUseCase {
     String email,
     String phone,
     String address,
-    File file,
+    String image,
   ) {
-    return _repo.updateProfile(name, email, phone, address, file);
+    return _repo.updateProfile(name, email, phone, address, image);
   }
 }

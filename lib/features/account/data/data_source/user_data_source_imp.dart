@@ -7,14 +7,34 @@ import 'package:blinkbuy/features/account/data/data_source/user_data_source_inte
 import 'package:blinkbuy/features/account/data/models/user_dto.dart';
 import 'package:blinkbuy/features/account/domain/entities/user_entity.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: UserDataSourceInterface)
 class UserDataSourceImp implements UserDataSourceInterface {
   @override
-  Future<ResultApi<UserEntity>> addImage(File file) {
-    // TODO: implement addImage
-    throw UnimplementedError();
+  Future<ResultApi<void>> addImage(File file) async {
+    try {
+      final response = await DioFactory.getDio().post(
+        ApiConstant.addProfileImage,
+        data: FormData.fromMap({
+          'file': await MultipartFile.fromFile(
+            file.path,
+            filename: file.path.split('/').last,
+          ),
+        }),
+        options: Options(
+          headers: {'Authorization': 'Bearer ${ApiConstant.token}'},
+        ),
+      );
+      debugPrint('Status: ${response.statusCode}');
+      debugPrint('Body: ${response.data.toString()}');
+      return Success<void>('Profile image updated successfully');
+    } on DioException catch (e) {
+      return Error<void>(e.response?.data.toString() ?? e.message.toString());
+    } catch (e) {
+      return Error<void>(e.toString());
+    }
   }
 
   @override
@@ -39,7 +59,7 @@ class UserDataSourceImp implements UserDataSourceInterface {
     String email,
     String phone,
     String address,
-    File file,
+    String image,
   ) async {
     try {
       await DioFactory.getDio().post(
@@ -49,7 +69,7 @@ class UserDataSourceImp implements UserDataSourceInterface {
           'email': email,
           'phone': phone,
           'address': address,
-          'image': await MultipartFile.fromFile(file.path),
+          'image': image,
         },
         options: Options(
           headers: {'Authorization': 'Bearer ${ApiConstant.token}'},

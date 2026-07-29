@@ -25,3 +25,16 @@ final class UpdateProfileError extends ProfileState {
   final String messageError;
   UpdateProfileError(this.messageError);
 }
+
+final class ImageLoading extends ProfileState {}
+
+final class ImageLoaded extends ProfileState {
+ final String localImagePath;
+  ImageLoaded(this.localImagePath);
+}
+
+final class ImageError extends ProfileState {
+  final String messageError;
+  ImageError(this.messageError);
+}
+  

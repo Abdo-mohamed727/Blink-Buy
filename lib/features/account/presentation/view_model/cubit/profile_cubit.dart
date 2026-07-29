@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:blinkbuy/core/networking/result_api.dart';
 import 'package:blinkbuy/features/account/domain/entities/user_entity.dart';
+import 'package:blinkbuy/features/account/domain/use_cases/add_image_use_case.dart';
 import 'package:blinkbuy/features/account/domain/use_cases/get_user_data_use_case.dart';
 import 'package:blinkbuy/features/account/domain/use_cases/update_data_user_use_case.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
@@ -13,22 +15,38 @@ part 'profile_state.dart';
 
 @injectable
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit(this._getUserDataUseCase, this._updateDataUserUseCase)
-    : super(ProfileInitial());
+  ProfileCubit(
+    this._getUserDataUseCase,
+    this._updateDataUserUseCase,
+    this._addImageUseCase,
+  ) : super(ProfileInitial());
+
   final GetUserDataUseCase _getUserDataUseCase;
   final UpdateDataUserUseCase _updateDataUserUseCase;
+  final AddImageUseCase _addImageUseCase;
 
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
   final addressController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  String? localImagePath;
 
   Future<void> getUserData() async {
     emit(ProfileLoading());
-    final result = await _getUserDataUseCase.call();
+
+    final result = await _getUserDataUseCase();
+
     switch (result) {
       case Success():
+        nameController.text = result.data.message.name;
+        emailController.text = result.data.message.email;
+        phoneController.text = result.data.message.phone;
+        addressController.text = result.data.message.address;
+
         emit(ProfileSuccess(result.data));
+
       case Error():
         emit(ProfileError(result.messageError));
     }
@@ -39,21 +57,59 @@ class ProfileCubit extends Cubit<ProfileState> {
     String email,
     String phone,
     String address,
-    File file,
+    String image,
   ) async {
-    emit(UpdateProfileLoading());
-    final result = await _updateDataUserUseCase.call(
-      nameController.text,
-      emailController.text,
-      passwordController.text,
-      addressController.text,
-      file,
+    final result = await _updateDataUserUseCase(
+      name,
+      email,
+      phone,
+      address,
+      image,
     );
+
     switch (result) {
       case Success():
-        emit(UpdateProfileSuccess());
+        await getUserData();
+
       case Error():
-        emit(UpdateProfileError(result.messageError));
+        emit(ProfileError(result.messageError));
+    }
+  }
+
+  Future<void> addImage() async {
+    final pickedFile = await pickImages();
+
+    if (pickedFile == null) return;
+
+    localImagePath = pickedFile.path;
+
+    if (state is ProfileSuccess) {
+      emit(ProfileSuccess((state as ProfileSuccess).userEntity));
+    }
+
+    final result = await _addImageUseCase(File(pickedFile.path));
+
+    switch (result) {
+      case Success():
+        localImagePath = null;
+
+        await getUserData();
+
+        break;
+
+      case Error():
+        emit(ProfileError(result.messageError));
+    }
+  }
+
+  Future<XFile?> pickImages() async {
+    try {
+      return await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+      );
+    } catch (_) {
+      return null;
     }
   }
 }

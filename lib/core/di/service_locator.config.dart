@@ -16,6 +16,8 @@ import 'package:blinkbuy/features/account/data/data_source/user_data_source_inte
 import 'package:blinkbuy/features/account/data/repo/user_repo_imp.dart' as _i44;
 import 'package:blinkbuy/features/account/domain/repo/user_repo_interface.dart'
     as _i802;
+import 'package:blinkbuy/features/account/domain/use_cases/add_image_use_case.dart'
+    as _i1034;
 import 'package:blinkbuy/features/account/domain/use_cases/get_user_data_use_case.dart'
     as _i296;
 import 'package:blinkbuy/features/account/domain/use_cases/update_data_user_use_case.dart'
@@ -116,6 +118,9 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i509.GetProductsRepoImp(gh<_i218.GetProductsDataSourceInterface>()),
     );
+    gh.factory<_i1034.AddImageUseCase>(
+      () => _i1034.AddImageUseCase(gh<_i802.UserRepoInterface>()),
+    );
     gh.factory<_i296.GetUserDataUseCase>(
       () => _i296.GetUserDataUseCase(gh<_i802.UserRepoInterface>()),
     );
@@ -136,6 +141,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1063.ProfileCubit(
         gh<_i296.GetUserDataUseCase>(),
         gh<_i935.UpdateDataUserUseCase>(),
+        gh<_i1034.AddImageUseCase>(),
       ),
     );
     gh.factory<_i651.ProductDetailsScreenCubit>(

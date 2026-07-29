@@ -15,13 +15,12 @@ class UserRepoImp implements UserRepoInterface {
   }
 
   @override
-  Future<ResultApi<void>> updateProfile(String name, String email, String phone, String address, File file) {
-   return _dataSource.updateProfile(name, email, phone, address, file);
+  Future<ResultApi<void>> updateProfile(String name, String email, String phone, String address, String image) {
+   return _dataSource.updateProfile(name, email, phone, address, image);
   }
   
   @override
-  Future<ResultApi<UserEntity>> addImage(File file) {
-    // TODO: implement addImage
-    throw UnimplementedError();
+  Future<ResultApi<void>> addImage(File file) {
+   return _dataSource.addImage(file);
   }
 }

@@ -11,7 +11,7 @@ abstract interface class UserDataSourceInterface {
     String email,
     String phone,
     String address,
-    File file,
+    String image,
   );
   Future<ResultApi<void>> addImage(File file);
 }
