@@ -1,4 +1,4 @@
-import 'package:blinkbuy/core/comman/widgets/product_list-shimmer.dart';
+
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/favourite/presentation/view/widgets/fav_product_card_item.dart';

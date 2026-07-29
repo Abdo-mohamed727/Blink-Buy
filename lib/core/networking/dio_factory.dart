@@ -1,9 +1,8 @@
 import 'package:blinkbuy/core/networking/auth_interceptor.dart';
 import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart';
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-@injectable
+
 class DioFactory {
   DioFactory._();
 

@@ -6,6 +6,7 @@ import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart';
 import 'package:blinkbuy/features/auth/data/data_source/auth_data_source_interface.dart';
 import 'package:blinkbuy/features/auth/data/models/login_dto.dart';
 import 'package:blinkbuy/features/auth/domain/entity/login_entity.dart';
+import 'package:blinkbuy/features/auth/domain/entity/register_entity.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -46,5 +47,41 @@ class AuthDataSourceImp implements AuthDataSourceInterface {
         e.toString(),
       );
     }
+  }
+
+  @override
+  Future<ResultApi<String>> register(RegisterRequestEntity register) async {
+    try {
+      final response = await DioFactory.getDio(SecureStorageHelper()).post(
+        ApiConstant.signUp,
+        data: {
+          'name': register.name,
+          'email': register.email,
+          'phone': register.phone,
+          'password': register.password,
+          'confirmPassword': register.confirmPassword,
+        },
+        
+      );
+      if (response.statusCode! >= 200 &&
+          response.statusCode! < 300) {
+        return Success(
+          response.data['message'] ?? 'Registration successful',
+        );
+      } else {
+        return Error(
+          response.data['message'] ?? 'Unknown error',
+        );
+      }
+      }on DioException catch (e) {
+      return Error(
+        ApiHandlingError.handleDioError(e),
+      );
+    } catch (e) {
+      return Error(
+        e.toString(),
+      );
+    }
+   
   } 
 }

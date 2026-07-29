@@ -24,12 +24,15 @@ class _LogInScreenState extends State<LogInScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
+
     passwordController.dispose();
+
     super.dispose();
   }
 
@@ -37,14 +40,37 @@ class _LogInScreenState extends State<LogInScreen> {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
+        if (state is LoginLoading) {
+          AppToast.showToast(
+            context: context,
+            title: "Login",
+            description: "Logging in...",
+            type: ToastificationType.info,
+          );
+        }
+
         if (state is LoginSuccess) {
-          Navigator.pushReplacementNamed(context, AppRoutes.appSection);
+          AppToast.showToast(
+            context: context,
+            title: "Success",
+            description: state.message,
+            type: ToastificationType.success,
+          );
+
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.appSection,
+            (route) => false,
+          );
         }
 
         if (state is LoginError) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.messageError)));
+          AppToast.showToast(
+            context: context,
+            title: "Error",
+            description: state.messageError,
+            type: ToastificationType.error,
+          );
         }
       },
 
@@ -53,17 +79,21 @@ class _LogInScreenState extends State<LogInScreen> {
 
         appBar: AppBar(
           forceMaterialTransparency: true,
+
           backgroundColor: AppColors.offWhite,
+
           elevation: 0,
+
           scrolledUnderElevation: 0,
 
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, AppRoutes.hello);
             },
 
             icon: const Icon(
               Icons.arrow_back,
+
               color: AppColors.defaultBorderColor,
             ),
           ),
@@ -84,14 +114,19 @@ class _LogInScreenState extends State<LogInScreen> {
 
                   style: TextStyles.font25boldAppbar.copyWith(
                     color: AppColors.primaryColor,
+
                     fontSize: 35.sp,
+
                     fontWeight: FontWeight.w800,
+
                     letterSpacing: 1.2,
 
                     shadows: [
                       Shadow(
                         color: AppColors.primaryColor.withOpacity(0.2),
+
                         blurRadius: 8,
+
                         offset: const Offset(0, 6),
                       ),
                     ],
@@ -124,8 +159,6 @@ class _LogInScreenState extends State<LogInScreen> {
               children: [
                 SizedBox(height: 20.h),
 
-                SizedBox(height: 20.h),
-
                 CustomTextField(
                   fillColour: AppColors.white,
 
@@ -145,28 +178,24 @@ class _LogInScreenState extends State<LogInScreen> {
                 BlocBuilder<LoginCubit, LoginState>(
                   builder: (context, state) {
                     final cubit = context.read<LoginCubit>();
+
                     return CustomTextField(
                       fillColour: AppColors.white,
-
                       filled: true,
-
                       validator: AppValidator.validatePassword,
-
                       controller: passwordController,
-
                       hintText: "Enter Your Password",
-
                       keyboardType: TextInputType.visiblePassword,
-
                       obscureText: cubit.obscureText,
-
                       suffixIcon: IconButton(
                         icon: Icon(
                           cubit.obscureText
                               ? Icons.visibility_off
                               : Icons.visibility,
+
                           color: AppColors.defaultBorderColor,
                         ),
+
                         onPressed: () {
                           cubit.changeObscureText();
                         },
@@ -182,7 +211,6 @@ class _LogInScreenState extends State<LogInScreen> {
 
                   child: TextButton(
                     onPressed: () {},
-
                     child: Text(
                       "Forget password?",
                       style: TextStyles.font14SemiBold.copyWith(
@@ -196,17 +224,9 @@ class _LogInScreenState extends State<LogInScreen> {
 
                 CustomButton(
                   borderColor: AppColors.primaryColor,
-
                   backgroundColor: AppColors.white,
-
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      AppToast.showToast(
-                        context: context,
-                        title: "Login",
-                        description: "Logging in...",
-                        type: ToastificationType.info,
-                      );
                       context.read<LoginCubit>().login(
                         emailController.text.trim(),
 
@@ -216,13 +236,9 @@ class _LogInScreenState extends State<LogInScreen> {
                   },
 
                   text: "Login",
-
                   width: double.infinity,
-
                   height: 52.h,
-
                   textAlign: TextAlign.center,
-
                   textColor: AppColors.primaryColor,
                 ),
 
@@ -234,6 +250,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   children: [
                     Text(
                       "Don't have an account? ",
+
                       style: TextStyles.font14Regular.copyWith(
                         color: AppColors.white,
                       ),
@@ -249,12 +266,14 @@ class _LogInScreenState extends State<LogInScreen> {
 
                         style: TextStyles.font14SemiBold.copyWith(
                           color: AppColors.charcoal,
+
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
+
                 SizedBox(height: 20.h),
               ],
             ),
