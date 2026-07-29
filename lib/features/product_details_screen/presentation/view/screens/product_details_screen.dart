@@ -1,9 +1,11 @@
 import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
 import 'package:blinkbuy/core/di/service_locator.dart';
+import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/cart/domain/entity/cart_entity.dart';
 import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
+import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart';
 import 'package:blinkbuy/features/product_details_screen/presentation/view/widget/screen_loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,8 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int currentIndex = 0;
+
+  late ProductItemEntity productItemEntity;
   @override
   Widget build(BuildContext context) {
     final args =
@@ -128,7 +132,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             right: 10.w,
                             child: IconButton(
                               onPressed: () {
-                                //!handle favorite
+                                context.read<FavoriteCubit>().addToFavourite(
+                                  productId: state.product.id,
+                                );
                               },
                               icon: Icon(
                                 Icons.favorite_border_outlined,
@@ -216,32 +222,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ),
                       CustomButton(
-                              onPressed: () {
-                                context.read<CartCubit>().addToCart(
-                                  CartEntity(
-                                    id: state.product.id,
+                        onPressed: () {
+                          context.read<CartCubit>().addToCart(
+                            CartEntity(
+                              id: state.product.id,
 
-                                    title: state.product.title,
+                              title: state.product.title,
 
-                                    price: state.product.price,
+                              price: state.product.price,
 
-                                    images: state.product.images.isNotEmpty
-                                        ? state.product.images.first
-                                        : '',
+                              images: state.product.images.isNotEmpty
+                                  ? state.product.images.first
+                                  : '',
 
-                                    quantity: 1,
-                                  ),
-                                );
-                              },
-
-                              backgroundColor: AppColors.primaryColorBlack,
-
-                              text: "Add to Cart",
-
-                              height: 48.h,
-
-                              width: 343.w,
+                              quantity: 1,
                             ),
+                          );
+                        },
+
+                        backgroundColor: AppColors.primaryColorBlack,
+
+                        text: "Add to Cart",
+
+                        height: 48.h,
+
+                        width: 343.w,
+                      ),
                     ],
                   ),
                 ),

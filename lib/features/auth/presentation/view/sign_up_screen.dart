@@ -87,34 +87,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           child: Column(
             children: [
-              SizedBox(height: 30.h),
-              Text("Email", style: TextStyles.font18Regular),
-              SizedBox(height: 5.h),
-              //!
-              CustomTextField(
-              
-
-                validator: AppValidator.validateEmail,
-                controller: emailController,
-                hintText: "Enter Your Email",
-                keyboardType: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 30.h),
-              Text("Password", style: TextStyles.font18Regular),
-              SizedBox(height: 5.h),
-              //!
-              CustomTextField(
-                obscureText: true,
-                validator: AppValidator.validatePassword,
-                controller: passwordController,
-                hintText: "Enter Your Password",
-                keyboardType: TextInputType.visiblePassword,),
               SizedBox(height: 40.h),
 
               Text(
                 "Create Account",
 
-                style: TextStyles.font25boldAppbar.copyWith(
+                style: AppTextStyles.font25boldAppbar.copyWith(
                   color: AppColors.primaryColor,
                   fontSize: 35.sp,
                   fontWeight: FontWeight.w800,
@@ -294,7 +272,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       Text(
                         "Already have account? ",
-                        style: TextStyles.font14Regular.copyWith(
+                        style: AppTextStyles.font14Regular.copyWith(
                           color: AppColors.white,
                         ),
                       ),
@@ -307,7 +285,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Text(
                           "Login",
 
-                          style: TextStyles.font14SemiBold.copyWith(
+                          style: AppTextStyles.font14SemiBold.copyWith(
                             color: AppColors.charcoal,
                           ),
                         ),

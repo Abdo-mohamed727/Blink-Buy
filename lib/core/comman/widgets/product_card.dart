@@ -1,5 +1,3 @@
-
-
 import 'package:blinkbuy/core/comman/widgets/app_image_shimmer.dart';
 import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
@@ -144,7 +142,6 @@ class ProductCard extends StatelessWidget {
           BlocBuilder<FavoriteCubit, FavoriteState>(
             builder: (context, state) {
               final favoriteCubit = context.read<FavoriteCubit>();
-              print("UI Cubit: ${favoriteCubit.hashCode}");
 
               final isFavorite = favoriteCubit.favproducts.any(
                 (e) => e.id == productItemEntity?.id,
@@ -158,13 +155,11 @@ class ProductCard extends StatelessWidget {
                     ? null
                     : () {
                         if (productItemEntity == null) return;
-                        print("isFavorite = $isFavorite");
+
                         if (isFavorite) {
-                          print("Before remove");
                           context.read<FavoriteCubit>().removeFromFavourite(
                             productId: productItemEntity!.id,
                           );
-                          print("After remove");
                         } else {
                           context.read<FavoriteCubit>().addToFavourite(
                             productId: productItemEntity!.id,

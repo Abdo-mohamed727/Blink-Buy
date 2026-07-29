@@ -64,7 +64,7 @@ class CartItemCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         item.title,
-                        style:  TextStyles.font16SemiBold.copyWith(
+                        style:  AppTextStyles.font16SemiBold.copyWith(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -79,12 +79,12 @@ class CartItemCard extends StatelessWidget {
                 SizedBox(height: 8.h),
                 RichText(
                   text: TextSpan(
-                    style:  TextStyles.font16Regular.copyWith(color: Colors.black87),
+                    style:  AppTextStyles.font16Regular.copyWith(color: Colors.black87),
                     children: [
                       const TextSpan(text: 'EGP '),
                       TextSpan(
                         text: item.price.toStringAsFixed(0),
-                        style:  TextStyles.font16SemiBold.copyWith(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                        style:  AppTextStyles.font16SemiBold.copyWith(fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

@@ -1,3 +1,4 @@
+import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,167 +22,172 @@ class FavProductCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, AppRoutes.productDetailsScreen,);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
 
-        borderRadius: BorderRadius.circular(18.r),
+          borderRadius: BorderRadius.circular(18.r),
 
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 15,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
 
-        children: [
-          /// Image Section
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(18.r),
-                  topRight: Radius.circular(18.r),
-                ),
-
-                child: SizedBox(
-                  height: 150.h,
-                  width: double.infinity,
-
-                  child: CachedNetworkImage(
-                    imageUrl: image,
-
-                    fit: BoxFit.cover,
-
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
-                ),
-              ),
-
-              /// Favorite Button
-              Positioned(
-                top: 8.h,
-                right: 8.w,
-
-                child: InkWell(
-                  onTap: onRemove,
-
-                  child: Container(
-                    padding: EdgeInsets.all(8.w),
-
-                    child: const Icon(
-                      Icons.favorite,
-
-                      color: Colors.red,
-
-                      size: 22,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          Padding(
-            padding: EdgeInsets.only(right: 12.w, left: 12.w, top: 8.h),
-
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-
+          children: [
+            /// Image Section
+            Stack(
               children: [
-                /// Title
-                Text(
-                  title,
-
-                  maxLines: 2,
-
-                  overflow: TextOverflow.ellipsis,
-
-                  style: TextStyle(
-                    fontSize: 14.sp,
-
-                    fontWeight: FontWeight.w600,
-
-                    color: AppColors.charcoal,
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(18.r),
+                    topRight: Radius.circular(18.r),
                   ),
-                ),
 
-                /// Price
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "EGP ",
+                  child: SizedBox(
+                    height: 150.h,
+                    width: double.infinity,
 
-                        style: TextStyle(
-                          fontSize: 13.sp,
+                    child: CachedNetworkImage(
+                      imageUrl: image,
 
-                          fontWeight: FontWeight.bold,
+                      fit: BoxFit.cover,
 
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
 
-                      TextSpan(
-                        text: price.toStringAsFixed(2),
-
-                        style: TextStyle(
-                          fontSize: 16.sp,
-
-                          fontWeight: FontWeight.bold,
-
-                          color: AppColors.charcoal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                /// Add Cart Button
-                SizedBox(
-                  width: double.infinity,
-
-                  height: 40.h,
-
-                  child: ElevatedButton(
-                    onPressed: onAddToCart,
-
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor,
-
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-
-                      elevation: 0,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
+                  ),
+                ),
 
-                    child: Text(
-                      "Add To Cart",
+                /// Favorite Button
+                Positioned(
+                  top: 8.h,
+                  right: 8.w,
 
-                      style: TextStyle(
-                        color: Colors.white,
+                  child: InkWell(
+                    onTap: onRemove,
 
-                        fontSize: 13.sp,
+                    child: Container(
+                      padding: EdgeInsets.all(8.w),
 
-                        fontWeight: FontWeight.bold,
+                      child: const Icon(
+                        Icons.favorite,
+
+                        color: Colors.red,
+
+                        size: 22,
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+
+            Padding(
+              padding: EdgeInsets.only(right: 12.w, left: 12.w, top: 8.h),
+
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  /// Title
+                  Text(
+                    title,
+
+                    maxLines: 2,
+
+                    overflow: TextOverflow.ellipsis,
+
+                    style: TextStyle(
+                      fontSize: 14.sp,
+
+                      fontWeight: FontWeight.w600,
+
+                      color: AppColors.charcoal,
+                    ),
+                  ),
+
+                  /// Price
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "EGP ",
+
+                          style: TextStyle(
+                            fontSize: 13.sp,
+
+                            fontWeight: FontWeight.bold,
+
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+
+                        TextSpan(
+                          text: price.toStringAsFixed(2),
+
+                          style: TextStyle(
+                            fontSize: 16.sp,
+
+                            fontWeight: FontWeight.bold,
+
+                            color: AppColors.charcoal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /// Add Cart Button
+                  SizedBox(
+                    width: double.infinity,
+
+                    height: 40.h,
+
+                    child: ElevatedButton(
+                      onPressed: onAddToCart,
+
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryColor,
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+
+                        elevation: 0,
+                      ),
+
+                      child: Text(
+                        "Add To Cart",
+
+                        style: TextStyle(
+                          color: Colors.white,
+
+                          fontSize: 13.sp,
+
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

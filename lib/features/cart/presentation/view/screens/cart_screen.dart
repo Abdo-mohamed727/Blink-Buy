@@ -45,7 +45,7 @@ class CartScreen extends StatelessWidget {
               return Center(
                 child: Text(
                   "Your cart is empty",
-                  style: TextStyles.font18SemiBold.copyWith(
+                  style: AppTextStyles.font18SemiBold.copyWith(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.charcoal,

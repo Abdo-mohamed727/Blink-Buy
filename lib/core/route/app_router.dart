@@ -35,7 +35,8 @@ class AppRouter {
                     serviceLocator<GetCategoriesCubit>()..getCategories(),
               ),
               BlocProvider(
-                create: (context) => serviceLocator<ProfileCubit>()..getUserData(),
+                create: (context) =>
+                    serviceLocator<ProfileCubit>()..getUserData(),
               ),
             ],
             child: const AppSectionScreen(),
@@ -44,16 +45,18 @@ class AppRouter {
       case AppRoutes.onboarding:
         return MaterialPageRoute(builder: (_) => OnbordingScreen());
       case AppRoutes.productByCategoryScreen:
-      final args =
-        settings.arguments as Map<String, dynamic>;
-          final slug = args['slug'] as String;
-    final categoryName = args['category'] as String;
+        final args = settings.arguments as Map<String, dynamic>;
+        final slug = args['slug'] as String;
+        final categoryName = args['category'] as String;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
                 serviceLocator<ProductByCategoryCubit>()
                   ..getProductsByCategory(slug, categoryName),
-            child: const ProductByCategoryScreen(),
+            child: ProductByCategoryScreen(
+              slug: slug,
+              categoryName: categoryName,
+            ),
           ),
           settings: settings,
         );
@@ -66,7 +69,12 @@ class AppRouter {
         );
 
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => const LogInScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => serviceLocator<LoginCubit>(),
+            child: const LogInScreen(),
+          ),
+        );
 
       case AppRoutes.signUp:
         return MaterialPageRoute(
