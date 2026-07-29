@@ -24,6 +24,54 @@ import 'package:blinkbuy/features/account/domain/use_cases/update_data_user_use_
     as _i935;
 import 'package:blinkbuy/features/account/presentation/view_model/cubit/profile_cubit.dart'
     as _i1063;
+import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart'
+    as _i29;
+import 'package:blinkbuy/features/auth/data/data_source/auth_data_source_imp.dart'
+    as _i459;
+import 'package:blinkbuy/features/auth/data/data_source/auth_data_source_interface.dart'
+    as _i959;
+import 'package:blinkbuy/features/auth/data/repo/auth_repo_imp.dart' as _i543;
+import 'package:blinkbuy/features/auth/domain/repo/auth_repo_interface.dart'
+    as _i877;
+import 'package:blinkbuy/features/auth/domain/use_case/login_use_case.dart'
+    as _i53;
+import 'package:blinkbuy/features/auth/domain/use_case/register_use_case.dart'
+    as _i50;
+import 'package:blinkbuy/features/auth/presentation/view_model/cubit/login_cubit.dart'
+    as _i193;
+import 'package:blinkbuy/features/auth/presentation/view_model/cubit/register_cubit.dart'
+    as _i1;
+import 'package:blinkbuy/features/cart/data/data_source/cart_dart_source_imp.dart'
+    as _i49;
+import 'package:blinkbuy/features/cart/data/data_source/cart_data_source_interface.dart'
+    as _i223;
+import 'package:blinkbuy/features/cart/data/repo/cart_repo_imp.dart' as _i41;
+import 'package:blinkbuy/features/cart/domain/repo/cart_repo_interface.dart'
+    as _i207;
+import 'package:blinkbuy/features/cart/domain/use_case/add_cart_use_case.dart'
+    as _i922;
+import 'package:blinkbuy/features/cart/domain/use_case/delete_cart_use_case.dart'
+    as _i299;
+import 'package:blinkbuy/features/cart/domain/use_case/get_cart_use_case.dart'
+    as _i579;
+import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart'
+    as _i282;
+import 'package:blinkbuy/features/favourite/data/data_source/favourite_data_source_imp.dart'
+    as _i13;
+import 'package:blinkbuy/features/favourite/data/data_source/favourite_data_source_interface.dart'
+    as _i235;
+import 'package:blinkbuy/features/favourite/data/repo/favourite_repo_imp.dart'
+    as _i909;
+import 'package:blinkbuy/features/favourite/domain/repo/favourite_repo_interface.dart'
+    as _i32;
+import 'package:blinkbuy/features/favourite/domain/use_cases/add_to_favourite_use_case.dart'
+    as _i272;
+import 'package:blinkbuy/features/favourite/domain/use_cases/get_favourites_use_case.dart'
+    as _i421;
+import 'package:blinkbuy/features/favourite/domain/use_cases/remove_favourite_use_case.dart'
+    as _i283;
+import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart'
+    as _i814;
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_imp.dart'
     as _i844;
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_interface.dart'
@@ -64,14 +112,26 @@ import 'package:blinkbuy/features/products_%20by_%20category/data/repo/product_b
     as _i770;
 import 'package:blinkbuy/features/products_%20by_%20category/data/repo/product_by_catogery_repo_imp.dart'
     as _i96;
+import 'package:blinkbuy/features/products_%20by_%20category/data/repo/seach_repo_imp.dart'
+    as _i559;
+import 'package:blinkbuy/features/products_%20by_%20category/data/repo/search_data_source_imp.dart'
+    as _i517;
 import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/product_data_source_interface.dart'
     as _i240;
 import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/product_repo_interface.dart'
     as _i42;
+import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/search_data_source_interface.dart'
+    as _i77;
+import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/search_repo_interface.dart'
+    as _i138;
 import 'package:blinkbuy/features/products_%20by_%20category/domain/use_case/get_products_by_category_use_case.dart'
     as _i215;
+import 'package:blinkbuy/features/products_%20by_%20category/domain/use_case/search_products_usecase.dart'
+    as _i129;
 import 'package:blinkbuy/features/products_%20by_%20category/presentation/view_model/product_by_category_cubit/product_by_category_cubit.dart'
     as _i392;
+import 'package:blinkbuy/features/products_%20by_%20category/presentation/view_model/product_by_category_cubit/search_cubit.dart'
+    as _i576;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -82,8 +142,17 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    gh.lazySingleton<_i29.SecureStorageHelper>(
+      () => _i29.SecureStorageHelper(),
+    );
     gh.factory<_i537.ProductDetailsDataSourceInterface>(
       () => _i334.ProductDetailsDataSourceImp(),
+    );
+    gh.factory<_i77.SearchDataSourceInterface>(
+      () => _i517.SearchDataSourceImp(),
+    );
+    gh.factory<_i235.FavouriteDataSourceInterface>(
+      () => _i13.FavouriteDataSourceImp(),
     );
     gh.factory<_i218.GetProductsDataSourceInterface>(
       () => _i986.GetProductsDataSourceImp(),
@@ -92,16 +161,27 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i844.GetCategoriesDataSourceImp(),
     );
     gh.factory<_i569.UserDataSourceInterface>(() => _i1006.UserDataSourceImp());
+    gh.factory<_i138.SearchRepoInterface>(
+      () => _i559.SearchRepoImp(gh<_i77.SearchDataSourceInterface>()),
+    );
     gh.factory<_i622.GetCategoriesRepoInterface>(
       () => _i1044.GetCategoriesRepoImp(
         gh<_i553.GetCategoriesDataSourceInterface>(),
       ),
     );
+    gh.factory<_i223.CartDataSourceInterface>(() => _i49.CartDataSourceImp());
+    gh.factory<_i129.SearchProductsUsecase>(
+      () => _i129.SearchProductsUsecase(gh<_i138.SearchRepoInterface>()),
+    );
+    gh.factory<_i959.AuthDataSourceInterface>(() => _i459.AuthDataSourceImp());
     gh.factory<_i240.ProductDataSourceInterface>(
       () => _i770.ProductByCategoryDataSourceImp(),
     );
     gh.factory<_i849.GetCategoriesUseCase>(
       () => _i849.GetCategoriesUseCase(gh<_i622.GetCategoriesRepoInterface>()),
+    );
+    gh.factory<_i32.FavouriteRepoInterface>(
+      () => _i909.FavouriteRepoImp(gh<_i235.FavouriteDataSourceInterface>()),
     );
     gh.factory<_i275.GetCategoriesCubit>(
       () => _i275.GetCategoriesCubit(gh<_i849.GetCategoriesUseCase>()),
@@ -109,10 +189,31 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i802.UserRepoInterface>(
       () => _i44.UserRepoImp(gh<_i569.UserDataSourceInterface>()),
     );
+    gh.factory<_i207.CartRepoInterface>(
+      () => _i41.CartRepoImp(gh<_i223.CartDataSourceInterface>()),
+    );
+    gh.factory<_i877.AuthRepoInterface>(
+      () => _i543.AuthRepoImp(
+        gh<_i959.AuthDataSourceInterface>(),
+        gh<_i29.SecureStorageHelper>(),
+      ),
+    );
     gh.factory<_i845.ProductDetailsRepoInterface>(
       () => _i585.ProductDetailsRepoImp(
         gh<_i537.ProductDetailsDataSourceInterface>(),
       ),
+    );
+    gh.factory<_i50.RegisterUseCase>(
+      () => _i50.RegisterUseCase(gh<_i877.AuthRepoInterface>()),
+    );
+    gh.factory<_i922.AddCartUseCase>(
+      () => _i922.AddCartUseCase(gh<_i207.CartRepoInterface>()),
+    );
+    gh.factory<_i299.DeleteCartUseCase>(
+      () => _i299.DeleteCartUseCase(gh<_i207.CartRepoInterface>()),
+    );
+    gh.factory<_i579.GetCartUseCase>(
+      () => _i579.GetCartUseCase(gh<_i207.CartRepoInterface>()),
     );
     gh.factory<_i521.GetProductsRepoInterface>(
       () =>
@@ -127,12 +228,34 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i935.UpdateDataUserUseCase>(
       () => _i935.UpdateDataUserUseCase(gh<_i802.UserRepoInterface>()),
     );
+    gh.factory<_i1.RegisterCubit>(
+      () => _i1.RegisterCubit(gh<_i50.RegisterUseCase>()),
+    );
+    gh.factory<_i576.SearchCubit>(
+      () => _i576.SearchCubit(gh<_i129.SearchProductsUsecase>()),
+    );
     gh.factory<_i42.ProductRepoInterface>(
       () =>
           _i96.ProductByCategoryRepoImp(gh<_i240.ProductDataSourceInterface>()),
     );
+    gh.factory<_i282.CartCubit>(
+      () => _i282.CartCubit(
+        gh<_i579.GetCartUseCase>(),
+        gh<_i922.AddCartUseCase>(),
+        gh<_i299.DeleteCartUseCase>(),
+      ),
+    );
     gh.factory<_i216.GetProductDetails>(
       () => _i216.GetProductDetails(gh<_i845.ProductDetailsRepoInterface>()),
+    );
+    gh.factory<_i272.AddToFavouriteUseCase>(
+      () => _i272.AddToFavouriteUseCase(gh<_i32.FavouriteRepoInterface>()),
+    );
+    gh.factory<_i421.GetFavouritesUseCase>(
+      () => _i421.GetFavouritesUseCase(gh<_i32.FavouriteRepoInterface>()),
+    );
+    gh.factory<_i283.RemoveFavouriteUseCase>(
+      () => _i283.RemoveFavouriteUseCase(gh<_i32.FavouriteRepoInterface>()),
     );
     gh.factory<_i783.GetProductsUseCase>(
       () => _i783.GetProductsUseCase(gh<_i521.GetProductsRepoInterface>()),
@@ -142,6 +265,19 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i296.GetUserDataUseCase>(),
         gh<_i935.UpdateDataUserUseCase>(),
         gh<_i1034.AddImageUseCase>(),
+      ),
+    );
+    gh.factory<_i53.LoginUseCase>(
+      () => _i53.LoginUseCase(gh<_i877.AuthRepoInterface>()),
+    );
+    gh.factory<_i193.LoginCubit>(
+      () => _i193.LoginCubit(gh<_i53.LoginUseCase>()),
+    );
+    gh.lazySingleton<_i814.FavoriteCubit>(
+      () => _i814.FavoriteCubit(
+        gh<_i272.AddToFavouriteUseCase>(),
+        gh<_i283.RemoveFavouriteUseCase>(),
+        gh<_i421.GetFavouritesUseCase>(),
       ),
     );
     gh.factory<_i651.ProductDetailsScreenCubit>(

@@ -1,5 +1,7 @@
 import 'package:blinkbuy/core/constants/api_constant.dart';
+import 'package:blinkbuy/core/constants/api_keys.dart';
 import 'package:blinkbuy/core/networking/result_api.dart';
+import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart';
 import 'package:blinkbuy/features/home/data/data_source/get_categories_data_source_interface.dart';
 import 'package:blinkbuy/features/home/data/models/category_dto.dart';
 import 'package:blinkbuy/features/home/domain/entity/category_intety.dart';
@@ -13,12 +15,12 @@ class GetCategoriesDataSourceImp implements GetCategoriesDataSourceInterface {
   @override
   Future<ResultApi<CategoriesEntity>> getCategories() async {
     try {
-      final response = await DioFactory.getDio().get(
+      final response = await DioFactory.getDio(SecureStorageHelper()).get(
         ApiConstant.getCategories,
         options: Options(
           headers: {
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjNjODM2ZmY4Yzk4YjE2NzcyOTk3MCIsImlhdCI6MTc4NDk2NDE5OSwiZXhwIjoxNzg3NTU2MTk5fQ.UB6bwWh6rE7pP_YV3jJq3vXMxEmEl_XMPGwnXw7HRKM',
+                'Bearer ${AppKeys.tokenKey}'
           },
         ),
       );

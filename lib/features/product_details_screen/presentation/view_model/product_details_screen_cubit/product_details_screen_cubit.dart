@@ -14,6 +14,7 @@ class ProductDetailsScreenCubit extends Cubit<ProductDetailsScreenState> {
   final GetProductDetails _getProductDetails;
 
   Future<void> getProductDetails(int productId) async {
+      if (isClosed) return;
     emit(ProductDetailsScreenLoading());
 
     final result = await _getProductDetails.call(productId );

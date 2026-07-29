@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     required this.controller,
-    this.filled = false,
-    this.obscureText = false,
+    this.filled ,
+    this.obscureText,
     this.readOnly = false,
     super.key,
     this.validator,
@@ -20,15 +20,16 @@ class CustomTextField extends StatelessWidget {
     this.prefixIcon,
     this.onChanged,
     this.maxLength,
-    this.maxLines = 1,
+    this.maxLines = 1, 
+  
   });
 
   final String? Function(String?)? validator;
   final String? Function(String)? onChanged;
   final TextEditingController controller;
-  final bool filled;
+  final bool ?filled;
   final Color? fillColour;
-  final bool obscureText;
+  final bool ?obscureText;
   final bool readOnly;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -42,7 +43,9 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: AppColors.primaryColor,
       controller: controller,
+
 
       style: TextStyle(
         fontSize: 16.sp,
@@ -52,25 +55,25 @@ class CustomTextField extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       keyboardType: keyboardType,
-      obscureText: obscureText,
+      obscureText: obscureText ?? false,
       maxLines: maxLines,
       readOnly: readOnly,
       decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r)),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.defaultBorderColor),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.defaultBorderColor),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.errorBorderColor),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.errorBorderColor),
         ),
         contentPadding: const EdgeInsets.symmetric(
