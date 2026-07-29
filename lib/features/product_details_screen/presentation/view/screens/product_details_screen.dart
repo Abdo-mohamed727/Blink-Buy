@@ -2,7 +2,6 @@ import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
 import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
-import 'package:blinkbuy/features/cart/domain/entity/cart_entity.dart';
 import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:blinkbuy/features/product_details_screen/presentation/view/widget/screen_loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';

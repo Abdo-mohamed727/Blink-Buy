@@ -129,6 +129,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i537.ProductDetailsDataSourceInterface>(
       () => _i334.ProductDetailsDataSourceImp(),
     );
+    gh.factory<_i77.SearchDataSourceInterface>(
+      () => _i517.SearchDataSourceImp(),
+    );
+    gh.factory<_i235.FavouriteDataSourceInterface>(
+      () => _i13.FavouriteDataSourceImp(),
+    );
     gh.factory<_i218.GetProductsDataSourceInterface>(
       () => _i986.GetProductsDataSourceImp(),
     );
@@ -144,6 +150,10 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.factory<_i223.CartDataSourceInterface>(() => _i49.CartDataSourceImp());
+    gh.factory<_i129.SearchProductsUsecase>(
+      () => _i129.SearchProductsUsecase(gh<_i138.SearchRepoInterface>()),
+    );
+    gh.factory<_i959.AuthDataSourceInterface>(() => _i459.AuthDataSourceImp());
     gh.factory<_i240.ProductDataSourceInterface>(
       () => _i770.ProductByCategoryDataSourceImp(),
     );
