@@ -1,8 +1,10 @@
+import 'package:blinkbuy/core/constants/api_keys.dart';
 import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/route/app_router.dart';
 import 'package:blinkbuy/core/comman/screens/check_network.dart';
 import 'package:blinkbuy/core/comman/widgets/connectivity_controller.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
+import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart';
 import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ void main() async {
   await ConnectivityController.instance.init();
 
   final prefs = await SharedPreferences.getInstance();
+  final String? token = await serviceLocator<SecureStorageHelper>().getSecure(key: AppKeys.tokenKey);
 
   final isDone = prefs.getBool('isDone') ?? false;
 
@@ -28,14 +31,15 @@ void main() async {
         BlocProvider(create: (_) => serviceLocator<FavoriteCubit>()..getFavourites()),
       ],
 
-      child: MyApp(isDone: isDone),
+      child: MyApp(isDone: isDone, token: token),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
   final bool isDone;
-  const MyApp({super.key, required this.isDone});
+  final String? token;
+  const MyApp({super.key, required this.isDone , this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +69,9 @@ class MyApp extends StatelessWidget {
                     ),
                   );
                 },
-                initialRoute: isDone
-                    ? AppRoutes.appSection
+                // Set the initial route based on the onboarding completion and token availability
+                initialRoute: isDone && token != null 
+                    ? AppRoutes.hello
                     : AppRoutes.onboarding,
                 onGenerateRoute: AppRouter.generateRoute,
               );
