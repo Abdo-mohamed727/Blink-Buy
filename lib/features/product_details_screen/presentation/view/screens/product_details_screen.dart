@@ -1,8 +1,11 @@
 import 'package:blinkbuy/core/comman/widgets/custom_button.dart';
 import 'package:blinkbuy/core/di/service_locator.dart';
+import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
+import 'package:blinkbuy/features/cart/domain/entity/cart_entity.dart';
 import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
+import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart';
 import 'package:blinkbuy/features/product_details_screen/presentation/view/widget/screen_loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +25,8 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int currentIndex = 0;
+
+  late ProductItemEntity productItemEntity;
   @override
   Widget build(BuildContext context) {
     final args =
@@ -51,23 +56,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             return Scaffold(
               backgroundColor: AppColors.offWhite,
 
-            body: switch (state) {
-              ProductDetailsScreenLoading() => const ScreenLoading(),
-              ProductDetailsScreenError() => Center(
+              appBar: AppBar(
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, size: 32),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              body: switch (state) {
+                ProductDetailsScreenLoading() => const ScreenLoading(),
+                ProductDetailsScreenError() => Center(
                   child: Text(state.errorMessage),
                 ),
-              ProductDetailsScreenSuccess() => SafeArea(
-                child: Column(
-                 
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                ProductDetailsScreenSuccess() => SafeArea(
+                  child: Column(
                     children: [
-                      IconButton(
-                icon: const Icon(Icons.arrow_back,size: 32,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
                       Stack(
                         children: [
                           Container(
@@ -128,7 +132,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             right: 10.w,
                             child: IconButton(
                               onPressed: () {
-                                //!handle favorite
+                                context.read<FavoriteCubit>().addToFavourite(
+                                  productId: state.product.id,
+                                );
                               },
                               icon: Icon(
                                 Icons.favorite_border_outlined,
@@ -144,81 +150,104 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               children: [
                                 Text(
                                   state.product.rating.toStringAsFixed(2),
-                                  style: TextStyles.font16SemiBold,
+                                  style: AppTextStyles.font16SemiBold,
                                 ),
                                 SizedBox(width: 5.w),
-                                Text('⭐', style: TextStyles.font16SemiBold),
+                                Text('⭐', style: AppTextStyles.font16SemiBold),
                               ],
                             ),
                           ),
                         ],
-                      ),  Center(
-                        child: AnimatedSmoothIndicator(
-                          axisDirection: Axis.horizontal,
-                         
-                          textDirection: TextDirection.ltr,
-                        activeIndex: currentIndex,    
-                              count: state.product.images.length,
-                            effect: WormEffect(
-                                                          type: WormType.normal,
-                              dotHeight: 10.h,
-                              dotWidth: 10.w,
-                              activeDotColor: AppColors.primaryColor,
-                              dotColor: AppColors.lightGrey,
-                            ), ),
+                      ),
+                      AnimatedSmoothIndicator(
+                        axisDirection: Axis.horizontal,
+                        onEnd: () {},
+                        textDirection: TextDirection.ltr,
+                        activeIndex: currentIndex,
+                        count: state.product.images.length,
+                        effect: WormEffect(
+                          type: WormType.normal,
+                          dotHeight: 10.h,
+                          dotWidth: 10.w,
+                          activeDotColor: AppColors.primaryColor,
+                          dotColor: AppColors.lightGrey,
+                        ),
                       ),
                       Row(
-  children: [
-    Expanded(
-      child: Padding(
-        padding: EdgeInsets.only(left: 16.w),
-        child: Text(
-          state.product.title,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyles.font16Regular,
-        ),
-      ),
-    ),
-    SizedBox(width: 12.w),
-    Padding(
-      padding: EdgeInsets.only(right: 16.w),
-      child: Column(
-        children: [
-          Text(
-            'EGP ${state.product.price.toStringAsFixed(2)}',
-            style: TextStyles.font16SemiBold,
-          ),
-          Text(
-            ' -${state.product.discountPercentage.toStringAsFixed(2)} % ',
-            style: TextStyles.font14SemiBold.copyWith(color: AppColors.errorBorderColor),
-          )
-        ],
-      ),
-    ),
-  ],
-),                    Padding(
-  padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 32.h, bottom: 40.h),
-                      child: Text(
-                        state.product.description,
-                        style: TextStyles.font14SemiBold,
-                        textAlign: TextAlign.start,
-                        maxLines: 6,
-                        overflow: TextOverflow.ellipsis,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 16.w),
+                              child: Text(
+                                state.product.title,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTextStyles.font16Regular,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Padding(
+                            padding: EdgeInsets.only(right: 16.w),
+                            child: Column(
+                              children: [
+                                Text(
+                                  'EGP ${state.product.price.toStringAsFixed(2)}',
+                                  style: AppTextStyles.font16SemiBold,
+                                ),
+                                Text(
+                                  ' -${state.product.discountPercentage.toStringAsFixed(2)} % ',
+                                  style: AppTextStyles.font14SemiBold.copyWith(
+                                    color: AppColors.errorBorderColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 24.h),
-                      child: CustomButton(
-                        onPressed: (){
-                          //!handle add to cart
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 16.w,
+                          right: 16.w,
+                          top: 32.h,
+                          bottom: 40.h,
+                        ),
+                        child: Text(
+                          state.product.description,
+                          style: AppTextStyles.font14SemiBold,
+                          textAlign: TextAlign.start,
+                          maxLines: 6,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      CustomButton(
+                        onPressed: () {
+                          context.read<CartCubit>().addToCart(
+                            CartEntity(
+                              id: state.product.id,
+
+                              title: state.product.title,
+
+                              price: state.product.price,
+
+                              images: state.product.images.isNotEmpty
+                                  ? state.product.images.first
+                                  : '',
+
+                              quantity: 1,
+                            ),
+                          );
                         },
+
                         backgroundColor: AppColors.primaryColorBlack,
-                        text: 'Add to Cart',
+
+                        text: "Add to Cart",
+
                         height: 48.h,
+
                         width: 343.w,
                       ),
-                    )
                     ],
                   ),
                 ),

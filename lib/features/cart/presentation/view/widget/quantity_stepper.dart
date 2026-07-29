@@ -35,7 +35,7 @@ class QuantityStepper extends StatelessWidget {
               child: Text(
                 '$quantity',
                 textAlign: TextAlign.center,
-                style: TextStyles.font16SemiBold.copyWith(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                style: AppTextStyles.font16SemiBold.copyWith(fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
             ),
             _StepperButton(icon: Icons.add, onTap: onIncrement),

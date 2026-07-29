@@ -39,6 +39,7 @@ class CategoriesViewBody extends StatelessWidget {
                         'category': state.categories.categories[index].name,
                       },
                     );
+                    context.read<GetCategoriesCubit>().changeCategory(index);
                   },
                   child: Container(
                     margin: EdgeInsets.only(right: 8.w,bottom: 3.h),
@@ -64,7 +65,8 @@ class CategoriesViewBody extends StatelessWidget {
                     ),
                     child: Text(
                       state.categories.categories[index].name,
-                      style: TextStyles.font14Regular.copyWith(
+
+                      style: AppTextStyles.font14Regular.copyWith(
                         color: AppColors.primaryColorBlack,
                       ),
                     ),

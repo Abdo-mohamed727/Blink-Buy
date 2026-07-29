@@ -72,7 +72,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                       onPressed: _skipOnboarding,
                       child: Text(
                         'Skip',
-                        style: TextStyles.font14Regular.copyWith(
+                        style: AppTextStyles.font14Regular.copyWith(
                           color: AppColors.charcoal,
                         ),
                       ),
@@ -118,7 +118,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                       CoustomFadeInLeft(
                         child: Text(
                           data.title,
-                          style: TextStyles.font24SemiBold,
+                          style: AppTextStyles.font24SemiBold,
                         ),
                       ),
 
@@ -128,7 +128,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                         child: Text(
                           data.description,
                           textAlign: TextAlign.center,
-                          style: TextStyles.font16Regular.copyWith(
+                          style: AppTextStyles.font16Regular.copyWith(
                             color: AppColors.charcoal.withOpacity(0.6),
                           ),
                         ),
@@ -172,7 +172,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                 text: _currentIndex < onboardingData.length - 1
                     ? 'Next'
                     : 'Get Started',
-                textStyle: TextStyles.font18SemiBold.copyWith(
+                textStyle: AppTextStyles.font18SemiBold.copyWith(
                   color: AppColors.white,
                 ),
                 width: double.infinity,
@@ -191,7 +191,6 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
   }
 }
 
-
 class OnboardingData {
   final String urlImage;
   final String title;
@@ -203,7 +202,6 @@ class OnboardingData {
     required this.description,
   });
 }
-
 
 List<OnboardingData> dataOnboarding() {
   return [

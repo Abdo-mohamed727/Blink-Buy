@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
                     ),
                   );
                 },
-                // Set the initial route based on the onboarding completion and token availability
+                
                 initialRoute: !isDone
                     ? AppRoutes.onboarding
                     : token != null

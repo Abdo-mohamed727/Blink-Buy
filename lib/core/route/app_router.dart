@@ -1,5 +1,6 @@
 import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
+import 'package:blinkbuy/features/account/presentation/view_model/cubit/profile_cubit.dart';
 import 'package:blinkbuy/features/app_section/view/bottom_navigation_bar.dart';
 import 'package:blinkbuy/features/app_section/view_model/cubit/app_section_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/view/hello_screen.dart';
@@ -33,6 +34,10 @@ class AppRouter {
                 create: (context) =>
                     serviceLocator<GetCategoriesCubit>()..getCategories(),
               ),
+              BlocProvider(
+                create: (context) =>
+                    serviceLocator<ProfileCubit>()..getUserData(),
+              ),
             ],
             child: const AppSectionScreen(),
           ),
@@ -40,16 +45,18 @@ class AppRouter {
       case AppRoutes.onboarding:
         return MaterialPageRoute(builder: (_) => OnbordingScreen());
       case AppRoutes.productByCategoryScreen:
-      final args =
-        settings.arguments as Map<String, dynamic>;
-          final slug = args['slug'] as String;
-    final categoryName = args['category'] as String;
+        final args = settings.arguments as Map<String, dynamic>;
+        final slug = args['slug'] as String;
+        final categoryName = args['category'] as String;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
                 serviceLocator<ProductByCategoryCubit>()
                   ..getProductsByCategory(slug, categoryName),
-            child: const ProductByCategoryScreen(),
+            child: ProductByCategoryScreen(
+              slug: slug,
+              categoryName: categoryName,
+            ),
           ),
           settings: settings,
         );
@@ -62,7 +69,12 @@ class AppRouter {
         );
 
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => const LogInScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => serviceLocator<LoginCubit>(),
+            child: const LogInScreen(),
+          ),
+        );
 
       case AppRoutes.signUp:
         return MaterialPageRoute(

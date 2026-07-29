@@ -112,7 +112,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
                   textAlign: TextAlign.center,
 
-                  style: TextStyles.font25boldAppbar.copyWith(
+                  style: AppTextStyles.font10Meduiam.copyWith(
                     color: AppColors.primaryColor,
 
                     fontSize: 35.sp,
@@ -213,7 +213,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     onPressed: () {},
                     child: Text(
                       "Forget password?",
-                      style: TextStyles.font14SemiBold.copyWith(
+                      style: AppTextStyles.font14SemiBold.copyWith(
                         color: AppColors.white,
                       ),
                     ),
@@ -251,7 +251,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     Text(
                       "Don't have an account? ",
 
-                      style: TextStyles.font14Regular.copyWith(
+                      style: AppTextStyles.font14Regular.copyWith(
                         color: AppColors.white,
                       ),
                     ),
@@ -264,7 +264,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       child: Text(
                         "Sign Up",
 
-                        style: TextStyles.font14SemiBold.copyWith(
+                        style: AppTextStyles.font14SemiBold.copyWith(
                           color: AppColors.charcoal,
 
                           fontWeight: FontWeight.bold,

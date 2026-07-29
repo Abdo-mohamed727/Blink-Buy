@@ -9,6 +9,21 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:blinkbuy/features/account/data/data_source/user_data_source_imp.dart'
+    as _i1006;
+import 'package:blinkbuy/features/account/data/data_source/user_data_source_interface.dart'
+    as _i569;
+import 'package:blinkbuy/features/account/data/repo/user_repo_imp.dart' as _i44;
+import 'package:blinkbuy/features/account/domain/repo/user_repo_interface.dart'
+    as _i802;
+import 'package:blinkbuy/features/account/domain/use_cases/add_image_use_case.dart'
+    as _i1034;
+import 'package:blinkbuy/features/account/domain/use_cases/get_user_data_use_case.dart'
+    as _i296;
+import 'package:blinkbuy/features/account/domain/use_cases/update_data_user_use_case.dart'
+    as _i935;
+import 'package:blinkbuy/features/account/presentation/view_model/cubit/profile_cubit.dart'
+    as _i1063;
 import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart'
     as _i29;
 import 'package:blinkbuy/features/auth/data/data_source/auth_data_source_imp.dart'
@@ -145,6 +160,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i553.GetCategoriesDataSourceInterface>(
       () => _i844.GetCategoriesDataSourceImp(),
     );
+    gh.factory<_i569.UserDataSourceInterface>(() => _i1006.UserDataSourceImp());
     gh.factory<_i138.SearchRepoInterface>(
       () => _i559.SearchRepoImp(gh<_i77.SearchDataSourceInterface>()),
     );
@@ -169,6 +185,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i275.GetCategoriesCubit>(
       () => _i275.GetCategoriesCubit(gh<_i849.GetCategoriesUseCase>()),
+    );
+    gh.factory<_i802.UserRepoInterface>(
+      () => _i44.UserRepoImp(gh<_i569.UserDataSourceInterface>()),
     );
     gh.factory<_i207.CartRepoInterface>(
       () => _i41.CartRepoImp(gh<_i223.CartDataSourceInterface>()),
@@ -199,6 +218,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i521.GetProductsRepoInterface>(
       () =>
           _i509.GetProductsRepoImp(gh<_i218.GetProductsDataSourceInterface>()),
+    );
+    gh.factory<_i1034.AddImageUseCase>(
+      () => _i1034.AddImageUseCase(gh<_i802.UserRepoInterface>()),
+    );
+    gh.factory<_i296.GetUserDataUseCase>(
+      () => _i296.GetUserDataUseCase(gh<_i802.UserRepoInterface>()),
+    );
+    gh.factory<_i935.UpdateDataUserUseCase>(
+      () => _i935.UpdateDataUserUseCase(gh<_i802.UserRepoInterface>()),
     );
     gh.factory<_i1.RegisterCubit>(
       () => _i1.RegisterCubit(gh<_i50.RegisterUseCase>()),
@@ -231,6 +259,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i783.GetProductsUseCase>(
       () => _i783.GetProductsUseCase(gh<_i521.GetProductsRepoInterface>()),
+    );
+    gh.factory<_i1063.ProfileCubit>(
+      () => _i1063.ProfileCubit(
+        gh<_i296.GetUserDataUseCase>(),
+        gh<_i935.UpdateDataUserUseCase>(),
+        gh<_i1034.AddImageUseCase>(),
+      ),
     );
     gh.factory<_i53.LoginUseCase>(
       () => _i53.LoginUseCase(gh<_i877.AuthRepoInterface>()),

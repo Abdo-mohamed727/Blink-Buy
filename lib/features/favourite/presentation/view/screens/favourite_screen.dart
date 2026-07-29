@@ -20,7 +20,7 @@ class FavouriteScreen extends StatelessWidget {
         backgroundColor: AppColors.offWhite,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text("My Favourite", style: TextStyles.font22SemiBold),
+        title: Text("My Favourite", style: AppTextStyles.font22SemiBold),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -43,7 +43,7 @@ class FavouriteScreen extends StatelessWidget {
                       SizedBox(height: 24.h),
                       Text(
                         'There are no products in your\n favourite list ',
-                        style: TextStyles.font18Regular,
+                        style: AppTextStyles.font18Regular,
                         textAlign: TextAlign.center,
                       ),
                     ],

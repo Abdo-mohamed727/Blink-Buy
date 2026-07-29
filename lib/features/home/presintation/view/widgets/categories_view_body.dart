@@ -45,7 +45,7 @@ class CategoriesViewBody extends StatelessWidget {
                     child: Text(
                       state.categories.categories[index].name,
 
-                      style: TextStyles.font14Regular.copyWith(
+                      style: AppTextStyles.font14Regular.copyWith(
                         color: AppColors.primaryColorBlack,
                       ),
                     ),
