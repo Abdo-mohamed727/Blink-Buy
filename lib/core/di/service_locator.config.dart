@@ -97,14 +97,26 @@ import 'package:blinkbuy/features/products_%20by_%20category/data/repo/product_b
     as _i770;
 import 'package:blinkbuy/features/products_%20by_%20category/data/repo/product_by_catogery_repo_imp.dart'
     as _i96;
+import 'package:blinkbuy/features/products_%20by_%20category/data/repo/seach_repo_imp.dart'
+    as _i559;
+import 'package:blinkbuy/features/products_%20by_%20category/data/repo/search_data_source_imp.dart'
+    as _i517;
 import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/product_data_source_interface.dart'
     as _i240;
 import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/product_repo_interface.dart'
     as _i42;
+import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/search_data_source_interface.dart'
+    as _i77;
+import 'package:blinkbuy/features/products_%20by_%20category/domain/repo/search_repo_interface.dart'
+    as _i138;
 import 'package:blinkbuy/features/products_%20by_%20category/domain/use_case/get_products_by_category_use_case.dart'
     as _i215;
+import 'package:blinkbuy/features/products_%20by_%20category/domain/use_case/search_products_usecase.dart'
+    as _i129;
 import 'package:blinkbuy/features/products_%20by_%20category/presentation/view_model/product_by_category_cubit/product_by_category_cubit.dart'
     as _i392;
+import 'package:blinkbuy/features/products_%20by_%20category/presentation/view_model/product_by_category_cubit/search_cubit.dart'
+    as _i576;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -121,6 +133,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i537.ProductDetailsDataSourceInterface>(
       () => _i334.ProductDetailsDataSourceImp(),
     );
+    gh.factory<_i77.SearchDataSourceInterface>(
+      () => _i517.SearchDataSourceImp(),
+    );
     gh.factory<_i235.FavouriteDataSourceInterface>(
       () => _i13.FavouriteDataSourceImp(),
     );
@@ -130,12 +145,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i553.GetCategoriesDataSourceInterface>(
       () => _i844.GetCategoriesDataSourceImp(),
     );
+    gh.factory<_i138.SearchRepoInterface>(
+      () => _i559.SearchRepoImp(gh<_i77.SearchDataSourceInterface>()),
+    );
     gh.factory<_i622.GetCategoriesRepoInterface>(
       () => _i1044.GetCategoriesRepoImp(
         gh<_i553.GetCategoriesDataSourceInterface>(),
       ),
     );
     gh.factory<_i223.CartDataSourceInterface>(() => _i49.CartDataSourceImp());
+    gh.factory<_i129.SearchProductsUsecase>(
+      () => _i129.SearchProductsUsecase(gh<_i138.SearchRepoInterface>()),
+    );
     gh.factory<_i959.AuthDataSourceInterface>(() => _i459.AuthDataSourceImp());
     gh.factory<_i240.ProductDataSourceInterface>(
       () => _i770.ProductByCategoryDataSourceImp(),
@@ -181,6 +202,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1.RegisterCubit>(
       () => _i1.RegisterCubit(gh<_i50.RegisterUseCase>()),
+    );
+    gh.factory<_i576.SearchCubit>(
+      () => _i576.SearchCubit(gh<_i129.SearchProductsUsecase>()),
     );
     gh.factory<_i42.ProductRepoInterface>(
       () =>

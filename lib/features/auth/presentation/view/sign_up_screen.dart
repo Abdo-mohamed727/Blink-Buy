@@ -87,6 +87,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           child: Column(
             children: [
+              SizedBox(height: 30.h),
+              Text("Email", style: TextStyles.font18Regular),
+              SizedBox(height: 5.h),
+              //!
+              CustomTextField(
+              
+
+                validator: AppValidator.validateEmail,
+                controller: emailController,
+                hintText: "Enter Your Email",
+                keyboardType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: 30.h),
+              Text("Password", style: TextStyles.font18Regular),
+              SizedBox(height: 5.h),
+              //!
+              CustomTextField(
+                obscureText: true,
+                validator: AppValidator.validatePassword,
+                controller: passwordController,
+                hintText: "Enter Your Password",
+                keyboardType: TextInputType.visiblePassword,),
               SizedBox(height: 40.h),
 
               Text(
