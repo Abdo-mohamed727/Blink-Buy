@@ -9,6 +9,6 @@ class AuthRepoImp implements AuthRepoInterface {
   AuthRepoImp(this._dataSource);
   final AuthDataSourceInterface _dataSource;
   @override
-  Future<ResultApi<String>> register(RegisterRequestEntety register) async =>
+  Future<ResultApi<String>> register(RegisterRequestEntity register) async =>
       _dataSource.register(register);
 }

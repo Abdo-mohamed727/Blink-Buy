@@ -8,6 +8,6 @@ class RegisterUseCase {
   RegisterUseCase(this._repo);
   final AuthRepoInterface _repo;
 
-  Future<ResultApi<String>> invoke(RegisterRequestEntety request) async =>
+  Future<ResultApi<String>> invoke(RegisterRequestEntity request) async =>
       await _repo.register(request);
 }

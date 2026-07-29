@@ -177,7 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   backgroundColor: AppColors.primaryColor,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      var request = RegisterRequestEntety(
+                      var request = RegisterRequestEntity(
                         name: nameController.text,
                         phone: phoneNumberController.text,
                         email: emailController.text,

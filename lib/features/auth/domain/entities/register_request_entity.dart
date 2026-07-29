@@ -1,11 +1,11 @@
-class RegisterRequestEntety {
+class RegisterRequestEntity {
   String name;
   String phone;
   String email;
   String password;
   String confirmPassword;
 
-  RegisterRequestEntety({
+  RegisterRequestEntity({
     required this.name,
     required this.phone,
     required this.email,

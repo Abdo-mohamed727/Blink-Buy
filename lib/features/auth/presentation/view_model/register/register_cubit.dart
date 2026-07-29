@@ -19,7 +19,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  Future<void> _register(RegisterRequestEntety request) async {
+  Future<void> _register(RegisterRequestEntity request) async {
     emit(RegisterLoading());
     final result = await _registerUseCase.invoke(request);
     switch (result) {
@@ -34,7 +34,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 sealed class RegisterIntent {}
 
 class RegisterIntentRegister extends RegisterIntent {
-  final RegisterRequestEntety request;
+  final RegisterRequestEntity request;
 
   RegisterIntentRegister(this.request);
 }
