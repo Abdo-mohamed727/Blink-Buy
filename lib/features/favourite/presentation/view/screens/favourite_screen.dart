@@ -26,12 +26,6 @@ class FavouriteScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         child: BlocBuilder<FavoriteCubit, FavoriteState>(
           builder: (context, state) {
-            if (state is FavouriteLoading) {
-              return ProductsListShimmer(
-                crossAxisCount: 2,
-                childAspectRatio: 0.7,
-              );
-            }
             if (state is FavouriteError) {
               return Text(state.error);
             }
