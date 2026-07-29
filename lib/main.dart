@@ -20,7 +20,9 @@ void main() async {
   await ConnectivityController.instance.init();
 
   final prefs = await SharedPreferences.getInstance();
-  final String? token = await serviceLocator<SecureStorageHelper>().getSecure(key: AppKeys.tokenKey);
+  final String? token = await serviceLocator<SecureStorageHelper>().getSecure(
+    key: AppKeys.tokenKey,
+  );
 
   final isDone = prefs.getBool('isDone') ?? false;
 
@@ -28,7 +30,9 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => serviceLocator<CartCubit>()..getCart()),
-        BlocProvider(create: (_) => serviceLocator<FavoriteCubit>()..getFavourites()),
+        BlocProvider(
+          create: (_) => serviceLocator<FavoriteCubit>()..getFavourites(),
+        ),
       ],
 
       child: MyApp(isDone: isDone, token: token),
@@ -39,7 +43,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   final bool isDone;
   final String? token;
-  const MyApp({super.key, required this.isDone , this.token});
+  const MyApp({super.key, required this.isDone, this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +74,11 @@ class MyApp extends StatelessWidget {
                   );
                 },
                 // Set the initial route based on the onboarding completion and token availability
-                initialRoute: isDone && token != null 
-                    ? AppRoutes.hello
-                    : AppRoutes.onboarding,
+                initialRoute: !isDone
+                    ? AppRoutes.onboarding
+                    : token != null
+                    ? AppRoutes.appSection
+                    : AppRoutes.login,
                 onGenerateRoute: AppRouter.generateRoute,
               );
             } else {
