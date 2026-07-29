@@ -2,6 +2,7 @@ import 'package:blinkbuy/core/di/service_locator.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/features/app_section/view/bottom_navigation_bar.dart';
 import 'package:blinkbuy/features/app_section/view_model/cubit/app_section_cubit.dart';
+import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/login_screen.dart';
 import 'package:blinkbuy/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:blinkbuy/features/cart/presentation/view/screens/cart_screen.dart';
@@ -32,6 +33,10 @@ class AppRouter {
               BlocProvider(
                 create: (_) =>
                     serviceLocator<GetCategoriesCubit>()..getCategories(),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    serviceLocator<FavoriteCubit>()..getFavourites(),
               ),
             ],
             child: const AppSectionScreen(),

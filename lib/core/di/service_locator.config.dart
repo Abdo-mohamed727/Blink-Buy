@@ -9,6 +9,22 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:blinkbuy/features/favourite/data/data_source/favourite_data_source_imp.dart'
+    as _i13;
+import 'package:blinkbuy/features/favourite/data/data_source/favourite_data_source_interface.dart'
+    as _i235;
+import 'package:blinkbuy/features/favourite/data/repo/favourite_repo_imp.dart'
+    as _i909;
+import 'package:blinkbuy/features/favourite/domain/repo/favourite_repo_interface.dart'
+    as _i32;
+import 'package:blinkbuy/features/favourite/domain/use_cases/add_to_favourite_use_case.dart'
+    as _i272;
+import 'package:blinkbuy/features/favourite/domain/use_cases/get_favourites_use_case.dart'
+    as _i421;
+import 'package:blinkbuy/features/favourite/domain/use_cases/remove_favourite_use_case.dart'
+    as _i282;
+import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart'
+    as _i814;
 import 'package:blinkbuy/features/cart/data/data_source/cart_dart_source_imp.dart'
     as _i49;
 import 'package:blinkbuy/features/cart/data/data_source/cart_data_source_interface.dart'
@@ -82,6 +98,9 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    gh.factory<_i235.FavouriteDataSourceInterface>(
+      () => _i13.FavouriteDataSourceImp(),
+    );
     gh.factory<_i537.ProductDetailsDataSourceInterface>(
       () => _i334.ProductDetailsDataSourceImp(),
     );
@@ -102,6 +121,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i849.GetCategoriesUseCase>(
       () => _i849.GetCategoriesUseCase(gh<_i622.GetCategoriesRepoInterface>()),
+    );
+    gh.factory<_i32.FavouriteRepoInterface>(
+      () => _i909.FavouriteRepoImp(gh<_i235.FavouriteDataSourceInterface>()),
     );
     gh.factory<_i275.GetCategoriesCubit>(
       () => _i275.GetCategoriesCubit(gh<_i849.GetCategoriesUseCase>()),
@@ -131,6 +153,15 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i96.ProductByCategoryRepoImp(gh<_i240.ProductDataSourceInterface>()),
     );
+    gh.factory<_i272.AddToFavouriteUseCase>(
+      () => _i272.AddToFavouriteUseCase(gh<_i32.FavouriteRepoInterface>()),
+    );
+    gh.factory<_i421.GetFavouritesUseCase>(
+      () => _i421.GetFavouritesUseCase(gh<_i32.FavouriteRepoInterface>()),
+    );
+    gh.factory<_i282.RemoveFavouriteUseCase>(
+      () => _i282.RemoveFavouriteUseCase(gh<_i32.FavouriteRepoInterface>()),
+    );
     gh.factory<_i282.CartCubit>(
       () => _i282.CartCubit(
         gh<_i579.GetCartUseCase>(),
@@ -143,6 +174,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i783.GetProductsUseCase>(
       () => _i783.GetProductsUseCase(gh<_i521.GetProductsRepoInterface>()),
+    );
+    gh.lazySingleton<_i814.FavoriteCubit>(
+      () => _i814.FavoriteCubit(
+        gh<_i272.AddToFavouriteUseCase>(),
+        gh<_i282.RemoveFavouriteUseCase>(),
+        gh<_i421.GetFavouritesUseCase>(),
+      ),
     );
     gh.factory<_i651.ProductDetailsScreenCubit>(
       () => _i651.ProductDetailsScreenCubit(gh<_i216.GetProductDetails>()),
