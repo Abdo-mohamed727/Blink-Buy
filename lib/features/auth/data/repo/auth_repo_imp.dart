@@ -3,6 +3,7 @@ import 'package:blinkbuy/core/networking/result_api.dart';
 import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart';
 import 'package:blinkbuy/features/auth/data/data_source/auth_data_source_interface.dart';
 import 'package:blinkbuy/features/auth/domain/entity/login_entity.dart';
+import 'package:blinkbuy/features/auth/domain/entity/register_entity.dart';
 import 'package:blinkbuy/features/auth/domain/repo/auth_repo_interface.dart';
 import 'package:injectable/injectable.dart';
 
@@ -36,5 +37,19 @@ class AuthRepoImp implements AuthRepoInterface {
       case Error<LoginEntity>():
         return Error(result.messageError);
     }
+  }
+
+  @override
+  Future<ResultApi<String>> register(RegisterRequestEntity register) async {
+    final result = await _authDataSource.register(register);
+
+    switch (result) {
+      case Success<String>():
+        return Success(result.data);
+
+      case Error<String>():
+        return Error(result.messageError);
+    }
+   
   }
 }

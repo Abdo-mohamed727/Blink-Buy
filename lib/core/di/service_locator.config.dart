@@ -20,8 +20,12 @@ import 'package:blinkbuy/features/auth/domain/repo/auth_repo_interface.dart'
     as _i877;
 import 'package:blinkbuy/features/auth/domain/use_case/login_use_case.dart'
     as _i53;
+import 'package:blinkbuy/features/auth/domain/use_case/register_use_case.dart'
+    as _i50;
 import 'package:blinkbuy/features/auth/presentation/view_model/cubit/login_cubit.dart'
     as _i193;
+import 'package:blinkbuy/features/auth/presentation/view_model/cubit/register_cubit.dart'
+    as _i1;
 import 'package:blinkbuy/features/cart/data/data_source/cart_dart_source_imp.dart'
     as _i49;
 import 'package:blinkbuy/features/cart/data/data_source/cart_data_source_interface.dart'
@@ -180,6 +184,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i537.ProductDetailsDataSourceInterface>(),
       ),
     );
+    gh.factory<_i50.RegisterUseCase>(
+      () => _i50.RegisterUseCase(gh<_i877.AuthRepoInterface>()),
+    );
     gh.factory<_i922.AddCartUseCase>(
       () => _i922.AddCartUseCase(gh<_i207.CartRepoInterface>()),
     );
@@ -192,6 +199,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i521.GetProductsRepoInterface>(
       () =>
           _i509.GetProductsRepoImp(gh<_i218.GetProductsDataSourceInterface>()),
+    );
+    gh.factory<_i1.RegisterCubit>(
+      () => _i1.RegisterCubit(gh<_i50.RegisterUseCase>()),
     );
     gh.factory<_i576.SearchCubit>(
       () => _i576.SearchCubit(gh<_i129.SearchProductsUsecase>()),
