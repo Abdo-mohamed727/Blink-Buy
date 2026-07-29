@@ -10,6 +10,6 @@ abstract class ApiConstant {
   static const String deleteFromCart = "$baseUrl/user/deleteCart";
   static const String getCartItems = "$baseUrl/user/getCart";
   static const String signIn = "$baseUrl/auth/signIn";
-  static const String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjk4NDY0NWNmOGZjNjgxY2YxNTY5YSIsImlhdCI6MTc4NTMwNjc5MSwiZXhwIjoxNzg3ODk4NzkxfQ.h-EpZsMmhUBI6wl9mW83bJdSTuHtuwKfR32rDqeE-oo";
+  static const String signUp = "$baseUrl/auth/signUp";
+  
 }
