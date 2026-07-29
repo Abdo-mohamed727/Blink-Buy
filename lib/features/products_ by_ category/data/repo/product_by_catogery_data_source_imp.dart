@@ -1,7 +1,9 @@
 import 'package:blinkbuy/core/constants/api_constant.dart';
+import 'package:blinkbuy/core/constants/api_keys.dart';
 import 'package:blinkbuy/core/model/item/product_item_dto.dart';
 import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/networking/result_api.dart';
+import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart';
 import 'package:blinkbuy/features/products_ by_ category/domain/repo/product_data_source_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -15,11 +17,11 @@ class ProductByCategoryDataSourceImp implements ProductDataSourceInterface {
     String categoryName,
   ) async {
     try {
-      var response = await DioFactory.getDio().get(
+      var response = await DioFactory.getDio(SecureStorageHelper()).get(
         "${ApiConstant.product}$slug?skip=0&limit=5&category=$categoryName",
 
         options: Options(
-          headers: {'Authorization': 'Bearer ${ApiConstant.token}'},
+          headers: {'Authorization': 'Bearer ${AppKeys.tokenKey}'},
         ),
       );
 

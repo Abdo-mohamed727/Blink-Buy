@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     required this.controller,
-    this.filled = false,
-    this.obscureText = false,
+    this.filled ,
+    this.obscureText,
     this.readOnly = false,
     super.key,
     this.validator,
@@ -26,9 +26,9 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final String? Function(String)? onChanged;
   final TextEditingController controller;
-  final bool filled;
+  final bool ?filled;
   final Color? fillColour;
-  final bool obscureText;
+  final bool ?obscureText;
   final bool readOnly;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -42,7 +42,9 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: AppColors.primaryColor,
       controller: controller,
+
 
       style: TextStyle(
         fontSize: 16.sp,
@@ -52,7 +54,7 @@ class CustomTextField extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       keyboardType: keyboardType,
-      obscureText: obscureText,
+      obscureText: obscureText ?? false,
       maxLines: maxLines,
       readOnly: readOnly,
       decoration: InputDecoration(
@@ -63,7 +65,7 @@ class CustomTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: AppColors.defaultBorderColor),
+          borderSide: BorderSide(color: AppColors.primaryColor),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),

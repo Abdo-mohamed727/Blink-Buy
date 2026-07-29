@@ -1,7 +1,9 @@
 import 'package:blinkbuy/core/constants/api_constant.dart';
+import 'package:blinkbuy/core/constants/api_keys.dart';
 import 'package:blinkbuy/core/model/item/product_item_dto.dart';
 import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/networking/result_api.dart';
+import 'package:blinkbuy/core/storage_helper/secure_storage_helper.dart';
 import 'package:blinkbuy/features/home/data/data_source/get_products_data_source_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -13,12 +15,12 @@ class GetProductsDataSourceImp implements GetProductsDataSourceInterface {
   @override
   Future<ResultApi<List<ProductItemEntity>>> getProducts() async {
     try {
-      final response = await DioFactory.getDio().get(
+      final response = await DioFactory.getDio(SecureStorageHelper()).get(
         ApiConstant.getProducts,
         options: Options(
           headers: {
             'Authorization':
-                'Bearer ${ApiConstant.token}',
+                'Bearer ${AppKeys.tokenKey}',
           },
         ),
       );
