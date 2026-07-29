@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:blinkbuy/core/constants/api_constant.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/features/account/presentation/view/widgets/profile_view_body.dart';
 import 'package:blinkbuy/features/account/presentation/view_model/cubit/profile_cubit.dart';
@@ -47,19 +48,20 @@ class _AccountScreenState extends State<AccountScreen> {
                 if (state is ProfileSuccess) {
                   ImageProvider? imageProvider;
 
-                  // إذا المستخدم اختار صورة جديدة
                   if (cubit.localImagePath != null &&
                       cubit.localImagePath!.isNotEmpty) {
                     imageProvider = FileImage(File(cubit.localImagePath!));
-                  }
-                  // غير ذلك اعرض الصورة القادمة من الـ API
-                  else if (state.userEntity.message.image != null &&
-                      state.userEntity.message.image!.isNotEmpty) {
+                  } else if (state.userEntity.message.image.isNotEmpty) {
                     imageProvider = NetworkImage(
-                      "https://supermarket-dan1.onrender.com/${state.userEntity.message.image!}",
+                      "${ApiConstant.mediaUrl}${state.userEntity.message.image}",
                     );
-                  }
+                    final imageUrl =
+                        "${ApiConstant.mediaUrl}${state.userEntity.message.image}";
 
+                    debugPrint(imageUrl);
+
+                    imageProvider = NetworkImage(imageUrl);
+                  }
                   return Stack(
                     children: [
                       CircleAvatar(

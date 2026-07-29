@@ -71,14 +71,7 @@ class ProfileViewBody extends StatelessWidget {
                 CustomButton(
                   backgroundColor: AppColors.orangeLight,
                   onPressed: () {
-                    profileCubit.updateUserData(
-                      profileCubit.nameController.text,
-                      profileCubit.emailController.text,
-                      profileCubit.passwordController.text,
-                      profileCubit.addressController.text,
-                      profileCubit.localImagePath ?? "",
-                    );
-                    profileCubit.getUserData();
+                    profileCubit.submitFullProfile();
                   },
                   text: "Sumpit",
                   width: double.infinity,

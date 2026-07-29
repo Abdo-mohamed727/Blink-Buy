@@ -21,6 +21,7 @@ class UserDataSourceImp implements UserDataSourceInterface {
           'file': await MultipartFile.fromFile(
             file.path,
             filename: file.path.split('/').last,
+            // contentType: MediaType('image','jpg'),
           ),
         }),
         options: Options(

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:blinkbuy/core/constants/api_constant.dart';
 import 'package:blinkbuy/core/networking/result_api.dart';
 import 'package:blinkbuy/features/account/domain/entities/user_entity.dart';
 import 'package:blinkbuy/features/account/domain/use_cases/add_image_use_case.dart';
@@ -40,11 +41,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     switch (result) {
       case Success():
-        nameController.text = result.data.message.name;
-        emailController.text = result.data.message.email;
-        phoneController.text = result.data.message.phone;
-        addressController.text = result.data.message.address;
-
         emit(ProfileSuccess(result.data));
 
       case Error():
@@ -60,10 +56,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     String image,
   ) async {
     final result = await _updateDataUserUseCase(
-      name,
-      email,
-      phone,
-      address,
+      name.isNotEmpty ? name : nameController.text,
+      email.isNotEmpty ? email : emailController.text,
+      phone.isNotEmpty ? phone : phoneController.text,
+      address.isNotEmpty ? address : addressController.text,
       image,
     );
 
@@ -86,19 +82,40 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (state is ProfileSuccess) {
       emit(ProfileSuccess((state as ProfileSuccess).userEntity));
     }
+  }
 
-    final result = await _addImageUseCase(File(pickedFile.path));
+  Future<void> submitFullProfile() async {
+    emit(ImageLoading());
 
-    switch (result) {
-      case Success():
-        localImagePath = null;
+    if (localImagePath != null) {
+      final imageResult = await _addImageUseCase(File(localImagePath!));
 
-        await getUserData();
+      if (imageResult is Error) {
+        emit(ProfileError(imageResult.messageError));
+        return;
+      }
 
-        break;
+      localImagePath = null;
+    }
+    await getUserData();
+    String currentServerImage = "";
+    if (state is ProfileSuccess) {
+      currentServerImage = (state as ProfileSuccess).userEntity.message.image
+          .toString();
+    }
 
-      case Error():
-        emit(ProfileError(result.messageError));
+    final updateResult = await _updateDataUserUseCase(
+      nameController.text,
+      emailController.text,
+      phoneController.text,
+      addressController.text,
+      currentServerImage,
+    );
+
+    if (updateResult is Success) {
+      await getUserData();
+    } else if (updateResult is Error) {
+      emit(ProfileError(updateResult.messageError));
     }
   }
 
