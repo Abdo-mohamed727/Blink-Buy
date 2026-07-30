@@ -67,20 +67,26 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 
   Future<void> removeFromFavourite({required int productId}) async {
+    final removedProduct = favproducts.firstWhere((p) => p.id == productId);
+    final removedIndex = favproducts.indexOf(removedProduct);
+
     favouriteIds.remove(productId);
-    emit(FavouriteUpdated());
+    favproducts = List<ProductItemEntity>.from(favproducts)
+      ..removeWhere((p) => p.id == productId);
+    emit(GetFavouriteSuccess(favproducts));
 
     final result = await _removeFavouriteUseCase(productId: productId);
 
     switch (result) {
       case Success<void>():
-       
-
         break;
 
       case Error<void>():
         favouriteIds.add(productId);
+        favproducts = List<ProductItemEntity>.from(favproducts)
+          ..insert(removedIndex, removedProduct);
         emit(FavouriteError(result.messageError, productId));
+        emit(GetFavouriteSuccess(favproducts));
         break;
     }
   }

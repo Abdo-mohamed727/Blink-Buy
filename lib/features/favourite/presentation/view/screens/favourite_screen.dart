@@ -1,4 +1,4 @@
-
+import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
 import 'package:blinkbuy/features/favourite/presentation/view/widgets/fav_product_card_item.dart';
@@ -65,17 +65,29 @@ class FavouriteScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final product = state.products[index];
 
-                    return FavProductCardItem(
-                      image: product.images[0],
-                      title: product.title,
-                      price: product.price,
-                      onRemove: () {
-                        context.read<FavoriteCubit>().removeFromFavourite(
-                          productId: product.id,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.productDetailsScreen,
+
+                          arguments: {
+                            "productId": state.products[index].id,
+                            'productItemEntity': state.products[index],
+                          },
                         );
-                        // context.read<FavoriteCubit>().getFavourites();
                       },
-                      onAddToCart: () {},
+                      child: FavProductCardItem(
+                        image: product.images[0],
+                        title: product.title,
+                        price: product.price,
+                        onRemove: () {
+                          context.read<FavoriteCubit>().removeFromFavourite(
+                            productId: product.id,
+                          );
+                        },
+                        onAddToCart: () {},
+                      ),
                     );
                   },
                 ),
