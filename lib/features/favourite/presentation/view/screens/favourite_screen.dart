@@ -73,7 +73,7 @@ class FavouriteScreen extends StatelessWidget {
                         context.read<FavoriteCubit>().removeFromFavourite(
                           productId: product.id,
                         );
-                        context.read<FavoriteCubit>().getFavourites();
+                        // context.read<FavoriteCubit>().getFavourites();
                       },
                       onAddToCart: () {},
                     );

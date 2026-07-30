@@ -138,44 +138,53 @@ class ProductCard extends StatelessWidget {
               fontFamily: 'Poppins',
             ),
           ),
-
           BlocBuilder<FavoriteCubit, FavoriteState>(
-            builder: (context, state) {
-              final favoriteCubit = context.read<FavoriteCubit>();
+            buildWhen: (previous, current) {
+              if (current is FavouriteLoading &&
+                  current.productId == productItemEntity!.id) {
+                return true;
+              }
 
-              final isFavorite = favoriteCubit.favproducts.any(
-                (e) => e.id == productItemEntity?.id,
-              );
+              if (current is FavouriteUpdated ) {
+                return true;
+              }
+
+              return current is GetFavouriteSuccess ||
+                  current is FavouriteError;
+            },
+            builder: (context, state) {
+              final cubit = context.read<FavoriteCubit>();
+
+              final isFavourite = cubit.isFavourite(productItemEntity!.id);
+
               final isLoading =
                   state is FavouriteLoading &&
-                  state.productId == productItemEntity?.id;
+                  state.productId == productItemEntity!.id;
 
-              return GestureDetector(
-                onTap: isLoading
+              return IconButton(
+                onPressed: isLoading
                     ? null
                     : () {
-                        if (productItemEntity == null) return;
-
-                        if (isFavorite) {
-                          context.read<FavoriteCubit>().removeFromFavourite(
+                        if (isFavourite) {
+                          cubit.removeFromFavourite(
                             productId: productItemEntity!.id,
                           );
                         } else {
-                          context.read<FavoriteCubit>().addToFavourite(
+                          cubit.addToFavourite(
                             productId: productItemEntity!.id,
                           );
                         }
                       },
-                child: isLoading
+                icon: isLoading
                     ? const SizedBox(
-                        width: 30,
-                        height: 30,
+                        width: 22,
+                        height: 22,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     : Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        isFavourite ? Icons.favorite : Icons.favorite_border,
                         size: 30,
-                        color: isFavorite
+                        color: isFavourite
                             ? AppColors.errorBorderColor
                             : AppColors.primaryColorBlack.withValues(
                                 alpha: 0.6,

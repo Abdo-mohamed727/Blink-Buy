@@ -24,7 +24,7 @@ class FavProductCardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, AppRoutes.productDetailsScreen,);
+        Navigator.pushNamed(context, AppRoutes.productDetailsScreen);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -100,6 +100,7 @@ class FavProductCardItem extends StatelessWidget {
               padding: EdgeInsets.only(right: 12.w, left: 12.w, top: 8.h),
 
               child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
@@ -150,8 +151,8 @@ class FavProductCardItem extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10.h),
 
-                  /// Add Cart Button
                   SizedBox(
                     width: double.infinity,
 
