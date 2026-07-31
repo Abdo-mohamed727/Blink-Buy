@@ -1,4 +1,3 @@
-import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,88 +21,89 @@ class FavProductCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, AppRoutes.productDetailsScreen,);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
 
-          borderRadius: BorderRadius.circular(18.r),
+        borderRadius: BorderRadius.circular(18.r),
 
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
 
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-          children: [
-            /// Image Section
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(18.r),
-                    topRight: Radius.circular(18.r),
+        children: [
+          /// Image Section
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(18.r),
+                  topRight: Radius.circular(18.r),
+                ),
+
+                child: SizedBox(
+                  height: 150.h,
+                  width: double.infinity,
+
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+
+                    fit: BoxFit.cover,
+
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
+                ),
+              ),
 
-                  child: SizedBox(
-                    height: 150.h,
-                    width: double.infinity,
+              /// Favorite Button
+              Positioned(
+                top: 8.h,
+                right: 8.w,
 
-                    child: CachedNetworkImage(
-                      imageUrl: image,
+                child: InkWell(
+                  onTap: onRemove,
 
-                      fit: BoxFit.cover,
+                  child: Container(
+                    padding: EdgeInsets.all(8.w),
 
-                      placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
+                    child: const Icon(
+                      Icons.favorite,
 
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                      color: Colors.red,
+
+                      size: 22,
                     ),
                   ),
                 ),
+              ),
+            ],
+          ),
 
-                /// Favorite Button
-                Positioned(
-                  top: 8.h,
-                  right: 8.w,
-
-                  child: InkWell(
-                    onTap: onRemove,
-
-                    child: Container(
-                      padding: EdgeInsets.all(8.w),
-
-                      child: const Icon(
-                        Icons.favorite,
-
-                        color: Colors.red,
-
-                        size: 22,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            Padding(
-              padding: EdgeInsets.only(right: 12.w, left: 12.w, top: 8.h),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(
+                right: 12.w,
+                left: 12.w,
+                top: 8.h,
+                bottom: 8.h,
+              ),
 
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
-                  /// Title
                   Text(
                     title,
 
@@ -120,7 +120,6 @@ class FavProductCardItem extends StatelessWidget {
                     ),
                   ),
 
-                  /// Price
                   Text.rich(
                     TextSpan(
                       children: [
@@ -150,8 +149,8 @@ class FavProductCardItem extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Spacer(),
 
-                  /// Add Cart Button
                   SizedBox(
                     width: double.infinity,
 
@@ -186,8 +185,8 @@ class FavProductCardItem extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

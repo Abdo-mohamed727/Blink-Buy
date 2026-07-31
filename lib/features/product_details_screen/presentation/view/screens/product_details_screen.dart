@@ -17,7 +17,8 @@ import '../../view_model/product_details_screen_cubit/product_details_screen_cub
 import '../../view_model/product_details_screen_cubit/product_details_screen_state.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.productItemEntity});
+  final ProductItemEntity productItemEntity;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -26,7 +27,6 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int currentIndex = 0;
 
-  late ProductItemEntity productItemEntity;
   @override
   Widget build(BuildContext context) {
     final args =
@@ -57,6 +57,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               backgroundColor: AppColors.offWhite,
 
               appBar: AppBar(
+                backgroundColor: AppColors.offWhite,
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back, size: 32),
                   onPressed: () {
@@ -129,18 +130,64 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                           Positioned(
                             top: 10.h,
-                            right: 10.w,
-                            child: IconButton(
-                              onPressed: () {
-                                context.read<FavoriteCubit>().addToFavourite(
-                                  productId: state.product.id,
+                            right: 20.w,
+                            child: BlocBuilder<FavoriteCubit, FavoriteState>(
+                              builder: (context, favState) {
+                                final favoriteCubit = context
+                                    .read<FavoriteCubit>();
+
+                                final isFavorite = favoriteCubit.favproducts
+                                    .any(
+                                      (e) =>
+                                          e.id == widget.productItemEntity.id,
+                                    );
+                                final isLoading =
+                                    state is FavouriteLoading &&
+                                    state.product.id ==
+                                        widget.productItemEntity.id;
+
+                                return GestureDetector(
+                                  onTap: isLoading
+                                      ? null
+                                      : () {
+                                          if (isFavorite) {
+                                            context
+                                                .read<FavoriteCubit>()
+                                                .removeFromFavourite(
+                                                  productId: widget
+                                                      .productItemEntity
+                                                      .id,
+                                                );
+                                          } else {
+                                            context
+                                                .read<FavoriteCubit>()
+                                                .addToFavourite(
+                                                  productId: widget
+                                                      .productItemEntity
+                                                      .id,
+                                                );
+                                          }
+                                        },
+                                  child: isLoading
+                                      ? const SizedBox(
+                                          width: 30,
+                                          height: 30,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
+                                        )
+                                      : Icon(
+                                          isFavorite
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          size: 30,
+                                          color: isFavorite
+                                              ? AppColors.errorBorderColor
+                                              : AppColors.primaryColorBlack
+                                                    .withValues(alpha: 0.6),
+                                        ),
                                 );
                               },
-                              icon: Icon(
-                                Icons.favorite_border_outlined,
-                                size: 30,
-                                color: AppColors.primaryColorBlack,
-                              ),
                             ),
                           ),
                           Positioned(

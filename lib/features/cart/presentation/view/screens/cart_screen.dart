@@ -7,6 +7,7 @@ import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart' show SizeExtension;
+import 'package:flutter_svg/svg.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -16,7 +17,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.offWhite,
       appBar: AppBar(
-        title: const Text("My Cart"),
+        title: Text("My Cart", style: AppTextStyles.font22SemiBold),
         centerTitle: true,
         toolbarHeight: 40.h,
 
@@ -43,14 +44,24 @@ class CartScreen extends StatelessWidget {
 
             if (items.isEmpty) {
               return Center(
-                child: Text(
-                  "Your cart is empty",
-                  style: AppTextStyles.font18SemiBold.copyWith(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.charcoal,
-                  ),
-                  
+                child: Column(
+                  children: [
+                    SizedBox(height: 80.h),
+                    SvgPicture.asset(
+                      'assets/icons/empty_cart.svg',
+                      width: 150.w,
+                      height: 150.h,
+                    ),
+                    SizedBox(height: 24.h),
+                    Text(
+                      "Your cart is empty",
+                      style: AppTextStyles.font18SemiBold.copyWith(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.charcoal,
+                      ),
+                    ),
+                  ],
                 ),
               );
             }
@@ -95,4 +106,3 @@ class CartScreen extends StatelessWidget {
     );
   }
 }
-

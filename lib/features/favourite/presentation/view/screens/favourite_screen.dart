@@ -1,6 +1,8 @@
-
+import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
 import 'package:blinkbuy/core/theme/styels.dart';
+import 'package:blinkbuy/features/cart/domain/entity/cart_entity.dart';
+import 'package:blinkbuy/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:blinkbuy/features/favourite/presentation/view/widgets/fav_product_card_item.dart';
 import 'package:blinkbuy/features/favourite/presentation/view_model/cubit/favorite_cubit.dart';
 import 'package:flutter/material.dart';
@@ -65,17 +67,46 @@ class FavouriteScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final product = state.products[index];
 
-                    return FavProductCardItem(
-                      image: product.images[0],
-                      title: product.title,
-                      price: product.price,
-                      onRemove: () {
-                        context.read<FavoriteCubit>().removeFromFavourite(
-                          productId: product.id,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.productDetailsScreen,
+
+                          arguments: {
+                            "productId": state.products[index].id,
+                            'productItemEntity': state.products[index],
+                          },
                         );
-                        context.read<FavoriteCubit>().getFavourites();
                       },
-                      onAddToCart: () {},
+                      child: FavProductCardItem(
+                        image: product.images[0],
+                        title: product.title,
+                        price: product.price,
+
+                        onRemove: () {
+                          context.read<FavoriteCubit>().removeFromFavourite(
+                            productId: product.id,
+                          );
+                        },
+                        onAddToCart: () {
+                          context.read<CartCubit>().addToCart(
+                            CartEntity(
+                              id: product.id,
+
+                              title: product.title,
+
+                              price: product.price,
+
+                              images: product.images.isNotEmpty
+                                  ? product.images.first
+                                  : '',
+
+                              quantity: 1,
+                            ),
+                          );
+                        },
+                      ),
                     );
                   },
                 ),

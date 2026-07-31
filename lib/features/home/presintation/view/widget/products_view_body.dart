@@ -49,6 +49,7 @@ class ProductsViewBody extends StatelessWidget {
                       AppRoutes.productDetailsScreen,
                       arguments: {
                         "productId": state.products[index].id,
+                        'productItemEntity': state.products[index],
                       },
                     );
                   },

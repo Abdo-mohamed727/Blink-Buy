@@ -1,4 +1,5 @@
 import 'package:blinkbuy/core/di/service_locator.dart';
+import 'package:blinkbuy/core/model/item/product_item_entity.dart';
 import 'package:blinkbuy/core/route/app_routes.dart';
 import 'package:blinkbuy/features/account/presentation/view_model/cubit/profile_cubit.dart';
 import 'package:blinkbuy/features/app_section/view/bottom_navigation_bar.dart';
@@ -63,8 +64,11 @@ class AppRouter {
       case AppRoutes.hello:
         return MaterialPageRoute(builder: (_) => HelloScreen());
       case AppRoutes.productDetailsScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        final productItemEntity =
+            args['productItemEntity'] as ProductItemEntity;
         return MaterialPageRoute(
-          builder: (_) => const ProductDetailsScreen(),
+          builder: (_) => ProductDetailsScreen(productItemEntity: productItemEntity),
           settings: settings,
         );
 
