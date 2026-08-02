@@ -42,21 +42,18 @@ class CategoriesViewBody extends StatelessWidget {
                     context.read<GetCategoriesCubit>().changeCategory(index);
                   },
                   child: Container(
-                    margin: EdgeInsets.only(right: 8.w,bottom: 3.h),
+                    margin: EdgeInsets.only(right: 8.w, bottom: 3.h),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primaryColorBlack,
-                          blurRadius: 2,
-                          offset: const Offset(2, 4),
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 3,
+                          offset: const Offset(0, 2),
                         ),
                       ],
-                      border: Border.all(
-                        color: index == state.selectedIndex?AppColors.transparent: AppColors.primaryColorBlack,
-                      ),
-                      color: index == state.selectedIndex
-                          ? AppColors.primaryColor
-                          : AppColors.white,
+                      border: Border.all(color: AppColors.primaryColor),
+                      color: AppColors.white,
                       borderRadius: BorderRadius.circular(16.r),
                     ),
                     padding: EdgeInsets.symmetric(

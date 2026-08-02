@@ -34,11 +34,11 @@ class _HelloScreenState extends State<HelloScreen> {
             ),
 
             CustomButton(
-              borderColor: Color(0xFFFF9900),
+              borderColor: AppColors.primaryColor,
               backgroundColor: AppColors.primaryColor,
               onPressed: () {
                 Navigator.pushNamed(context, AppRoutes.signUp);
-              }, 
+              },
               text: "Sign up",
               width: double.infinity,
               height: 52,
@@ -47,12 +47,12 @@ class _HelloScreenState extends State<HelloScreen> {
             ),
 
             CustomButton(
-              borderColor: Color(0xFFFF9900),
+              borderColor: AppColors.primaryColor,
               onPressed: () {
                 Navigator.pushNamed(context, AppRoutes.login);
               },
               text: "Sign In",
-              textColor: Color(0xFFFF9900),
+              textColor: AppColors.primaryColor,
               width: double.infinity,
               height: 52,
               backgroundColor: AppColors.backgroundColor,

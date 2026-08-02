@@ -6,7 +6,7 @@ class AppColors {
   static const Color discountColor = Colors.red;
   static const Color transparent = Color(0x00000000);
   static const Color primaryColorBlack = Color(0xFF212121);
-  static const Color primaryColor = Color(0xFFFF9900);
+  static const Color primaryColor = Color.fromARGB(187, 3, 116, 255);
   static const Color orangeLight = Color(0xFFFFB700);
   static const Color white = Color(0xFFFFFFFF);
   static const Color offWhite = Color(0xFFF7F8FA);

@@ -75,8 +75,10 @@ class _ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
           }
 
           return Scaffold(
+            backgroundColor: AppColors.offWhite,
             appBar: isSearch
                 ? AppBar(
+                    backgroundColor: AppColors.offWhite,
                     toolbarHeight: 70.h,
                     automaticallyImplyLeading: false,
                     centerTitle: false,
@@ -95,6 +97,7 @@ class _ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
                     ),
                   )
                 : AppBar(
+                    backgroundColor: AppColors.offWhite,
                     toolbarHeight: 70.h,
                     centerTitle: true,
                     title: Text(
