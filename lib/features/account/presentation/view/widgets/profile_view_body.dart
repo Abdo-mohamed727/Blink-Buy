@@ -39,7 +39,7 @@ class ProfileViewBody extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(height: 25.h),
+                SizedBox(height: 15.h),
                 Text("Email", style: AppTextStyles.font18Regular),
                 CustomTextField(
                   controller: profileCubit.emailController,
@@ -52,7 +52,7 @@ class ProfileViewBody extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(height: 25.h),
+                SizedBox(height: 15.h),
                 Text("Password", style: AppTextStyles.font18Regular),
                 CustomTextField(
                   controller: profileCubit.passwordController,
@@ -66,14 +66,14 @@ class ProfileViewBody extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(height: 105.h),
+                SizedBox(height: 50.h),
 
                 CustomButton(
-                  backgroundColor: AppColors.orangeLight,
+                  backgroundColor: AppColors.primaryColor,
                   onPressed: () {
                     profileCubit.submitFullProfile();
                   },
-                  text: "Sumpit",
+                  text: "Submit",
                   width: double.infinity,
                   height: 48.h,
                 ),

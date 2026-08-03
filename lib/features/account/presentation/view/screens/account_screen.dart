@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:blinkbuy/core/constants/api_constant.dart';
 import 'package:blinkbuy/core/theme/app_colors.dart';
+import 'package:blinkbuy/features/account/presentation/view/widgets/custom_profile_shimmer.dart';
 import 'package:blinkbuy/features/account/presentation/view/widgets/profile_view_body.dart';
 import 'package:blinkbuy/features/account/presentation/view_model/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
@@ -32,74 +33,120 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.only(top: 102.h),
-        child: Column(
-          children: [
-            BlocBuilder<ProfileCubit, ProfileState>(
-              builder: (context, state) {
-                final cubit = context.read<ProfileCubit>();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          final cubit = context.read<ProfileCubit>();
 
-                if (state is ProfileLoading || state is ImageLoading) {
-                  return const CircularProgressIndicator();
-                }
+          if (state is ProfileLoading || state is ImageLoading) {
+            return const ProfileHeaderShimmer();
+          }
 
-                if (state is ProfileSuccess) {
-                  ImageProvider? imageProvider;
+          if (state is ProfileSuccess) {
+            ImageProvider? imageProvider;
 
-                  if (cubit.localImagePath != null &&
-                      cubit.localImagePath!.isNotEmpty) {
-                    imageProvider = FileImage(File(cubit.localImagePath!));
-                  } else if (state.userEntity.message.image.isNotEmpty) {
-                    imageProvider = NetworkImage(
-                      "${ApiConstant.mediaUrl}${state.userEntity.message.image}",
-                    );
-                    final imageUrl =
-                        "${ApiConstant.mediaUrl}${state.userEntity.message.image}";
+            if (cubit.localImagePath != null &&
+                cubit.localImagePath!.isNotEmpty) {
+              imageProvider = FileImage(File(cubit.localImagePath!));
+            } else if (state.userEntity.message.image.isNotEmpty) {
+              imageProvider = NetworkImage(
+                "${ApiConstant.mediaUrl}${state.userEntity.message.image}",
+              );
+            }
 
-                    debugPrint(imageUrl);
-
-                    imageProvider = NetworkImage(imageUrl);
-                  }
-                  return Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundColor: AppColors.charcoal,
-                        backgroundImage: imageProvider,
-                        child: imageProvider == null
-                            ? const Icon(Icons.person, color: AppColors.white)
-                            : null,
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 270.h,
+                    width: double.infinity,
+                    padding: EdgeInsets.only(bottom: 30.h),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30.r),
+                        bottomRight: Radius.circular(30.r),
                       ),
-                      Positioned(
-                        bottom: 5,
-                        right: 2,
-                        child: InkWell(
-                          onTap: () {
-                            context.read<ProfileCubit>().addImage();
-                          },
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: AppColors.lightGrey,
-                              shape: BoxShape.circle,
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 50.h),
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 3,
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                radius: 55.h,
+                                backgroundColor: AppColors.lightGrey,
+                                backgroundImage: imageProvider,
+                                child: imageProvider == null
+                                    ? Icon(
+                                        Icons.person,
+                                        size: 55.h,
+                                        color: AppColors.primaryColor,
+                                      )
+                                    : null,
+                              ),
                             ),
-                            padding: const EdgeInsets.all(6),
-                            child: Icon(Icons.camera_alt_outlined, size: 24.sp),
+
+                            InkWell(
+                              onTap: () {
+                                cubit.addImage();
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: AppColors.primaryColor,
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(height: 16.h),
+
+                        Text(
+                          state.userEntity.message.name,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                }
 
-                return const SizedBox.shrink();
-              },
-            ),
+                        SizedBox(height: 6.h),
 
-            ProfileViewBody(),
-          ],
-        ),
+                        Text(
+                          state.userEntity.message.email,
+                          style: const TextStyle(color: Colors.white70),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 25.h),
+
+                  ProfileViewBody(),
+                ],
+              ),
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }
